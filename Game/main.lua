@@ -69,7 +69,7 @@ function love.load()
         player.speed = 150
         player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
         player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
-        player.collider = world:newBSGRectangleCollider(player.x, player.y, 20, 30 , 10)
+        player.collider = world:newBSGRectangleCollider(player.x, player.y, 15, 30 , 10)
         player.collider:setFixedRotation(true)
 
         player.direction = 'right'
