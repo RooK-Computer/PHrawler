@@ -14,31 +14,77 @@ function love.load()
 
     world = windfield.newWorld(0, 0)
 
- 
-
-    player = {}
-    player.width = 64 * scale
-    player.height = 64 * scale
-    player.x = windowWidth/2  - player.width/2
-    player.y = windowHeight/2 - player.height/2
-    player.speed = 150
-    player.spriteSheet = love.graphics.newImage('assets/players/female_character_v1.png')
-    player.grid = anim8.newGrid( 64, 64, player.spriteSheet:getWidth(), player.spriteSheet:getHeight() )
-    player.collider = world:newBSGRectangleCollider(player.x, player.y, 20, 30 , 10)
-    player.collider:setFixedRotation(true)
-
-    player.direction = 'right'
-
-    player.animations = {
-        idle = {},
-        run = {},
+    players = {
+        {
+            name = 'Player One',
+            id = 'player_one',
+            x = 100,
+            y = 50,
+            controls = {
+                up = 'up',
+                left = 'left',
+                right = 'right',
+            }
+        },
+        {
+            name = 'Player Two',
+            id = 'player_two',
+            x = 150,
+            y = 300,
+            controls = {
+                up = 'w',
+                left = 'a',
+                right = 'd',
+            }
+        },
+        {
+            name = 'Player Three',
+            id = 'player_three',
+            x = 300,
+            y = 200,
+            controls = {
+                up = 'i',
+                left = 'j',
+                right = 'l',
+            }
+        },
+        {
+            name = 'Player Four',
+            id = 'player_four',
+            x = 450,
+            y = 250,
+            controls = {
+                up = 'g',
+                left = 'v',
+                right = 'n',
+            }
+        }
     }
-    player.animations.idle.right = anim8.newAnimation( player.grid('1-8', 1), 0.15 )
-    player.animations.idle.left = anim8.newAnimation( player.grid('1-8', 1), 0.15 ):flipH()
 
-    player.animations.run.right = anim8.newAnimation( player.grid('1-8', 3), 0.15 )
-    player.animations.run.left = anim8.newAnimation( player.grid('1-8', 3), 0.15 ):flipH()
-    player.anim = player.animations.idle.right
+
+    for i = 1, #players do
+        local player = players[i]
+        player.width = 64 * scale
+        player.height = 64 * scale
+        player.speed = 150
+        player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
+        player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
+        player.collider = world:newBSGRectangleCollider(player.x, player.y, 20, 30 , 10)
+        player.collider:setFixedRotation(true)
+
+        player.direction = 'right'
+
+        player.animations = {
+            idle = {},
+            run = {},
+        }
+        player.animations.idle.right = anim8.newAnimation( player.grid('1-8', 1), 0.15 )
+        player.animations.idle.left = anim8.newAnimation( player.grid('1-8', 1), 0.15 ):flipH()
+
+        player.animations.run.right = anim8.newAnimation( player.grid('1-8', 3), 0.15 )
+        player.animations.run.left = anim8.newAnimation( player.grid('1-8', 3), 0.15 ):flipH()
+        player.anim = player.animations.idle.right
+    end
 
     walls = {}
 
@@ -51,68 +97,65 @@ function love.load()
         end
     end
 
-
-
-
-
-
 end
 
 function love.update(dt)
-
-
-    local vx = 0
-    local vy = 100
-    local isRunning = false
     activateDebug = false
 
-
-    if love.keyboard.isDown("right") then
-        vx = player.speed
-        player.direction = 'right'
-        isRunning = true
-        player.anim = player.animations.run.right
-    end
-
-    if love.keyboard.isDown("left") then
-        vx = player.speed * -1
-        player.direction = 'left'
-        isRunning = true
-        player.anim = player.animations.run.left
-    end
-
-    if love.keyboard.isDown("up") then
-        vy = 100 * -1
-    end    
+    for i = 1, #players do
 
 
-    if love.keyboard.isDown("d") then
-        print('D')
-        activateDebug = true
-    end
+        local vx = 0
+        local vy = 100
+        local isRunning = false
+        local player = players[i]
 
-
-
-
-    if not isRunning then 
-        if player.direction == 'right' then player.anim = player.animations.idle.right
-        else player.anim = player.animations.idle.left
+        if love.keyboard.isDown(player.controls.right) then
+            vx = player.speed
+            player.direction = 'right'
+            isRunning = true
+            player.anim = player.animations.run.right
         end
 
+        if love.keyboard.isDown(player.controls.left) then
+            vx = player.speed * -1
+            player.direction = 'left'
+            isRunning = true
+            player.anim = player.animations.run.left
+        end
+
+        if love.keyboard.isDown(player.controls.up) then
+            vy = 100 * -1
+        end    
+
+
+
+
+        if not isRunning then 
+            if player.direction == 'right' then player.anim = player.animations.idle.right
+            else player.anim = player.animations.idle.left
+            end
+
+        end
+
+        player.collider:setLinearVelocity(vx, vy)
+        
+
+        player.x = player.collider:getX() - player.width/2
+        player.y = player.collider:getY() - player.height/2
+        player.anim:update(dt)
+
     end
 
-    player.collider:setLinearVelocity(vx, vy)
+    if love.keyboard.isDown(".") then activateDebug = true end
     world:update(dt)
-
-    player.x = player.collider:getX() - player.width/2
-    player.y = player.collider:getY() - player.height/2
-    player.anim:update(dt)
-
 end
 
 function love.draw()
     betaStage:draw()
-    player.anim:draw(player.spriteSheet, player.x, player.y, nil, scale)
+    for i = 1, #players do
+        players[i].anim:draw(players[i].spritesheet, players[i].x, players[i].y, nil, scale)
+    end
     if activateDebug then world:draw() end
 end
 
