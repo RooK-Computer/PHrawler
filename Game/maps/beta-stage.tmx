@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="38">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="42">
  <editorsettings>
   <export target="beta-stage.lua" format="lua"/>
  </editorsettings>
@@ -148,7 +148,7 @@
 0,591,592,592,592,592,592,592,592,592,592,593,594,595,593,352,353,354,355,356,357,358,359,360,361,362,363,364,594,595,595,596,597,598,599,365,367,600,601,602
 </data>
  </layer>
- <layer id="6" name="Rooms" width="40" height="30">
+ <layer id="6" name="Rooms" width="40" height="30" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -192,11 +192,12 @@
   <object id="28" x="256.199" y="378.035" width="239.403" height="5.6933"/>
   <object id="29" x="32.4518" y="378.32" width="191.295" height="5.12397"/>
   <object id="31" x="32.7365" y="458.026" width="190.726" height="6.5473"/>
-  <object id="32" x="223.462" y="416.465" width="16.7952" height="1.42333"/>
-  <object id="33" x="448.348" y="416.75" width="191.01" height="1.13866"/>
   <object id="34" x="512.397" y="356.116" width="127.245" height="3.13132"/>
   <object id="35" x="511.543" y="272.709" width="127.815" height="6.26263"/>
   <object id="36" x="17.5231" y="144.447" width="186.597" height="6.63036"/>
+  <object id="38" x="-33.5836" y="-264.718" width="32.5958" height="774.397"/>
+  <object id="39" x="-32.5958" y="482.023" width="709.206" height="28.6448"/>
+  <object id="41" x="640.063" y="-265.705" width="37.5346" height="769.459"/>
  </objectgroup>
  <layer id="2" name="Details" width="40" height="30">
   <data encoding="csv">
