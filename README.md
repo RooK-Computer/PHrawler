@@ -3,8 +3,8 @@ A simple yet fun local 2D-Mutiplayer-Brawler for R∞k
 
 ## Development
 
-- We use [Love2D](https://love2d.org/) as framework.
-- Code is written in lua.
+- We use [Love2D](https://love2d.org/) as framework
+- Code is written in lua
 - Assets are from [MuchoPixels](https://www.muchopixels.com)
 - Levels are made with [Tiled](https://www.mapeditor.org/)
 
