@@ -3,10 +3,10 @@ A simple yet fun local 2D-Mutiplayer-Brawler for R∞k
 
 ## Development
 
-We use [Love2D](https://love2d.org/) as framework.
-Code is written in lua.
-Assets are from [MuchoPixels](https://www.muchopixels.com)
-Levels are made with [Tiled](https://www.mapeditor.org/)
+- We use [Love2D](https://love2d.org/) as framework.
+- Code is written in lua.
+- Assets are from [MuchoPixels](https://www.muchopixels.com)
+- Levels are made with [Tiled](https://www.mapeditor.org/)
 
 ## Make it run while it's still in development
 - Install [Love2D](https://love2d.org/)
@@ -36,8 +36,8 @@ Levels are made with [Tiled](https://www.mapeditor.org/)
 
 ## Controls
 Only playable on Keyboard for now!
-Player 1: Arrow-Keys + Spacebar
-Player 2: W-A-D + left Shifht
-Player 3: j-i-l + h
-Player 4: v-g-n + c
+- Player 1: Arrow-Keys + Spacebar
+- Player 2: W-A-D + left Shifht
+- Player 3: j-i-l + h
+- Player 4: v-g-n + c
 
