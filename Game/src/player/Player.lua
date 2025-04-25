@@ -27,9 +27,9 @@ end
 
 function Player:setup()
   local player = self
-  player.width = 64 * scale
-  player.height = 64 * scale
-  player.speed = 2 * PIXELS_PER_METER
+  player.width = 64 * game.scale
+  player.height = 64 * game.scale
+  player.speed = 2 * game.PIXELS_PER_METER
   player.velocityX = 0
   player.velocityY = 0
   player.canJump = 0

@@ -14,15 +14,9 @@ game = {
   players = {},
 }
 
-local scale = 1
-local PIXELS_PER_METER = 100
-
-
-local windowWidth, windowHeight = love.window.getDesktopDimensions()
-windowWidth, windowHeight = windowWidth*.7, windowHeight*.7 --make the window a bit smaller than the screen itself
 
 function love.load(arg)
-  io.stdout:setvbuf("no") -- needed for print() to work in YeroBrane Studios Editor
+  io.stdout:setvbuf("no") -- needed for print() to work in ZeroBrane Studios Editor
   if arg[#arg] == "-debug" then require("mobdebug").start() end -- needed for debugging in ZeroBrane Studios Editor
 
   game.world = windfield.newWorld(0, 9.81 * game.PIXELS_PER_METER)
@@ -67,12 +61,7 @@ end
 function love.draw()
 
   push:start()
-    game.level:draw()
-    --  for i = 1, #players do
-    --      -- players:draw()
-    --    players[i].anim:draw(players[i].spritesheet, players[i].x, players[i].y, nil, scale)
-    --  end
-    
+    game.level:draw()    
       for i = 1, #game.players do
         game.players[i]:draw()
       end
