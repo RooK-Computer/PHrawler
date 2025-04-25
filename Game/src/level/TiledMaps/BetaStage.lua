@@ -1,24 +1,21 @@
-BetaStage = {}
-BetaStage.__index = BetaStage
+require('src/level/TiledMaps/TiledMaps')
 
+BetaStage = TiledMaps:extend()
 
-function BetaStage.new(world)
-  local betaStage = {}
-  setmetatable(betaStage, BetaStage)
-
-  betaStage.sti = sti('maps/beta-stage.lua')
-  betaStage:init(world)
-  
-  return betaStage
+function BetaStage:new(world)
+  self.sti = sti('maps/beta-stage.lua') -- draw method comes from TiledMaps abstract class
+  self.world = world
+  self.srb = 'srb'
+  self:setup()
+  return self
 
 end
 
 
-function BetaStage:init(world)
-  
+function BetaStage:setup()
+  local world = self.world
   world:addCollisionClass('Platform')
   world:addCollisionClass('Player')
-  plattforms = {}
 
   local level = self.sti
 
@@ -31,23 +28,15 @@ function BetaStage:init(world)
       plattform:setObject(plattform)
 
       --plattform:setUserData({name = 'plattform_'..i})
-      table.insert(plattforms, plattform)
     end
   end
-
-  worldLimits = {}
 
   if level.layers['WorldLimits'] then
 
     for i, obj in pairs(level.layers['WorldLimits'].objects) do 
       local limits = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
       limits:setType('static')
-      table.insert(worldLimits, limits)
     end
   end
 end
 
-
-function BetaStage:draw()
-  self.sti:draw()
-end

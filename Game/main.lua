@@ -5,24 +5,29 @@ game = {
   windowWidth = 640,
   windowHeight = 480,
   scale = 1,
-  activateDebug = false,
+  activateDebug = true,
   PIXELS_PER_METER = 100,
   savedAnimationDuration = 0,
   stateActive = false,
   level = {},
   world = {},
+  players = {},
 }
+
+local scale = 1
+local PIXELS_PER_METER = 100
 
 
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
 windowWidth, windowHeight = windowWidth*.7, windowHeight*.7 --make the window a bit smaller than the screen itself
 
-
 function love.load(arg)
-  if arg[#arg] == "-debug" then require("mobdebug").start() end
+  io.stdout:setvbuf("no") -- needed for print() to work in YeroBrane Studios Editor
+  if arg[#arg] == "-debug" then require("mobdebug").start() end -- needed for debugging in ZeroBrane Studios Editor
 
   game.world = windfield.newWorld(0, 9.81 * game.PIXELS_PER_METER)
-  game.level = BetaStage.new(game.world)
+  game.level = Level(game.world, {level = 'betastage'})
+  game.inputManager = InputManager()
 
 
   love.graphics.setDefaultFilter('nearest', 'nearest') -- best for pixel art
@@ -31,17 +36,25 @@ function love.load(arg)
       vsync = true,
       resizable = true,
       highdpi = true
-      })
-
+    })
+  
+  require 'src/player/tmpPlayersConfig' 
+  
+  for i = 1, #tmpPlayersConfig do
+    
+    local player = Player(tmpPlayersConfig[i], game)
+    table.insert(game.players, player)
+    
+  end
+  
 end
 
 function love.update(dt)
 
 
-  --for i = 1, #players do
-
-  --player:update(dt)
-  --end
+  for i = 1, #game.players do
+    game.players[i]:update(dt)
+  end
 
   game.world:update(dt)
 end
@@ -51,44 +64,23 @@ function love.resize(w, h)
 end
 
 
-function love.keypressed(key)
-  if key == "." then activateDebug = not activateDebug end
---  if key == "," then         
---    for i = 1, #players do
---      print(players[i].name .. ' health: ' .. players[i].health)
---    end
---  end
-
---  for i = 1, #players do
---    local player = players[i]
---    local vx, vy = player.colliders.playerCollider:getLinearVelocity()
-
---    if key == player.controls.up and player.canJump < 2 then
---      player.colliders.playerCollider:setLinearVelocity(vx, -340)
---      player.canJump = player.canJump+1
---      player.state = 'jump'
---    end
-
---    if love.keyboard.isDown(player.controls.fight) then
---      player.state = 'fight'
---    end
-
---  end
-
-end
-
 function love.draw()
 
   push:start()
-  game.level:draw()
-  --  for i = 1, #players do
-  --      -- players:draw()
-  --    players[i].anim:draw(players[i].spritesheet, players[i].x, players[i].y, nil, scale)
-  --  end
-  if activateDebug then 
-    game.world:draw() 
-    love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), 10, 10)
-  end
+    game.level:draw()
+    --  for i = 1, #players do
+    --      -- players:draw()
+    --    players[i].anim:draw(players[i].spritesheet, players[i].x, players[i].y, nil, scale)
+    --  end
+    
+      for i = 1, #game.players do
+        game.players[i]:draw()
+      end
+      
+    if game.activateDebug then 
+      game.world:draw() 
+      love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+    end
   push:finish()
 end
 

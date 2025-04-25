@@ -6,9 +6,9 @@ local windfield = require 'lib/windfield'
 local inspect = require('lib/inspect') -- gives us something like var_dump in php
 local windowWidth = 640
 local windowHeight = 480
-local scale = 1
+scale = 1
 local activateDebug = false
-local PIXELS_PER_METER = 100
+PIXELS_PER_METER = 100
 
 local savedAnimationDuration = 0
 local stateActive = false
