@@ -23,11 +23,14 @@ A simple yet fun local 2D-Mutiplayer-Brawler for R∞k
   - Double jumping
 - Fighting
 - Joystick/Gamepad-support
-- up to 16 player on one console
+- up to 16 players on one console
 - Settings menu
+- Start Menu
+- Player selection screen
+- More levels
+- Level selection screen
 
 ## Wishes for Upgrades
-- More levels
 - Using objects
 - Using "fire"-weapons
 - Character customizations
