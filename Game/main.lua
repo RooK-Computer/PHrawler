@@ -31,16 +31,16 @@ function love.load(arg)
       resizable = true,
       highdpi = true
     })
-  
+
   require 'src/player/tmpPlayersConfig' 
-  
+
   for i = 1, #tmpPlayersConfig do
-    
+
     local player = Player(tmpPlayersConfig[i], game)
     table.insert(game.players, player)
-    
+
   end
-  
+
 end
 
 function love.update(dt)
@@ -61,15 +61,27 @@ end
 function love.draw()
 
   push:start()
-    game.level:draw()    
-      for i = 1, #game.players do
-        game.players[i]:draw()
-      end
-      
-    if game.activateDebug then 
-      game.world:draw() 
-      love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+  game.level:draw()    
+  for i = 1, #game.players do
+    game.players[i]:draw()
+  end
+
+  if game.activateDebug then 
+
+    local statsPositionX = 10
+    local statsPositionY = 10
+    game.world:draw() 
+    love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), statsPositionY, statsPositionX)
+
+
+    for i = 1, #game.players do
+      statsPositionX = statsPositionX + 10
+      local player = game.players[i]
+      love.graphics.print(player.name .. " State: ".. player.state.name, statsPositionY, statsPositionX)
     end
+
+
+  end
   push:finish()
 end
 
