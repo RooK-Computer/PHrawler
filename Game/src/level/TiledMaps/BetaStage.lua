@@ -5,7 +5,6 @@ BetaStage = TiledMaps:extend()
 function BetaStage:new(world)
   self.sti = sti('maps/beta-stage.lua') -- draw method comes from TiledMaps abstract class
   self.world = world
-  self.srb = 'srb'
   self:setup()
   return self
 
