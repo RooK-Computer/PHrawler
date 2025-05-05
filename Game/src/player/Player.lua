@@ -11,12 +11,7 @@ function Player:new(config, game)
   self.x = config.x
   self.y = config.y
   self.world = game.world
-  self.controls = {
-    up = config.controls.keyboard.up,
-    left = config.controls.keyboard.left,
-    right = config.controls.keyboard.right,
-    fight = config.controls.keyboard.fight
-  }
+  self.controls = config.controls.keyboard
   self.defaultInput = config.controls.defaultInput
   self.inputManager = game.inputManager:registerPlayer(self, config.controls.defaultInput)
 
@@ -32,9 +27,10 @@ function Player:setup()
   player.speed = 2 * game.PIXELS_PER_METER
   player.velocityX = 0
   player.velocityY = 0
-  player.canJump = 0
+  player.hasJumped = 0
   player.upThreshold = 0
   player.health = 5
+  player.debug = {}
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
@@ -83,14 +79,16 @@ function Player:update(dt)
   player.inputManager:checkForInput()
 
   player.state:update(dt)
-  player.colliders.playerCollider:setLinearVelocity(player.velocityX, player.velocityY)
+
 
   player.x = player.colliders.playerCollider:getX() - player.width/2
   player.y = player.colliders.playerCollider:getY() - player.height/2
   player.anim:update(dt)
+
+  
 end
 
-function Player:input(command)
+function Player:inputStart(command)
 
   local player = self
   if command == 'none' then command = 'idle' end
@@ -100,6 +98,18 @@ function Player:input(command)
     player.state = newState
   end
 
+
+end
+
+function Player:inputEnd(command)
+
+  local player = self
+  if command == 'none' then command = 'idle' end
+  local newState = player.state:inputEnd(command)
+
+  if newState then 
+    player.state = newState
+  end
 
 end
 
