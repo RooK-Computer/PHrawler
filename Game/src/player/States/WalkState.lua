@@ -22,8 +22,15 @@ function WalkState:input(command)
   if command == 'left' then player.direction = command end
   if command == 'right' then player.direction = command end
   if command == 'idle' then return IdleState(player) end
-  --if command == 'up' then return JumpState(player) end
+  if command == 'jump' then return JumpState(player) end
   --if command == 'fight' then return FightState(player) end
+
+end
+
+function WalkState:inputEnd(command)
+
+  local player = self.player
+  return IdleState(player)
 
 end
 
@@ -35,5 +42,9 @@ function WalkState:update(dt)
 
   if (player.direction == 'left') then player.velocityX = -player.speed end
   if (player.direction == 'right') then player.velocityX = player.speed end
+
+
+  player.colliders.playerCollider:setLinearVelocity(player.velocityX, player.velocityY)
+
 
 end
