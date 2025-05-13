@@ -15,6 +15,7 @@ function BetaStage:setup()
   local world = self.world
   world:addCollisionClass('Platform')
   world:addCollisionClass('Player')
+  world:addCollisionClass('IsWorldGround')
 
   local level = self.sti
 
@@ -25,8 +26,6 @@ function BetaStage:setup()
       plattform:setType('static')
       plattform:setCollisionClass('Platform')
       plattform:setObject(plattform)
-
-      --plattform:setUserData({name = 'plattform_'..i})
     end
   end
 

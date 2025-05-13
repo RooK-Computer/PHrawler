@@ -4,14 +4,10 @@ function IdleState:new(player)
   IdleState.super.new(self, player)
   self.name = 'idle'
 
-
-  self.player.colliders.playerCollider:getLinearVelocity()
-
   self.player.velocityX = 0
-  self.player.velocityY = 100
-
+  self.player.velocityY = player.speed/2
+  self.player.hasJumped = 0
   self.player.colliders.playerCollider:setLinearVelocity(player.velocityX, player.velocityY)
-
 
   self.player.animations.idle = {}
   self.player.animations.idle.right = anim8.newAnimation( player.grid('1-8', 1), player.animationDuration )
@@ -26,7 +22,6 @@ function IdleState:input(command)
 
   local player = self.player
 
-
   if command == 'left' then 
     player.direction = 'left'
     return WalkState(player) 
@@ -38,6 +33,5 @@ function IdleState:input(command)
   if command == 'jump' then 
     return JumpState(player) 
   end
-  --if command == 'fight' then return FightState(self.player) end
-
+  
 end

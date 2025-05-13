@@ -15,7 +15,6 @@ function Player:new(config, game)
   self.defaultInput = config.controls.defaultInput
   self.inputManager = game.inputManager:registerPlayer(self, config.controls.defaultInput)
 
-
   self:setup()
 
 end
@@ -31,6 +30,7 @@ function Player:setup()
   player.upThreshold = 0
   player.health = 5
   player.debug = {}
+  player.isOnGround = false
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
@@ -56,13 +56,13 @@ function Player:setup()
 
   player.colliders.playerCollider:setPreSolve(function(collider_1, collider_2, contact)        
       if collider_1.collision_class == 'Player' and collider_2.collision_class == 'Platform' then
-        local px, py = collider_1:getPosition()
-        --print('plattformY: ' .. collider_1)
-        --print(inspect(collider_1:getObject()  ))
-        --print('.--------.')
-        local tx, ty = collider_2:getPosition() 
-        --print('plattformY: ' .. collider_2)
-        if py + 10 > ty then contact:setEnabled(false) return end
+        local playerX, playerY = collider_1:getPosition()
+        local platformX, platformY = collider_2:getPosition() 
+        if playerY + 10 > platformY then 
+          contact:setEnabled(false)
+          player.isOnGround = false
+          return
+        end
       end
     end)
 
@@ -75,9 +75,10 @@ function Player:update(dt)
 
   local player = self
   player.dt = dt
+  player:setIsOnGround()
+
 
   player.inputManager:checkForInput()
-
   player.state:update(dt)
 
 
@@ -85,7 +86,7 @@ function Player:update(dt)
   player.y = player.colliders.playerCollider:getY() - player.height/2
   player.anim:update(dt)
 
-  
+
 end
 
 function Player:inputStart(command)
@@ -99,6 +100,25 @@ function Player:inputStart(command)
   end
 
 
+end
+
+
+function Player:setIsOnGround()
+
+  local player = self
+  player.isOnGround = false 
+
+  local colliderClasses = {'Platform'}
+
+  for i, colliderClass in pairs(colliderClasses) do
+
+    player.colliders.playerCollider:enter(colliderClass)
+    if player.colliders.playerCollider:stay(colliderClass) then 
+      player.isOnGround = true 
+    end
+    player.colliders.playerCollider:exit(colliderClass)
+
+  end
 end
 
 function Player:inputEnd(command)

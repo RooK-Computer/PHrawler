@@ -4,20 +4,16 @@ function FallingState:new(player)
   FallingState.super.new(self, player)
   self.name = 'falling'
 
+  self.player.velocityY = player.speed/2
 
-  self.player.colliders.playerCollider:getLinearVelocity()
-
-  self.player.velocityX = 0
-  self.player.velocityY = 100
-
-  self.player.colliders.playerCollider:setLinearVelocity(player.velocityX, player.velocityY)
+  self.player.colliders.playerCollider:setLinearVelocity(self.player.velocityX, self.player.velocityY)
 
 
   self.player.animations.idle = {}
   self.player.animations.idle.right = anim8.newAnimation( player.grid('1-8', 1), player.animationDuration )
   self.player.animations.idle.left = self.player.animations.idle.right:clone():flipH()
 
-  --player.direction = 'down'
+  player.direction = 'down'
 
 
   self.player.anim = player.animations.idle.left
@@ -32,17 +28,9 @@ function FallingState:input(command)
   local canJump = true
   if player.hasJumped > 1 then canJump = false end
 
-
   if command == 'jump' and canJump then return JumpState(player) end
-  if command == 'right' then 
-    player.direction = 'right'
-    return WalkState(player)
-
-  end
-  if command == 'left' then 
-    player.direction = 'left' 
-    return WalkState(player)
-  end
+  if command == 'right' then player.direction = 'right'  end
+  if command == 'left' then player.direction = 'left' end
 
 end
 
@@ -50,13 +38,21 @@ function FallingState:update(dt)
 
   local player = self.player
 
-  local velocityX, velocityY = player.colliders.playerCollider:getLinearVelocity()
+  if (player.direction == 'left') then player.velocityX = -player.speed end
+  if (player.direction == 'right') then player.velocityX = player.speed end
 
-  if velocityY == 0 then 
-    player.direction = 'left'
-    player.hasJumped = 0
+  if player.isOnGround then 
+    if player.direction == 'down' then player.direction = 'left' end
     player.state = IdleState(player) 
-
   end
+  
+  
+  local vx, vy = player.colliders.playerCollider:getLinearVelocity()
+  
+  if vy == 0 then vy = 300 end
+
+
+  player.colliders.playerCollider:setLinearVelocity(player.velocityX, vy)
+
 
 end

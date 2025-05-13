@@ -8,18 +8,18 @@ game = {
   activateDebug = false,
   PIXELS_PER_METER = 100,
   savedAnimationDuration = 0,
-  stateActive = false,
   level = {},
   world = {},
   players = {},
 }
+game.gravity = 9.81 * game.PIXELS_PER_METER
 
 
 function love.load(arg)
   io.stdout:setvbuf("no") -- needed for print() to work in ZeroBrane Studios Editor
   if arg[#arg] == "-debug" then require("mobdebug").start() end -- needed for debugging in ZeroBrane Studios Editor
 
-  game.world = windfield.newWorld(0, 9.81 * game.PIXELS_PER_METER)
+  game.world = windfield.newWorld(0, game.gravity)
   game.level = Level(game.world, {level = 'betastage'})
   game.inputManager = InputManager()
 
@@ -33,13 +33,17 @@ function love.load(arg)
     })
 
   require 'src/player/tmpPlayersConfig' 
+  
+  local playersConfig = tmpPlayersConfig
+  --playersConfig = {}
+  --table.insert(playersConfig, table.remove(tmpPlayersConfig, 1))
 
-  for i = 1, #tmpPlayersConfig do
-
-    local player = Player(tmpPlayersConfig[i], game)
+  for i,playerConfig in pairs(playersConfig) do
+    local player =  Player(playerConfig, game)
     table.insert(game.players, player)
-
   end
+  
+  
 
 end
 
@@ -75,9 +79,16 @@ function love.draw()
 
 
     for i = 1, #game.players do
-      statsPositionX = statsPositionX + 10
+      statsPositionX = statsPositionX + 20
       local player = game.players[i]
+      --local vx, vy = player.colliders.playerCollider:getLinearVelocity()
       love.graphics.print(player.name .. " State: ".. player.state.name, statsPositionY, statsPositionX)
+      statsPositionX = statsPositionX + 10
+      love.graphics.print(player.name .. " isOnGround: " .. tostring(player.isOnGround), statsPositionY, statsPositionX)      
+      
+      statsPositionX = statsPositionX + 10
+      love.graphics.print(player.name .. " hasJumped: " .. tostring(player.hasJumped), statsPositionY, statsPositionX)
+      
     end
 
 
