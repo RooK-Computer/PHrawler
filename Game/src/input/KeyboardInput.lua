@@ -6,10 +6,6 @@ function KeyboardInput:new()
   self.keys = {}
   self.registeredKeys = {}
   self.continuousInputKeys = {}
-
-  love.keyboard.setKeyRepeat( true )
-
-  local enabled = love.keyboard.hasKeyRepeat( )
   return self
 
 end

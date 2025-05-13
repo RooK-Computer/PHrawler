@@ -1,5 +1,6 @@
 require('src/input/KeyboardInput')
 require('src/input/JoystickInput')
+require('src/input/GamepadInput')
 
 
 
@@ -10,6 +11,7 @@ function InputManager:new()
   self.inputTypes = {}
   self.inputTypes.keyboard = KeyboardInput()
   self.inputTypes.joystick = JoystickInput()
+  self.inputTypes.gamepad = GamepadInput()
 
 end
 
