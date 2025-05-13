@@ -17,12 +17,12 @@ A simple yet fun local 2D-Mutiplayer-Brawler for R∞k
 - Plattforms
 - World boundaries
 - (rudimentary) Collisions
-
-## Not Working, But Planed
 - Jumping
   - Double jumping
-- Fighting
+
+## Not Working, But Planed
 - Joystick/Gamepad-support
+- Fighting
 - up to 16 players on one console
 - Settings menu
 - Start Menu
