@@ -15,7 +15,7 @@ function BetaStage:setup()
   local world = self.world
   world:addCollisionClass('Platform')
   world:addCollisionClass('Player')
-  world:addCollisionClass('IsWorldGround')
+  world:addCollisionClass('WorldLimits')
 
   local level = self.sti
 
@@ -33,6 +33,7 @@ function BetaStage:setup()
 
     for i, obj in pairs(level.layers['WorldLimits'].objects) do 
       local limits = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
+      limits:setCollisionClass('WorldLimits')
       limits:setType('static')
     end
   end

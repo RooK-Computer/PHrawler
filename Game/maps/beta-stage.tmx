@@ -183,8 +183,8 @@
 </data>
  </layer>
  <objectgroup id="7" name="WorldLimits" visible="0">
-  <object id="38" x="-33.5836" y="-264.718" width="32.5958" height="774.397"/>
-  <object id="41" x="640.063" y="-265.705" width="37.5346" height="769.459"/>
+  <object id="38" x="-44.0598" y="-264.718" width="32.5958" height="774.397"/>
+  <object id="41" x="649.587" y="-265.705" width="37.5346" height="769.459"/>
   <object id="72" x="-32.98" y="-296.82" width="711.425" height="32.98"/>
  </objectgroup>
  <objectgroup id="11" name="Plattforms" visible="0">
@@ -197,10 +197,10 @@
   <object id="63" x="256.199" y="378.035" width="239.403" height="5.6933"/>
   <object id="64" x="32.4518" y="378.32" width="191.295" height="5.12397"/>
   <object id="65" x="32.7365" y="458.026" width="190.726" height="6.5473"/>
-  <object id="66" x="512.397" y="356.116" width="127.245" height="3.13132"/>
-  <object id="67" x="511.543" y="272.709" width="127.815" height="6.26263"/>
+  <object id="66" x="512.397" y="356.116" width="170.102" height="3.13132"/>
+  <object id="67" x="511.543" y="272.709" width="174.482" height="6.26263"/>
   <object id="68" x="17.5231" y="144.447" width="186.597" height="6.63036"/>
-  <object id="73" x="-4.93757" y="479.65" width="645.412" height="6.34831"/>
+  <object id="73" x="-43.0328" y="479.65" width="731.126" height="6.34831"/>
  </objectgroup>
  <layer id="2" name="Details" width="40" height="30">
   <data encoding="csv">
