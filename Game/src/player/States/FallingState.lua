@@ -9,14 +9,9 @@ function FallingState:new(player)
   self.player.colliders.playerCollider:setLinearVelocity(self.player.velocityX, self.player.velocityY)
 
 
-  self.player.animations.idle = {}
-  self.player.animations.idle.right = anim8.newAnimation( player.grid('1-8', 1), player.animationDuration )
-  self.player.animations.idle.left = self.player.animations.idle.right:clone():flipH()
+  self.player.anim = player.animations.falling[player.direction]
 
   player.direction = 'down'
-
-
-  self.player.anim = player.animations.idle.left
 
   return self
 end
@@ -38,19 +33,21 @@ function FallingState:update(dt)
 
   local player = self.player
 
+
+
   if (player.direction == 'left') then player.velocityX = -player.speed end
   if (player.direction == 'right') then player.velocityX = player.speed end
+  
+  player.anim = player.animations.falling[player.direction]
 
   if player.isOnGround then 
-    if player.direction == 'down' then player.direction = 'left' end
     player.state = IdleState(player) 
   end
-  
-  
-  local vx, vy = player.colliders.playerCollider:getLinearVelocity()
-  
-  if vy == 0 then vy = 300 end
 
+
+  local vx, vy = player.colliders.playerCollider:getLinearVelocity()
+
+  if vy == 0 then vy = 300 end
 
   player.colliders.playerCollider:setLinearVelocity(player.velocityX, vy)
 

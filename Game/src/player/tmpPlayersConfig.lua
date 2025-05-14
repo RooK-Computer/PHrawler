@@ -12,6 +12,24 @@ tmpPlayersConfig = {
         fight = 'space'
       },
       defaultInput = 'keyboard',
+    },
+    animations = {
+      idle = {
+        grid = '1-8',
+        column = 1
+      },
+      running = {
+        grid = '1-8',
+        column = 3
+      },
+      jump = {
+        grid = '1-2',
+        column = 4
+      },
+      falling = {
+        grid = '3-4',
+        column = 4,
+      },
     }
   },
   {
@@ -27,7 +45,24 @@ tmpPlayersConfig = {
         fight = 'lshift'
       },
       defaultInput = 'keyboard',
-
+    },
+    animations = {
+      idle = {
+        grid = '1-8',
+        column = 1
+      },
+      running = {
+        grid = '1-8',
+        column = 3
+      },
+      jump = {
+        grid = '1-2',
+        column = 4
+      },
+      falling = {
+        grid = '3-4',
+        column = 4,
+      },
     }
   },
   {
@@ -43,9 +78,25 @@ tmpPlayersConfig = {
         fight = 'h'
       },
       defaultInput = 'keyboard',
-
+    },
+    animations = {
+      idle = {
+        grid = '1-8',
+        column = 1
+      },
+      running = {
+        grid = '1-8',
+        column = 3
+      },
+      jump = {
+        grid = '1-2',
+        column = 4
+      },
+      falling = {
+        grid = '3-4',
+        column = 4,
+      },
     }
-
   },
   {
     name = 'Player Four',
@@ -60,8 +111,24 @@ tmpPlayersConfig = {
         fight = 'c'
       },
       defaultInput = 'keyboard',
-
+    },
+    animations = {
+      idle = {
+        grid = '1-8',
+        column = 1
+      },
+      running = {
+        grid = '1-8',
+        column = 3
+      },
+      jump = {
+        grid = '1-2',
+        column = 4
+      },
+      falling = {
+        grid = '3-4',
+        column = 4,
+      },
     }
-
   }
 }

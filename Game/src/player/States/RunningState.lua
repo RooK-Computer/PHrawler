@@ -1,18 +1,14 @@
-WalkState = State:extend()
+RunningState = State:extend()
 
-function WalkState:new(player)
-  WalkState.super.new(self, player)
-  self.name = 'walk'
-
-  self.player.animations.run = {}
-  self.player.animations.run.right = anim8.newAnimation( player.grid('1-8', 3), player.animationDuration )
-  self.player.animations.run.left = player.animations.run.right:clone():flipH()   
-  self.player.anim = player.animations.run[player.direction]
+function RunningState:new(player)
+  RunningState.super.new(self, player)
+  self.name = 'running'
+  self.player.anim = player.animations.running[player.direction]
 
   return self
 end
 
-function WalkState:input(command)
+function RunningState:input(command)
 
   local player = self.player
 
@@ -24,14 +20,14 @@ function WalkState:input(command)
 
 end
 
-function WalkState:inputEnd(command)
+function RunningState:inputEnd(command)
 
   local player = self.player
   return IdleState(player)
 
 end
 
-function WalkState:update(dt) 
+function RunningState:update(dt) 
 
   local player = self.player
   if not player.isOnGround then 
@@ -40,7 +36,7 @@ function WalkState:update(dt)
   end
 
 
-  player.anim = player.animations.run[player.direction]
+  player.anim = player.animations.running[player.direction]
 
 
   if (player.direction == 'left') then player.velocityX = -player.speed end

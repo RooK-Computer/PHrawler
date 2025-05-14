@@ -22,6 +22,6 @@ end
 
 
 require('src/player/States/IdleState')
-require('src/player/States/WalkState')
+require('src/player/States/RunningState')
 require('src/player/States/JumpState')
 require('src/player/States/FallingState')

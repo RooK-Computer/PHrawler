@@ -14,6 +14,7 @@ function Player:new(config, game)
   self.controls = config.controls.keyboard
   self.defaultInput = config.controls.defaultInput
   self.inputManager = game.inputManager:registerPlayer(self, config.controls.defaultInput)
+  self.config = config
 
   self:setup()
 
@@ -43,16 +44,22 @@ function Player:setup()
 
   player.colliderID = 'fight'.. player.id
 
-
-  player.direction = 'left'
-  player.animationDuration = 0.15
+  player.direction = 'right'
+  player.formerDirection = 'right'
+  player.animationDuration = 0.05
   player.animations = {}       
 
-  player.animations.fight = {}
-  player.animations.fight.right = anim8.newAnimation( player.grid('5-8', 9), player.animationDuration )
-  player.animations.fight.left = anim8.newAnimation( player.grid('5-8', 9), player.animationDuration ):flipH()
 
+  for stateName, animationConfig in pairs(player.config.animations) do
 
+    player.animations[stateName] = {}
+    player.animations[stateName].right = anim8.newAnimation( player.grid(animationConfig.grid, animationConfig.column), player.animationDuration )
+    player.animations[stateName].left = player.animations[stateName].right:clone():flipH()
+
+    player.animations[stateName].up = player.animations[stateName].right:clone() 
+    player.animations[stateName].down = player.animations[stateName].right:clone() 
+
+  end
 
   player.colliders.playerCollider:setPreSolve(function(collider_1, collider_2, contact)        
       if collider_1.collision_class == 'Player' and collider_2.collision_class == 'Platform' then
@@ -66,7 +73,8 @@ function Player:setup()
       end
     end)
 
-  player.state = IdleState(self)
+
+  player.state = FallingState(self)
 
 end
 
@@ -77,15 +85,12 @@ function Player:update(dt)
   player.dt = dt
   player:setIsOnGround()
 
-
   player.inputManager:checkForInput()
   player.state:update(dt)
-
 
   player.x = player.colliders.playerCollider:getX() - player.width/2
   player.y = player.colliders.playerCollider:getY() - player.height/2
   player.anim:update(dt)
-
 
 end
 
