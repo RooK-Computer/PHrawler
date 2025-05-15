@@ -5,7 +5,7 @@ game = {
   windowWidth = 640,
   windowHeight = 480,
   scale = 1,
-  activateDebug = false,
+  activateDebug = true,
   PIXELS_PER_METER = 100,
   savedAnimationDuration = 0,
   level = {},
@@ -32,9 +32,10 @@ function love.load(arg)
       highdpi = true
     })
 
-  require 'src/player/tmpPlayersConfig' 
+  require 'src/player/config/tmpPlayersConfig' 
   
   local playersConfig = tmpPlayersConfig
+  
   --playersConfig = {}
   --table.insert(playersConfig, table.remove(tmpPlayersConfig, 1))
 
@@ -82,6 +83,9 @@ function love.draw()
       statsPositionX = statsPositionX + 20
       local player = game.players[i]
       --local vx, vy = player.colliders.playerCollider:getLinearVelocity()
+      love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionY, statsPositionX)
+      statsPositionX = statsPositionX + 10      
+      
       love.graphics.print(player.name .. " State: ".. player.state.name, statsPositionY, statsPositionX)
       statsPositionX = statsPositionX + 10
       love.graphics.print(player.name .. " isOnGround: " .. tostring(player.isOnGround), statsPositionY, statsPositionX)      

@@ -40,7 +40,7 @@ A simple yet fun local 2D-Mutiplayer-Brawler for R∞k
 ## Controls
 Only playable on Keyboard for now!
 - Player 1: Arrow-Keys + Spacebar
-- Player 2: W-A-D + left Shifht
+- Player 2: W-A-D + left Shift
 - Player 3: j-i-l + h
 - Player 4: v-g-n + c
 

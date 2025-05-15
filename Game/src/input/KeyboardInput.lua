@@ -1,7 +1,7 @@
 KeyboardInput = Object:extend()
 
 function KeyboardInput:new()
-
+  self.name = 'keyboard'
   self.players = {}
   self.keys = {}
   self.registeredKeys = {}
@@ -10,9 +10,9 @@ function KeyboardInput:new()
 
 end
 
-function KeyboardInput:registerPlayer(player)
+function KeyboardInput:registerPlayer(player, controls)
 
-  local keyboardInputs = player.controls
+  local keyboardInputs = controls
 
   for command, key in pairs(keyboardInputs) do 
 
@@ -45,24 +45,26 @@ function KeyboardInput:checkForInput()
     if love.keyboard.isDown(key) then 
       local player = self.players[playerInfo.id]
       player:inputStart(playerInfo.command)
+      player.activeInput = self.name
     end
-
   end
+
+  return self
 end
 
 function love.keypressed(key, scancode, isrepeat)
   game.inputManager.inputTypes.keyboard:keypressed(key, scancode, isrepeat)
 end
 
-function KeyboardInput:keypressed(key, scancode, isrepeat)
+function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
 
   local players = self.players
   local keys = self.registeredKeys
 
-  if key == "." then game.activateDebug = not game.activateDebug end
+  if pressedKey == "." then game.activateDebug = not game.activateDebug end
 
 
-  if key == "," then         
+  if pressedKey == "," then         
     print('######')
 
     for i, player in pairs(players) do
@@ -71,21 +73,19 @@ function KeyboardInput:keypressed(key, scancode, isrepeat)
     print('######')
   end
 
-  if isrepeat then 
-    local stop = 1
-  end
-
   for registeredKey, playerInfo in pairs(keys) do
+    local player = players[playerInfo.id]
 
-    if key == registeredKey then 
-      local player = players[playerInfo.id]
-      player:inputStart(playerInfo.command)
-      player.debug.keyPressed = key
+    if pressedKey == registeredKey then 
+      player:inputStart(playerInfo.command)      
+      player.debug.keyPressed = pressedKey
     end
+    player.activeInput = self.name
 
   end
 
-end 
+
+end
 
 
 
@@ -93,17 +93,17 @@ function love.keyreleased( key, scancode )
   game.inputManager.inputTypes.keyboard:keyreleased(key, scancode)
 end 
 
-function KeyboardInput:keyreleased(key, scancode, isrepeat)
+function KeyboardInput:keyreleased(releasedKey, scancode, isrepeat)
 
   local players = self.players
   local keys = self.keys
 
   for registeredKey, playerInfo in pairs(keys) do
 
-    if key == registeredKey then 
+    if releasedKey == registeredKey then 
       local player = players[playerInfo.id]
-      player:inputEnd(playerInfo.command)
-      player.debug.keyReleased = key
+      player:inputEnd(playerInfo.command)      
+      player.debug.keyReleased = releasedKey
     end
 
   end

@@ -48,7 +48,6 @@ function JumpState:update(dt)
 
   if velocityY > 0 then 
     player.state = FallingState(player) 
-
   end
 
 

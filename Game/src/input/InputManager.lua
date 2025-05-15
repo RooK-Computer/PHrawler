@@ -16,9 +16,9 @@ function InputManager:new()
 end
 
 
-function InputManager:registerPlayer(player, type)
+function InputManager:registerPlayer(player, type, controls)
 
-  self.inputTypes[type]:registerPlayer(player)
+  self.inputTypes[type]:registerPlayer(player, controls)
   return self.inputTypes[type]
 
 end 

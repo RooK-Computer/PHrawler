@@ -1,17 +1,23 @@
+require('src/player/config/gamepadConfig')
+
 tmpPlayersConfig = {
   {
     name = 'Player One',
     id = 'player_one',
+    priority = 1,
     x = 100,
     y = 50,
     controls = {
-      keyboard = {
-        jump = 'up',
-        left = 'left',
-        right = 'right',
-        fight = 'space'
+      inputs = {
+        keyboard = {
+          jump = 'up',
+          left = 'left',
+          right = 'right',
+          fight = 'space'
+        },      
+        gamepad = gamepadConfig,
       },
-      defaultInput = 'keyboard',
+      defaultInput = 'gamepad',
     },
     animations = {
       idle = {
@@ -35,16 +41,20 @@ tmpPlayersConfig = {
   {
     name = 'Player Two',
     id = 'player_two',
+    priority = 2,
     x = 150,
     y = 300,
     controls = {
-      keyboard = {
-        jump = 'w',
-        left = 'a',
-        right = 'd',
-        fight = 'lshift'
+      inputs = {
+        keyboard = {
+          jump = 'w',
+          left = 'a',
+          right = 'd',
+          fight = 'lshift'
+        },
+        gamepad = gamepadConfig,
       },
-      defaultInput = 'keyboard',
+      defaultInput = 'gamepad',
     },
     animations = {
       idle = {
@@ -68,14 +78,18 @@ tmpPlayersConfig = {
   {
     name = 'Player Three',
     id = 'player_three',
+    priority = 3,
     x = 300,
     y = 200,
     controls = {
-      keyboard = {
-        jump = 'i',
-        left = 'j',
-        right = 'l',
-        fight = 'h'
+      inputs = {
+        keyboard = {
+          jump = 'i',
+          left = 'j',
+          right = 'l',
+          fight = 'h'
+        },
+        gamepad = gamepadConfig,
       },
       defaultInput = 'keyboard',
     },
@@ -101,14 +115,18 @@ tmpPlayersConfig = {
   {
     name = 'Player Four',
     id = 'player_four',
+    priority = 4,
     x = 450,
     y = 250,
     controls = {
-      keyboard = {      
-        jump = 'g',
-        left = 'v',
-        right = 'n',
-        fight = 'c'
+      inputs = {
+        keyboard = {      
+          jump = 'g',
+          left = 'v',
+          right = 'n',
+          fight = 'c'
+        },
+        gamepad = gamepadConfig,
       },
       defaultInput = 'keyboard',
     },

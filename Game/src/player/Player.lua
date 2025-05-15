@@ -8,12 +8,22 @@ function Player:new(config, game)
 
   self.name = config.name
   self.id = config.id
+  self.priority = config.priority
   self.x = config.x
   self.y = config.y
   self.world = game.world
-  self.controls = config.controls.keyboard
-  self.defaultInput = config.controls.defaultInput
-  self.inputManager = game.inputManager:registerPlayer(self, config.controls.defaultInput)
+  self.controls = config.controls
+  self.activeInput = config.controls.defaultInput
+  self.inputs = {}
+
+
+  for inputType, controls in pairs(self.controls.inputs) do
+    self.inputs[inputType] = game.inputManager:registerPlayer(self, inputType, controls)
+  end 
+  
+  self.inputManager = self.inputs[self.activeInput]
+
+
   self.config = config
 
   self:setup()
@@ -36,7 +46,7 @@ function Player:setup()
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
   player.colliders = {
-    playerCollider = player.world:newBSGRectangleCollider(player.x, player.y, 15, 30 , 10)
+    playerCollider = player.world:newBSGRectangleCollider(player.x, player.y, 10, 30 , 5)
   }
   player.colliders.playerCollider:setFixedRotation(true)
   player.colliders.playerCollider:setCollisionClass('Player')
@@ -84,8 +94,8 @@ function Player:update(dt)
   local player = self
   player.dt = dt
   player:setIsOnGround()
-
-  player.inputManager:checkForInput()
+  
+  player.inputs[player.activeInput]:checkForInput()
   player.state:update(dt)
 
   player.x = player.colliders.playerCollider:getX() - player.width/2
