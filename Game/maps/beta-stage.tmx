@@ -187,20 +187,20 @@
   <object id="41" x="649.587" y="-265.705" width="37.5346" height="769.459"/>
   <object id="72" x="-32.98" y="-296.82" width="711.425" height="32.98"/>
  </objectgroup>
- <objectgroup id="11" name="Plattforms" visible="0">
-  <object id="57" x="193.681" y="15.7366" width="317.758" height="7.8683"/>
-  <object id="58" x="208.944" y="138.347" width="286.658" height="5.40864"/>
-  <object id="59" x="256.199" y="218.053" width="239.119" height="4.55464"/>
-  <object id="60" x="32.4518" y="218.053" width="191.01" height="5.40864"/>
-  <object id="61" x="32.7365" y="298.044" width="190.441" height="4.83931"/>
-  <object id="62" x="256.483" y="297.19" width="239.119" height="6.5473"/>
-  <object id="63" x="256.199" y="378.035" width="239.403" height="5.6933"/>
-  <object id="64" x="32.4518" y="378.32" width="191.295" height="5.12397"/>
-  <object id="65" x="32.7365" y="458.026" width="190.726" height="6.5473"/>
-  <object id="66" x="512.397" y="356.116" width="170.102" height="3.13132"/>
-  <object id="67" x="511.543" y="272.709" width="174.482" height="6.26263"/>
-  <object id="68" x="17.5231" y="144.447" width="186.597" height="6.63036"/>
-  <object id="73" x="-43.0328" y="479.65" width="731.126" height="6.34831"/>
+ <objectgroup id="11" name="Plattforms">
+  <object id="57" x="193.681" y="15.7366" width="317.758" height="10"/>
+  <object id="58" x="209.314" y="138.347" width="286.288" height="10"/>
+  <object id="59" x="256.199" y="218.053" width="239.119" height="10"/>
+  <object id="60" x="32.4518" y="218.053" width="191.01" height="10"/>
+  <object id="61" x="32.7365" y="298.044" width="190.441" height="10"/>
+  <object id="62" x="256.483" y="297.19" width="239.119" height="10"/>
+  <object id="63" x="256.199" y="378.035" width="239.403" height="10"/>
+  <object id="64" x="32.4518" y="378.32" width="191.295" height="10"/>
+  <object id="65" x="32.7365" y="458.026" width="190.726" height="10"/>
+  <object id="66" x="512.397" y="356.116" width="170.102" height="10"/>
+  <object id="67" x="511.543" y="272.709" width="174.482" height="10"/>
+  <object id="68" x="17.5231" y="144.447" width="186.597" height="10"/>
+  <object id="73" x="-43.0328" y="479.65" width="731.126" height="10"/>
  </objectgroup>
  <layer id="2" name="Details" width="40" height="30">
   <data encoding="csv">

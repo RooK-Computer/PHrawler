@@ -5,7 +5,7 @@ game = {
   windowWidth = 640,
   windowHeight = 480,
   scale = 1,
-  activateDebug = true,
+  activateDebug = false,
   PIXELS_PER_METER = 100,
   savedAnimationDuration = 0,
   level = {},
@@ -19,7 +19,8 @@ function love.load(arg)
   io.stdout:setvbuf("no") -- needed for print() to work in ZeroBrane Studios Editor
   if arg[#arg] == "-debug" then require("mobdebug").start() end -- needed for debugging in ZeroBrane Studios Editor
 
-  game.world = windfield.newWorld(0, game.gravity)
+  game.world = love.physics.newWorld(0, game.gravity)
+  game.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
   game.level = Level(game.world, {level = 'betastage'})
   game.inputManager = InputManager()
 
@@ -33,18 +34,18 @@ function love.load(arg)
     })
 
   require 'src/player/config/tmpPlayersConfig' 
-  
+
   local playersConfig = tmpPlayersConfig
-  
-  --playersConfig = {}
-  --table.insert(playersConfig, table.remove(tmpPlayersConfig, 1))
+
+  playersConfig = {}
+  table.insert(playersConfig, table.remove(tmpPlayersConfig, 1))
 
   for i,playerConfig in pairs(playersConfig) do
     local player =  Player(playerConfig, game)
     table.insert(game.players, player)
   end
-  
-  
+
+
 
 end
 
@@ -75,29 +76,35 @@ function love.draw()
 
     local statsPositionX = 10
     local statsPositionY = 10
-    game.world:draw() 
+    Helper.drawDebug(game.world)
     love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), statsPositionY, statsPositionX)
+    statsPositionX = statsPositionX + 100  
+    love.graphics.print(collisionText, statsPositionX, statsPositionY)
 
 
     for i = 1, #game.players do
-      statsPositionX = statsPositionX + 20
-      local player = game.players[i]
-      --local vx, vy = player.colliders.playerCollider:getLinearVelocity()
-      love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionY, statsPositionX)
-      statsPositionX = statsPositionX + 10      
-      
-      love.graphics.print(player.name .. " State: ".. player.state.name, statsPositionY, statsPositionX)
-      statsPositionX = statsPositionX + 10
-      love.graphics.print(player.name .. " isOnGround: " .. tostring(player.isOnGround), statsPositionY, statsPositionX)      
-      
-      statsPositionX = statsPositionX + 10
-      love.graphics.print(player.name .. " hasJumped: " .. tostring(player.hasJumped), statsPositionY, statsPositionX)
-      
+      if i > 0 then
+    else 
+        statsPositionY = statsPositionY + 20
+        local player = game.players[i]
+        love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
+        statsPositionY = statsPositionY + 10            
+
+        local velocityX, velocityY = player.physics.body:getLinearVelocity()
+
+        love.graphics.print(player.name .. " velocityX: ".. velocityX .. " | velocityY: " .. velocityY , statsPositionX, statsPositionY)
+        statsPositionY = statsPositionY + 10      
+
+        love.graphics.print(player.name .. " State: ".. player.state.name, statsPositionX, statsPositionY)
+        statsPositionY = statsPositionY + 10
+        love.graphics.print(player.name .. " isOnGround: " .. tostring(player.isOnGround), statsPositionX, statsPositionY)      
+
+        statsPositionY = statsPositionY + 10
+        love.graphics.print(player.name .. " hasJumped: " .. tostring(player.hasJumped), statsPositionX, statsPositionY)
+      end
     end
 
 
   end
   push:finish()
 end
-
-

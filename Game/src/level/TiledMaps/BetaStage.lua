@@ -13,29 +13,38 @@ end
 
 function BetaStage:setup()
   local world = self.world
-  world:addCollisionClass('Platform')
-  world:addCollisionClass('Player')
-  world:addCollisionClass('WorldLimits')
 
   local level = self.sti
 
   if level.layers['Plattforms'] then
 
     for i, obj in pairs(level.layers['Plattforms'].objects) do 
-      local plattform = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
-      plattform:setType('static')
-      plattform:setCollisionClass('Platform')
-      plattform:setObject(plattform)
+      local plattform = {
+        collisionClass = 'Plattform'
+      }
+
+      plattform.body = love.physics.newBody(world, obj.x, obj.y, 'static')
+      plattform.shape = love.physics.newRectangleShape( obj.width/2, obj.height/2, obj.width, obj.height)
+      plattform.fixture = love.physics.newFixture( plattform.body, plattform.shape)
+      plattform.fixture:setUserData(plattform)  
+
     end
   end
 
   if level.layers['WorldLimits'] then
 
     for i, obj in pairs(level.layers['WorldLimits'].objects) do 
-      local limits = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
-      limits:setCollisionClass('WorldLimits')
-      limits:setType('static')
+
+      local worldLimits = { 
+        collisionClass = 'WorldLimit'
+      }
+      worldLimits.body = love.physics.newBody(world, obj.x, obj.y, 'static')
+      worldLimits.shape = love.physics.newRectangleShape( obj.width/2, obj.height/2, obj.width, obj.height )
+      worldLimits.fixture = love.physics.newFixture( worldLimits.body, worldLimits.shape )
+      worldLimits.fixture:setUserData(worldLimits)  
+
     end
   end
 end
+
 

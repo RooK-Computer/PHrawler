@@ -20,7 +20,7 @@ function Player:new(config, game)
   for inputType, controls in pairs(self.controls.inputs) do
     self.inputs[inputType] = game.inputManager:registerPlayer(self, inputType, controls)
   end 
-  
+
   self.inputManager = self.inputs[self.activeInput]
 
 
@@ -45,15 +45,17 @@ function Player:setup()
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
-  player.colliders = {
-    playerCollider = player.world:newBSGRectangleCollider(player.x, player.y, 10, 30 , 5)
-  }
-  player.colliders.playerCollider:setFixedRotation(true)
-  player.colliders.playerCollider:setCollisionClass('Player')
-  player.colliders.playerCollider:setObject(player)
+  
+  player.physics = {}
+  player.physics.body = love.physics.newBody(game.world, player.x, player.y, 'dynamic')
+  player.physics.body:setFixedRotation(true)
+  player.physics.shape = love.physics.newRectangleShape(player.width/4, player.height/2)
+  player.physics.fixture = love.physics.newFixture(player.physics.body, player.physics.shape)
+  player.collisionClass = 'Player'
 
-  player.colliderID = 'fight'.. player.id
-
+  
+  player.physics.fixture:setUserData(player)  
+  
   player.direction = 'right'
   player.formerDirection = 'right'
   player.animationDuration = 0.05
@@ -71,19 +73,6 @@ function Player:setup()
 
   end
 
-  player.colliders.playerCollider:setPreSolve(function(collider_1, collider_2, contact)        
-      if collider_1.collision_class == 'Player' and collider_2.collision_class == 'Platform' then
-        local playerX, playerY = collider_1:getPosition()
-        local platformX, platformY = collider_2:getPosition() 
-        if playerY + 10 > platformY then 
-          contact:setEnabled(false)
-          player.isOnGround = false
-          return
-        end
-      end
-    end)
-
-
   player.state = FallingState(self)
 
 end
@@ -93,13 +82,12 @@ function Player:update(dt)
 
   local player = self
   player.dt = dt
-  player:setIsOnGround()
-  
+
   player.inputs[player.activeInput]:checkForInput()
   player.state:update(dt)
 
-  player.x = player.colliders.playerCollider:getX() - player.width/2
-  player.y = player.colliders.playerCollider:getY() - player.height/2
+  player.x = player.physics.body:getX() - player.width/2
+  player.y = player.physics.body:getY() - player.height/2
   player.anim:update(dt)
 
 end
@@ -115,25 +103,6 @@ function Player:inputStart(command)
   end
 
 
-end
-
-
-function Player:setIsOnGround()
-
-  local player = self
-  player.isOnGround = false 
-
-  local colliderClasses = {'Platform'}
-
-  for i, colliderClass in pairs(colliderClasses) do
-
-    player.colliders.playerCollider:enter(colliderClass)
-    if player.colliders.playerCollider:stay(colliderClass) then 
-      player.isOnGround = true 
-    end
-    player.colliders.playerCollider:exit(colliderClass)
-
-  end
 end
 
 function Player:inputEnd(command)

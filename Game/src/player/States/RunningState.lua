@@ -30,10 +30,10 @@ end
 function RunningState:update(dt) 
 
   local player = self.player
-  if not player.isOnGround then 
-    player.state = FallingState(player) 
-    return
-  end
+  --if not player.isOnGround then 
+    --player.state = FallingState(player) 
+    --return
+  --end
 
 
   player.anim = player.animations.running[player.direction]
@@ -42,7 +42,7 @@ function RunningState:update(dt)
   if (player.direction == 'left') then player.velocityX = -player.speed end
   if (player.direction == 'right') then player.velocityX = player.speed end
 
-  player.colliders.playerCollider:setLinearVelocity(player.velocityX, player.velocityY)
+  player.physics.body:setLinearVelocity(player.velocityX, player.velocityY)
   
   
 

@@ -429,7 +429,7 @@ return {
           x = 193.681,
           y = 15.7366,
           width = 317.758,
-          height = 7.8683,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -439,10 +439,10 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 208.944,
+          x = 209.314,
           y = 138.347,
-          width = 286.658,
-          height = 5.40864,
+          width = 286.288,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -455,7 +455,7 @@ return {
           x = 256.199,
           y = 218.053,
           width = 239.119,
-          height = 4.55464,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -468,7 +468,7 @@ return {
           x = 32.4518,
           y = 218.053,
           width = 191.01,
-          height = 5.40864,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -481,7 +481,7 @@ return {
           x = 32.7365,
           y = 298.044,
           width = 190.441,
-          height = 4.83931,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -494,7 +494,7 @@ return {
           x = 256.483,
           y = 297.19,
           width = 239.119,
-          height = 6.5473,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -507,7 +507,7 @@ return {
           x = 256.199,
           y = 378.035,
           width = 239.403,
-          height = 5.6933,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -520,7 +520,7 @@ return {
           x = 32.4518,
           y = 378.32,
           width = 191.295,
-          height = 5.12397,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -533,7 +533,7 @@ return {
           x = 32.7365,
           y = 458.026,
           width = 190.726,
-          height = 6.5473,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -546,7 +546,7 @@ return {
           x = 512.397,
           y = 356.116,
           width = 170.102,
-          height = 3.13132,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -559,7 +559,7 @@ return {
           x = 511.543,
           y = 272.709,
           width = 174.482,
-          height = 6.26263,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -572,7 +572,7 @@ return {
           x = 17.5231,
           y = 144.447,
           width = 186.597,
-          height = 6.63036,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}
@@ -585,7 +585,7 @@ return {
           x = -43.0328,
           y = 479.65,
           width = 731.126,
-          height = 6.34831,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {}

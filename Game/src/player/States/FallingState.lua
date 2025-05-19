@@ -6,7 +6,7 @@ function FallingState:new(player)
 
   self.player.velocityY = player.speed/2
 
-  self.player.colliders.playerCollider:setLinearVelocity(self.player.velocityX, self.player.velocityY)
+  self.player.physics.body:setLinearVelocity(self.player.velocityX, self.player.velocityY)
 
 
   self.player.anim = player.animations.falling[player.direction]
@@ -45,11 +45,11 @@ function FallingState:update(dt)
   end
 
 
-  local vx, vy = player.colliders.playerCollider:getLinearVelocity()
+  local vx, vy = player.physics.body:getLinearVelocity()
 
   if vy == 0 then vy = 300 end
 
-  player.colliders.playerCollider:setLinearVelocity(player.velocityX, vy)
+  player.physics.body:setLinearVelocity(player.velocityX, vy)
 
 
 end

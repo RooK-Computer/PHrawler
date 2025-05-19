@@ -7,7 +7,7 @@ function IdleState:new(player)
   self.player.velocityX = 0
   self.player.velocityY = player.speed/2
   self.player.hasJumped = 0
-  self.player.colliders.playerCollider:setLinearVelocity(player.velocityX, player.velocityY)
+  self.player.physics.body:setLinearVelocity(player.velocityX, player.velocityY)
 
   self.player.anim = player.animations.idle[player.direction]
 
@@ -15,7 +15,7 @@ function IdleState:new(player)
 end
 
 function IdleState:input(command)
-
+  
   local player = self.player
 
   if command == 'left' then 
