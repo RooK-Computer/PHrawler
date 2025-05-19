@@ -37,8 +37,8 @@ function love.load(arg)
 
   local playersConfig = tmpPlayersConfig
 
-  playersConfig = {}
-  table.insert(playersConfig, table.remove(tmpPlayersConfig, 1))
+  --playersConfig = {}
+  --table.insert(playersConfig, table.remove(tmpPlayersConfig, 1))
 
   for i,playerConfig in pairs(playersConfig) do
     local player =  Player(playerConfig, game)
