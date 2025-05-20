@@ -19,9 +19,10 @@ A simple yet fun local 2D-Mutiplayer-Brawler for R∞k
 - (rudimentary) Collisions
 - Jumping
   - Double jumping
+- Joystick/Gamepad-support (unstable)
+
 
 ## Not Working, But Planed
-- Joystick/Gamepad-support
 - Fighting
 - up to 16 players on one console
 - Settings menu
