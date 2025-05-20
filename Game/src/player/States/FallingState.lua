@@ -8,7 +8,6 @@ function FallingState:new(player)
 
   self.player.physics.body:setLinearVelocity(self.player.velocityX, self.player.velocityY)
 
-
   self.player.anim = player.animations.falling[player.direction]
 
   player.direction = 'down'
@@ -33,8 +32,6 @@ function FallingState:update(dt)
 
   local player = self.player
 
-
-
   if (player.direction == 'left') then player.velocityX = -player.speed end
   if (player.direction == 'right') then player.velocityX = player.speed end
   
@@ -44,11 +41,7 @@ function FallingState:update(dt)
     player.state = IdleState(player) 
   end
 
-
   local vx, vy = player.physics.body:getLinearVelocity()
-
-  if vy == 0 then vy = 300 end
-
   player.physics.body:setLinearVelocity(player.velocityX, vy)
 
 

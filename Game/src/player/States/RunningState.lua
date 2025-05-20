@@ -30,10 +30,10 @@ end
 function RunningState:update(dt) 
 
   local player = self.player
-  --if not player.isOnGround then 
-    --player.state = FallingState(player) 
-    --return
-  --end
+  if not player.isOnGround then 
+    player.state = FallingState(player) 
+    return
+  end
 
 
   player.anim = player.animations.running[player.direction]

@@ -9,8 +9,7 @@ PlayerPlattformCollision = {
     local playerX = player.physics.body:getX()
     local playerY = player.physics.body:getY()
 
-    if playerY + player.height/8> plattformY - 5 then
-      contact:setEnabled(false)
+    if playerY + player.height/8 > plattformY - plattform.object.height/2 then
       player.isOnGround = false 
     end
 
@@ -22,14 +21,13 @@ PlayerPlattformCollision = {
 
   preSolve = function(plattform, player, contact)
 
-
     local plattformX = plattform.body:getX()
     local plattformY = plattform.body:getY()
 
     local playerX = player.physics.body:getX()
     local playerY = player.physics.body:getY()
 
-    if playerY + player.height/8> plattformY - 5 then
+    if playerY + player.height/8 > plattformY - plattform.object.height/2 then
       contact:setEnabled(false)
       player.isOnGround = false 
 

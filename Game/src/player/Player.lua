@@ -45,7 +45,7 @@ function Player:setup()
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
-  
+
   player.physics = {}
   player.physics.body = love.physics.newBody(game.world, player.x, player.y, 'dynamic')
   player.physics.body:setFixedRotation(true)
@@ -53,13 +53,13 @@ function Player:setup()
   player.physics.fixture = love.physics.newFixture(player.physics.body, player.physics.shape)
   player.collisionClass = 'Player'
 
-  
+
   player.physics.fixture:setUserData(player)  
-  
+
   player.direction = 'right'
   player.formerDirection = 'right'
   player.animationDuration = 0.05
-  player.animations = {}       
+  player.animations = {}
 
 
   for stateName, animationConfig in pairs(player.config.animations) do
@@ -77,11 +77,18 @@ function Player:setup()
 
 end
 
+function Player:checkIsOnGround() 
+  local vx, vy =   self.physics.body:getLinearVelocity()
+  if vy == 0 then self.isOnGround = true end  
+end
+
 
 function Player:update(dt)
 
   local player = self
   player.dt = dt
+
+  player:checkIsOnGround()
 
   player.inputs[player.activeInput]:checkForInput()
   player.state:update(dt)

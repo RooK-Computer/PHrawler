@@ -20,7 +20,8 @@ function BetaStage:setup()
 
     for i, obj in pairs(level.layers['Plattforms'].objects) do 
       local plattform = {
-        collisionClass = 'Plattform'
+        collisionClass = 'Plattform',
+        object = obj
       }
 
       plattform.body = love.physics.newBody(world, obj.x, obj.y, 'static')
@@ -36,7 +37,8 @@ function BetaStage:setup()
     for i, obj in pairs(level.layers['WorldLimits'].objects) do 
 
       local worldLimits = { 
-        collisionClass = 'WorldLimit'
+        collisionClass = 'WorldLimit',
+        object = obj
       }
       worldLimits.body = love.physics.newBody(world, obj.x, obj.y, 'static')
       worldLimits.shape = love.physics.newRectangleShape( obj.width/2, obj.height/2, obj.width, obj.height )
