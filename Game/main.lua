@@ -78,16 +78,15 @@ function love.draw()
     local statsPositionY = 10
     Helper.drawDebug(game.world)
     love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), statsPositionY, statsPositionX)
-    statsPositionX = statsPositionX + 100  
-    love.graphics.print(collisionText, statsPositionX, statsPositionY)
 
 
     for i = 1, #game.players do
-      if i > 0 then
+      if i > 1 then
     else 
         statsPositionY = statsPositionY + 20
         local player = game.players[i]
-        love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
+        --love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
+        love.graphics.print(player.name .. " AnimDirection: ".. player.animationDirection .. ' / isFighting: ' .. tostring(player.isFighting), statsPositionX, statsPositionY)
         statsPositionY = statsPositionY + 10            
 
         local velocityX, velocityY = player.physics.body:getLinearVelocity()
