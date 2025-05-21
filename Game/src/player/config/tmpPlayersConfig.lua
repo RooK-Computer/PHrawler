@@ -1,4 +1,5 @@
 require('src/player/config/gamepadConfig')
+require('src/player/config/animationConfig')
 
 tmpPlayersConfig = {
   {
@@ -19,24 +20,7 @@ tmpPlayersConfig = {
       },
       defaultInput = 'gamepad',
     },
-    animations = {
-      idle = {
-        grid = '1-8',
-        column = 1
-      },
-      running = {
-        grid = '1-8',
-        column = 3
-      },
-      jump = {
-        grid = '1-2',
-        column = 4
-      },
-      falling = {
-        grid = '3-4',
-        column = 4,
-      },
-    }
+    animations = animationConfig
   },
   {
     name = 'Player Two',
@@ -56,24 +40,7 @@ tmpPlayersConfig = {
       },
       defaultInput = 'gamepad',
     },
-    animations = {
-      idle = {
-        grid = '1-8',
-        column = 1
-      },
-      running = {
-        grid = '1-8',
-        column = 3
-      },
-      jump = {
-        grid = '1-2',
-        column = 4
-      },
-      falling = {
-        grid = '3-4',
-        column = 4,
-      },
-    }
+    animations = animationConfig
   },
   {
     name = 'Player Three',
@@ -93,24 +60,7 @@ tmpPlayersConfig = {
       },
       defaultInput = 'keyboard',
     },
-    animations = {
-      idle = {
-        grid = '1-8',
-        column = 1
-      },
-      running = {
-        grid = '1-8',
-        column = 3
-      },
-      jump = {
-        grid = '1-2',
-        column = 4
-      },
-      falling = {
-        grid = '3-4',
-        column = 4,
-      },
-    }
+    animations = animationConfig
   },
   {
     name = 'Player Four',
@@ -130,23 +80,6 @@ tmpPlayersConfig = {
       },
       defaultInput = 'keyboard',
     },
-    animations = {
-      idle = {
-        grid = '1-8',
-        column = 1
-      },
-      running = {
-        grid = '1-8',
-        column = 3
-      },
-      jump = {
-        grid = '1-2',
-        column = 4
-      },
-      falling = {
-        grid = '3-4',
-        column = 4,
-      },
-    }
+    animations = animationConfig
   }
 }

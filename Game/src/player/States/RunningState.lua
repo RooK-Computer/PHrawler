@@ -3,7 +3,7 @@ RunningState = State:extend()
 function RunningState:new(player)
   RunningState.super.new(self, player)
   self.name = 'running'
-  self.player.anim = player.animations.running[player.direction]
+  self.player.anim = player.animations.running[player.animationDirection]
 
   return self
 end
@@ -21,6 +21,8 @@ function RunningState:input(command)
 end
 
 function RunningState:inputEnd(command)
+  RunningState.super.input(self, command)
+
 
   local player = self.player
   return IdleState(player)
@@ -43,7 +45,5 @@ function RunningState:update(dt)
   if (player.direction == 'right') then player.velocityX = player.speed end
 
   player.physics.body:setLinearVelocity(player.velocityX, player.velocityY)
-  
-  
 
 end

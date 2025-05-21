@@ -5,7 +5,7 @@ function JumpState:new(player)
   self.name = 'jump'
 
   self.player.direction = 'up'
-  self.player.anim = player.animations.jump[player.direction]  
+  self.player.anim = player.animations.jump[player.animationDirection]  
   self.player.hasJumped = player.hasJumped + 1
   self.player.velocityY =  -2 * game.PIXELS_PER_METER
 
@@ -14,7 +14,6 @@ function JumpState:new(player)
   local player = self.player
   if player.hasJumped < 3 then 
     player.physics.body:setLinearVelocity(vx, -360) 
-    --player.colliders.playerCollider:applyLinearImpulse( self.player.velocityX / 5, self.player.velocityY)      
   end
 
 
@@ -22,6 +21,8 @@ function JumpState:new(player)
 end
 
 function JumpState:input(command)
+  JumpState.super.input(self, command)
+
 
   local player = self.player
   if player.hasJumped > 2 then return end
@@ -42,7 +43,7 @@ function JumpState:update(dt)
   if (player.direction == 'left') then velocityX = -player.speed end
   if (player.direction == 'right') then velocityX = player.speed end
 
-  player.anim = player.animations.jump[player.direction]
+  player.anim = player.animations.jump[player.animationDirection]
 
   player.physics.body:setLinearVelocity(velocityX, velocityY) 
 

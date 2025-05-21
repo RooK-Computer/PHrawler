@@ -42,6 +42,7 @@ function Player:setup()
   player.health = 5
   player.debug = {}
   player.isOnGround = false
+  player.isFighting = false
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
@@ -57,19 +58,27 @@ function Player:setup()
   player.physics.fixture:setUserData(player)  
 
   player.direction = 'right'
-  player.formerDirection = 'right'
+  player.animationDirection = 'right'
   player.animationDuration = 0.05
   player.animations = {}
 
 
   for stateName, animationConfig in pairs(player.config.animations) do
 
-    player.animations[stateName] = {}
-    player.animations[stateName].right = anim8.newAnimation( player.grid(animationConfig.grid, animationConfig.column), player.animationDuration )
-    player.animations[stateName].left = player.animations[stateName].right:clone():flipH()
+    local frames = {}
 
-    player.animations[stateName].up = player.animations[stateName].right:clone() 
-    player.animations[stateName].down = player.animations[stateName].right:clone() 
+    for i, grid in pairs(animationConfig) do
+
+      local internalFrames = player.grid(grid.grid, grid.column)
+
+      for i, internalFrame in pairs(internalFrames) do
+        table.insert(frames, internalFrame)
+      end
+    end
+
+    player.animations[stateName] = {}
+    player.animations[stateName].right = anim8.newAnimation( frames, player.animationDuration )
+    player.animations[stateName].left = player.animations[stateName].right:clone():flipH()
 
   end
 
@@ -83,15 +92,23 @@ function Player:checkIsOnGround()
 end
 
 
+function Player:fight()
+
+  self.player.anim = self.player.animations['fighting'][self.player.direction]
+
+
+end
+
 function Player:update(dt)
 
   local player = self
   player.dt = dt
 
   player:checkIsOnGround()
-
   player.inputs[player.activeInput]:checkForInput()
   player.state:update(dt)
+
+  if player.isFighting then player.anim = player.animations['fighting'][player.animationDirection] end
 
   player.x = player.physics.body:getX() - player.width/2
   player.y = player.physics.body:getY() - player.height/2
@@ -103,6 +120,9 @@ function Player:inputStart(command)
 
   local player = self
   if command == 'none' then command = 'idle' end
+
+  if command == 'fight' then player.isFighting = true end
+
   local newState = player.state:input(command)
 
   if newState then 
@@ -116,6 +136,11 @@ function Player:inputEnd(command)
 
   local player = self
   if command == 'none' then command = 'idle' end
+  if command == 'fight' then 
+    player.isFighting = false 
+    player.anim = player.animations[player.state.name][player.animationDirection]
+
+  end
   local newState = player.state:inputEnd(command)
 
   if newState then 

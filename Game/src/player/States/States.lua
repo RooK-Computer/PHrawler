@@ -9,6 +9,11 @@ function State:enter()
 end
 
 function State:input(command)
+  local player = self.player
+
+  if player.direction == 'left' or player.direction == 'right' then
+    player.animationDirection = player.direction
+  end
 end
 
 function State:update(dt)

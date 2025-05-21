@@ -8,7 +8,7 @@ function FallingState:new(player)
 
   self.player.physics.body:setLinearVelocity(self.player.velocityX, self.player.velocityY)
 
-  self.player.anim = player.animations.falling[player.direction]
+  self.player.anim = player.animations.falling[player.animationDirection]
 
   player.direction = 'down'
 
@@ -16,6 +16,7 @@ function FallingState:new(player)
 end
 
 function FallingState:input(command)
+  FallingState.super.input(self, command)
 
   local player = self.player
 
@@ -35,7 +36,6 @@ function FallingState:update(dt)
   if (player.direction == 'left') then player.velocityX = -player.speed end
   if (player.direction == 'right') then player.velocityX = player.speed end
   
-  player.anim = player.animations.falling[player.direction]
 
   if player.isOnGround then 
     player.state = IdleState(player) 
