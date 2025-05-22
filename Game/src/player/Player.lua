@@ -43,6 +43,7 @@ function Player:setup()
   player.debug = {}
   player.isOnGround = false
   player.isFighting = false
+  player.isDead = false
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
@@ -67,9 +68,9 @@ function Player:setup()
 
     local frames = {}
 
-    for i, grid in pairs(animationConfig) do
+    for i, animationFrames in pairs(animationConfig.frames) do
 
-      local internalFrames = player.grid(grid.grid, grid.column)
+      local internalFrames = player.grid(animationFrames.grid, animationFrames.column)
 
       for i, internalFrame in pairs(internalFrames) do
         table.insert(frames, internalFrame)
@@ -77,7 +78,7 @@ function Player:setup()
     end
 
     player.animations[stateName] = {}
-    player.animations[stateName].right = anim8.newAnimation( frames, player.animationDuration )
+    player.animations[stateName].right = anim8.newAnimation( frames, player.animationDuration, animationConfig.onLoop or function() end )
     player.animations[stateName].left = player.animations[stateName].right:clone():flipH()
 
   end
@@ -92,10 +93,51 @@ function Player:checkIsOnGround()
 end
 
 
-function Player:fight()
+function Player:fightStart()
 
-  self.player.anim = self.player.animations['fighting'][self.player.direction]
+  local player = self
+  player.isFighting = true 
 
+  local offsetX = player.width/5
+  if player.animationDirection == 'left' then offsetX = -player.width/5 end
+
+  local shape = love.physics.newRectangleShape(offsetX, 0, 15, player.height/3)
+  local fixture = love.physics.newFixture(player.physics.body, shape)
+  fixture:setUserData({player = player, collisionClass = 'FightOtherPlayer'})  
+  fixture:setSensor(true)
+
+  player.physics.fightFixture = fixture
+
+end
+
+function Player:dying()
+  local player = self
+
+  if player.isDead then 
+
+    if player.anim.status == 'paused' then
+
+      local passedTime = love.timer.getTime() - player.startTimer
+
+      if passedTime > 2 then 
+
+
+        for i, gamePlayer in ipairs(game.players) do 
+
+          if gamePlayer.id == player.id then 
+            table.remove(game.players, i)
+          end
+
+        end
+      end
+
+    end
+  else 
+    player.isDead = true
+    player.startTimer = love.timer.getTime()
+    --player.physics.fixture:setSensor(true)
+    player.anim = player.animations['dying'][player.animationDirection]
+  end
 
 end
 
@@ -108,7 +150,9 @@ function Player:update(dt)
   player.inputs[player.activeInput]:checkForInput()
   player.state:update(dt)
 
+  -- needs a new state machine!
   if player.isFighting then player.anim = player.animations['fighting'][player.animationDirection] end
+  if player.health == 0 then player:dying() end
 
   player.x = player.physics.body:getX() - player.width/2
   player.y = player.physics.body:getY() - player.height/2
@@ -120,8 +164,7 @@ function Player:inputStart(command)
 
   local player = self
   if command == 'none' then command = 'idle' end
-
-  if command == 'fight' then player.isFighting = true end
+  if command == 'fight' then player:fightStart() end
 
   local newState = player.state:input(command)
 
@@ -139,8 +182,9 @@ function Player:inputEnd(command)
   if command == 'fight' then 
     player.isFighting = false 
     player.anim = player.animations[player.state.name][player.animationDirection]
-
+    player.physics.fightFixture:destroy()
   end
+
   local newState = player.state:inputEnd(command)
 
   if newState then 

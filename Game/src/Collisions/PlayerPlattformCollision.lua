@@ -1,4 +1,7 @@
 PlayerPlattformCollision = {
+  
+  collisionClassA = 'Plattform',
+  collisionClassB = 'Player',
 
   beginContact = function(plattform, player, contact)
     player.isOnGround = true 

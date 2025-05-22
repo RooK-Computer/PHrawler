@@ -51,9 +51,10 @@ end
 
 function love.update(dt)
 
+  local allPlayers = game.players
 
-  for i = 1, #game.players do
-    game.players[i]:update(dt)
+  for i, player in ipairs(allPlayers) do
+    player:update(dt)
   end
 
   game.world:update(dt)
@@ -81,25 +82,29 @@ function love.draw()
 
 
     for i = 1, #game.players do
-      if i > 1 then
-    else 
+      if i > 32 then
+      else 
         statsPositionY = statsPositionY + 20
         local player = game.players[i]
         --love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
         love.graphics.print(player.name .. " AnimDirection: ".. player.animationDirection .. ' / isFighting: ' .. tostring(player.isFighting), statsPositionX, statsPositionY)
         statsPositionY = statsPositionY + 10            
 
-        local velocityX, velocityY = player.physics.body:getLinearVelocity()
 
-        love.graphics.print(player.name .. " velocityX: ".. velocityX .. " | velocityY: " .. velocityY , statsPositionX, statsPositionY)
-        statsPositionY = statsPositionY + 10      
+        love.graphics.print(player.name .. " health: ".. player.health, statsPositionX, statsPositionY)
+        statsPositionY = statsPositionY + 10   
 
-        love.graphics.print(player.name .. " State: ".. player.state.name, statsPositionX, statsPositionY)
-        statsPositionY = statsPositionY + 10
-        love.graphics.print(player.name .. " isOnGround: " .. tostring(player.isOnGround), statsPositionX, statsPositionY)      
+        --local velocityX, velocityY = player.physics.body:getLinearVelocity()
 
-        statsPositionY = statsPositionY + 10
-        love.graphics.print(player.name .. " hasJumped: " .. tostring(player.hasJumped), statsPositionX, statsPositionY)
+        --love.graphics.print(player.name .. " velocityX: ".. velocityX .. " | velocityY: " .. velocityY , statsPositionX, statsPositionY)
+        --statsPositionY = statsPositionY + 10      
+
+        --love.graphics.print(player.name .. " State: ".. player.state.name, statsPositionX, statsPositionY)
+        --statsPositionY = statsPositionY + 10
+        --love.graphics.print(player.name .. " isOnGround: " .. tostring(player.isOnGround), statsPositionX, statsPositionY)      
+
+        --statsPositionY = statsPositionY + 10
+        --love.graphics.print(player.name .. " hasJumped: " .. tostring(player.hasJumped), statsPositionX, statsPositionY)
       end
     end
 
