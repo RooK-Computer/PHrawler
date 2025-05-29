@@ -1,4 +1,4 @@
-animationConfig = {
+animationConfigDefault = {
   [Constants.IDLE_STATE] = {
     frames = {
       {

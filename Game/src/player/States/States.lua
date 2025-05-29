@@ -18,7 +18,3 @@ end
 
 function State:inputEnd(command)
 end
-
-
-
-

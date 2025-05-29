@@ -1,5 +1,5 @@
 require('src/input/InputManager')
-require('src/player/States/StateMachine')
+require('src/player/States/StateManager')
 
 
 Player = Object:extend()
@@ -80,7 +80,7 @@ function Player:setup()
   end
 
 
-  player.stateMachine = StateMachine(player)
+  player.stateMachine = StateManager(player)
 
 end
 
@@ -89,52 +89,16 @@ function Player:checkIsOnGround()
   if vy == 0 then self.isOnGround = true end  
 end
 
-function Player:dying()
-  local player = self
-  player.anim = player.animations['dying'][player.animationDirection]
-
-
-  if player.isDead then 
-
-    if player.anim.status == 'paused' then
-
-      local passedTime = love.timer.getTime() - player.startTimer
-
-      if passedTime > 2 then 
-        player.state = DeadState:new(self)
-        player.physics.fixture:destroy()
-
-        for i, gamePlayer in ipairs(game.players) do 
-
-          if gamePlayer.id == player.id then 
-            table.remove(game.players, i)
-          end
-
-        end
-      end
-
-    end
-  else 
-    player.isDead = true
-    player.startTimer = love.timer.getTime()
-    player.physics.body:setType('static')
-    player.physics.body:setActive(true)
-  end
-
-end
 
 function Player:update(dt)
 
   local player = self
-  --if player.state.name == 'dead' then return end
   player.dt = dt
 
   player:checkIsOnGround()
   player.inputs[player.activeInput]:checkForInput()
 
   player.stateMachine:update(dt)
-
-  if player.health <= 0 then player:dying() end
 
   player.x = player.physics.body:getX() - player.width/2
   player.y = player.physics.body:getY() - player.height/2
@@ -149,7 +113,6 @@ end
 function Player:inputEnd(command)  
   self.stateMachine:inputEnd(command)
 end
-
 
 function Player:draw()
   self.anim:draw(self.spritesheet, self.x, self.y, nil, game.scale)

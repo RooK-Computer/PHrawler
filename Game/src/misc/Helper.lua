@@ -40,5 +40,21 @@ Helper = {
 
     love.graphics.setColor(r, g, b, a)
 
+  end,
+
+  deepCloneTable = function(t) -- deep-copy a table
+    if type(t) ~= "table" then return t end
+    local meta = getmetatable(t)
+    local target = {}
+    for k, v in pairs(t) do
+      if type(v) == "table" then
+        target[k] = Helper.deepCloneTable(v)
+      else
+        target[k] = v
+      end
+    end
+    setmetatable(target, meta)
+    return target
   end
+
 }

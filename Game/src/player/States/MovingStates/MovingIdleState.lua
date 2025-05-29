@@ -1,3 +1,8 @@
+require('src/player/States/MovingStates/RunningState')
+require('src/player/States/MovingStates/JumpState')
+require('src/player/States/MovingStates/FallingState')
+
+--EntryState
 MovingIdleState = State:extend()
 
 function MovingIdleState:new(player)

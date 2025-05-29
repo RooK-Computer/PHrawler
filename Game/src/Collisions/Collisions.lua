@@ -15,14 +15,6 @@ function beginContact(a, b, contact)
     if aObject.collisionClass == collision.collisionClassA and bObject.collisionClass == collision.collisionClassB then collision.beginContact(aObject, bObject, contact) end  
   end
 
-  if aObject.collisionClass == 'Player' and bObject.collisionClass == 'FightOtherPlayer' then 
-    
-    local stop =2
-    
-    
-    end  
-
-
 end
 
 

@@ -17,5 +17,6 @@ Constants = {
   PLAYER_FIGHT_COMMAND = 'fight',
   PLAYER_JUMP_COMMAND = 'jump',
   PLAYER_RUN_COMMAND = 'run',
+  PLAYER_HIT_COMMAND = 'hit',
 
 }

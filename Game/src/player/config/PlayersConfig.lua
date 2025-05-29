@@ -1,5 +1,6 @@
 require('src/player/config/gamepadConfig')
-require('src/player/config/animationConfig')
+require('src/player/config/animationConfigDefault')
+require('src/player/config/animationConfigMale')
 
 PlayersConfig = {
   {
@@ -20,7 +21,7 @@ PlayersConfig = {
       },
       defaultInput = 'gamepad',
     },
-    animations = animationConfig
+    animations = animationConfigDefault
   },
   {
     name = 'Player Two',
@@ -40,7 +41,7 @@ PlayersConfig = {
       },
       defaultInput = 'gamepad',
     },
-    animations = animationConfig
+    animations = animationConfigDefault
   },
   {
     name = 'Player Three',
@@ -60,7 +61,7 @@ PlayersConfig = {
       },
       defaultInput = 'keyboard',
     },
-    animations = animationConfig
+    animations = animationConfigMale
   },
   {
     name = 'Player Four',
@@ -80,6 +81,6 @@ PlayersConfig = {
       },
       defaultInput = 'keyboard',
     },
-    animations = animationConfig
+    animations = animationConfigMale
   }
 }

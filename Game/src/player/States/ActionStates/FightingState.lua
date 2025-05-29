@@ -18,6 +18,16 @@ function FightingState:new(player)
 
   self.player.physics.fightFixture = fixture
 
+  return self
+
+end
+
+
+function FightingState:input(command)
+
+  local player = self.player
+  if command == Constants.PLAYER_HIT_COMMAND then return HitState(player) end
+
 end
 
 
@@ -25,6 +35,7 @@ function FightingState:update(dt)
 
   local player = self.player
   player.anim = player.animations[Constants.FIGHT_STATE][player.animationDirection]
+  
 end
 
 

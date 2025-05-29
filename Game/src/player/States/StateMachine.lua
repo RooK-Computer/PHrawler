@@ -1,42 +1,38 @@
 StateMachine = Object:extend()
 
-function StateMachine:new(player)
+function StateMachine:new(player, name, entryState)
   self.player = player
-  self.name = player.name
-  self.stateMachines = {
-    MovingStateMachine(player),
-    ActionStateMachine(player)
-  }
-
+  self.name = name
+  self.state = entryState(player)
   return self
 end
 
 
 function StateMachine:update(dt)
-  for i,state in ipairs(self.stateMachines) do 
-    state:update(dt)
-  end 
-end
-
-
-function StateMachine:inputStart(command)
-
-  if command == 'none' then command = 'idle' end
-
-  for i, state in ipairs(self.stateMachines) do
-    state:input(command)
+  local newState = self.state:update(command)
+  if newState then 
+    self.state = newState
   end
 end
+
+
+function StateMachine:input(command)
+
+  local newState = self.state:input(command)
+
+  if newState then 
+    self.state = newState
+  end
+
+
+end
+
 
 function StateMachine:inputEnd(command)
+  local newState = self.state:inputEnd(command)
 
-  if command == 'none' then command = 'idle' end
-
-  for i, state in ipairs(self.stateMachines) do
-    state:inputEnd(command)
+  if newState then 
+    self.state = newState
   end
-end
 
-require('src/player/States/States')
-require('src/player/States/MovingStateMachine/MovingStateMachine')
-require('src/player/States/ActionStateMachine/ActionStateMachine')
+end

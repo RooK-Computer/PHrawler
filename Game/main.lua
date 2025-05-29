@@ -39,9 +39,6 @@ function love.load(arg)
 
   --playersConfig = {}
   --table.insert(playersConfig, table.remove(PlayersConfig, 1))
-  
-  local test = {}
-
 
   for i,playerConfig in ipairs(playersConfig) do
     local player =  Player(playerConfig, game)

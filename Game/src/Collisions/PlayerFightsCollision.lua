@@ -7,34 +7,27 @@ PlayerFightsCollision = {
 
     local player = collision.player
 
-
-
-    local impulseX, impulseY = 50, -50
+    local enemyImpulseX, enemyImpulseY = 100, -100
     if player.animationDirection == 'left' then 
-      impulseX = -impulseX
+      enemyImpulseX = -enemyImpulseX
     end
 
+    local playerImpulseX, playerImpulseY = -enemyImpulseX, enemyImpulseY
+    player.physics.body:applyLinearImpulse( playerImpulseX, playerImpulseY )
+
     enemy.health = enemy.health - 1 
-    --enemy.health = 0 
-    enemy.physics.body:applyLinearImpulse( impulseX, impulseY )
-    if enemy.health > 0 then enemy.anim = enemy.animations['hit'][enemy.animationDirection] end
+    enemy.physics.body:applyLinearImpulse( enemyImpulseX, enemyImpulseY )
+    enemy:inputStart(Constants.PLAYER_HIT_COMMAND)
 
   end,
 
-  endContact = function(plattform, player, contact)
+  endContact = function(enemy, player, contact)
   end,
 
-  preSolve = function(plattform, player, contact)
-
-    local plattformX = plattform.body:getX()
-    local plattformY = plattform.body:getY()
-
-    local playerX = player.physics.body:getX()
-    local playerY = player.physics.body:getY()
-
+  preSolve = function(enemy, player, contact)
   end, 
 
-  postSolve = function(plattform, player, contact, normalimpulse, tangentimpulse)
+  postSolve = function(enemy, player, contact, normalimpulse, tangentimpulse)
   end,
 
 }
