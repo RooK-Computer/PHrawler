@@ -1,5 +1,5 @@
 animationConfig = {
-  idle = {
+  [Constants.IDLE_STATE] = {
     frames = {
       {
         grid = '1-8',
@@ -7,7 +7,7 @@ animationConfig = {
       }
     }
   },
-  running = {
+  [Constants.RUN_STATE] = {
     frames = {
       {
         grid = '1-8',
@@ -15,7 +15,7 @@ animationConfig = {
       }
     }
   },
-  jump = {
+  [Constants.JUMP_STATE] = {
     frames =  {
       {
         grid = '1-2',
@@ -23,7 +23,7 @@ animationConfig = {
       }
     }
   },
-  falling = {
+  [Constants.FALL_STATE] = {
     frames = {
       {
         grid = '3-4',
@@ -31,7 +31,7 @@ animationConfig = {
       }
     }
   },
-  fighting = {
+  [Constants.FIGHT_STATE] = {
     frames = {
       {
         grid = '3-8',
@@ -43,7 +43,7 @@ animationConfig = {
       }
     }
   },
-  dying = {
+  [Constants.DEAD_STATE] = {
     frames = {
       {
         grid = '1-7',
@@ -51,5 +51,13 @@ animationConfig = {
       }
     },
     onLoop = 'pauseAtEnd'
+  },
+  [Constants.HIT_STATE] = {
+    frames = {
+      {
+        grid = '7-8',
+        column = 4
+      }
+    }
   }
 }

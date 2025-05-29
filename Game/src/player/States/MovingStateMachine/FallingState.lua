@@ -2,7 +2,7 @@ FallingState = State:extend()
 
 function FallingState:new(player)
   FallingState.super.new(self, player)
-  self.name = 'falling'
+  self.name = Constants.FALL_STATE
 
   self.player.velocityY = player.speed/2
 
@@ -10,7 +10,7 @@ function FallingState:new(player)
 
   self.player.anim = player.animations.falling[player.animationDirection]
 
-  player.direction = 'down'
+  player.direction = Constants.PLAYER_DIRECTION_DOWN
 
   return self
 end
@@ -23,9 +23,9 @@ function FallingState:input(command)
   local canJump = true
   if player.hasJumped > 1 then canJump = false end
 
-  if command == 'jump' and canJump then return JumpState(player) end
-  if command == 'right' then player.direction = 'right'  end
-  if command == 'left' then player.direction = 'left' end
+  if command == Constants.JUMP_STATE and canJump then return JumpState(player) end
+  if command == Constants.PLAYER_DIRECTION_RIGHT then player.direction = Constants.PLAYER_DIRECTION_RIGHT  end
+  if command == Constants.PLAYER_DIRECTION_LEFT then player.direction = Constants.PLAYER_DIRECTION_LEFT end
 
 end
 
@@ -33,12 +33,12 @@ function FallingState:update(dt)
 
   local player = self.player
 
-  if (player.direction == 'left') then player.velocityX = -player.speed end
-  if (player.direction == 'right') then player.velocityX = player.speed end
+  if (player.direction == Constants.PLAYER_DIRECTION_LEFT) then player.velocityX = -player.speed end
+  if (player.direction == Constants.PLAYER_DIRECTION_RIGHT) then player.velocityX = player.speed end
   
 
   if player.isOnGround then 
-    player.state = IdleState(player) 
+    return MovingIdleState(player) 
   end
 
   local vx, vy = player.physics.body:getLinearVelocity()

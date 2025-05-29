@@ -1,5 +1,5 @@
 require('src/input/InputManager')
-require('src/player/States/States')
+require('src/player/States/StateMachine')
 
 
 Player = Object:extend()
@@ -22,8 +22,6 @@ function Player:new(config, game)
   end 
 
   self.inputManager = self.inputs[self.activeInput]
-
-
   self.config = config
 
   self:setup()
@@ -42,8 +40,6 @@ function Player:setup()
   player.health = 5
   player.debug = {}
   player.isOnGround = false
-  player.isFighting = false
-  player.isDead = false
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
@@ -83,7 +79,8 @@ function Player:setup()
 
   end
 
-  player.state = FallingState(self)
+
+  player.stateMachine = StateMachine(player)
 
 end
 
@@ -92,26 +89,10 @@ function Player:checkIsOnGround()
   if vy == 0 then self.isOnGround = true end  
 end
 
-
-function Player:fightStart()
-
-  local player = self
-  player.isFighting = true 
-
-  local offsetX = player.width/5
-  if player.animationDirection == 'left' then offsetX = -player.width/5 end
-
-  local shape = love.physics.newRectangleShape(offsetX, 0, 15, player.height/3)
-  local fixture = love.physics.newFixture(player.physics.body, shape)
-  fixture:setUserData({player = player, collisionClass = 'FightOtherPlayer'})  
-  fixture:setSensor(true)
-
-  player.physics.fightFixture = fixture
-
-end
-
 function Player:dying()
   local player = self
+  player.anim = player.animations['dying'][player.animationDirection]
+
 
   if player.isDead then 
 
@@ -120,7 +101,8 @@ function Player:dying()
       local passedTime = love.timer.getTime() - player.startTimer
 
       if passedTime > 2 then 
-
+        player.state = DeadState:new(self)
+        player.physics.fixture:destroy()
 
         for i, gamePlayer in ipairs(game.players) do 
 
@@ -135,8 +117,8 @@ function Player:dying()
   else 
     player.isDead = true
     player.startTimer = love.timer.getTime()
-    --player.physics.fixture:setSensor(true)
-    player.anim = player.animations['dying'][player.animationDirection]
+    player.physics.body:setType('static')
+    player.physics.body:setActive(true)
   end
 
 end
@@ -144,15 +126,15 @@ end
 function Player:update(dt)
 
   local player = self
+  --if player.state.name == 'dead' then return end
   player.dt = dt
 
   player:checkIsOnGround()
   player.inputs[player.activeInput]:checkForInput()
-  player.state:update(dt)
 
-  -- needs a new state machine!
-  if player.isFighting then player.anim = player.animations['fighting'][player.animationDirection] end
-  if player.health == 0 then player:dying() end
+  player.stateMachine:update(dt)
+
+  if player.health <= 0 then player:dying() end
 
   player.x = player.physics.body:getX() - player.width/2
   player.y = player.physics.body:getY() - player.height/2
@@ -161,36 +143,11 @@ function Player:update(dt)
 end
 
 function Player:inputStart(command)
-
-  local player = self
-  if command == 'none' then command = 'idle' end
-  if command == 'fight' then player:fightStart() end
-
-  local newState = player.state:input(command)
-
-  if newState then 
-    player.state = newState
-  end
-
-
+  self.stateMachine:inputStart(command)
 end
 
-function Player:inputEnd(command)
-
-  local player = self
-  if command == 'none' then command = 'idle' end
-  if command == 'fight' then 
-    player.isFighting = false 
-    player.anim = player.animations[player.state.name][player.animationDirection]
-    player.physics.fightFixture:destroy()
-  end
-
-  local newState = player.state:inputEnd(command)
-
-  if newState then 
-    player.state = newState
-  end
-
+function Player:inputEnd(command)  
+  self.stateMachine:inputEnd(command)
 end
 
 

@@ -11,7 +11,9 @@ push = require('lib/push') -- gives us resizable screens
 
 
 --classes
+require('src/misc/Constants')
 require('src/misc/Helper')
+require 'src/player/config/PlayersConfig' 
 require('src/collisions/Collisions')
 require('src/level/Level')
 require('src/player/player')

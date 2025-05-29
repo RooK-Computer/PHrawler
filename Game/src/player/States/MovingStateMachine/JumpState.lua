@@ -2,9 +2,9 @@ JumpState = State:extend()
 
 function JumpState:new(player)
   JumpState.super.new(self, player)
-  self.name = 'jump'
+  self.name = Constants.JUMP_STATE
 
-  self.player.direction = 'up'
+  self.player.direction = Constants.PLAYER_DIRECTION_UP
   self.player.anim = player.animations.jump[player.animationDirection]  
   self.player.hasJumped = player.hasJumped + 1
   self.player.velocityY =  -2 * game.PIXELS_PER_METER
@@ -28,9 +28,9 @@ function JumpState:input(command)
   if player.hasJumped > 2 then return end
 
 
-  if command == 'jump'  then return JumpState(player) end
-  if command == 'right' then player.direction = 'right' return end
-  if command == 'left' then player.direction = 'left' return end
+  if command == Constants.JUMP_STATE  then return JumpState(player) end
+  if command == Constants.PLAYER_DIRECTION_RIGHT then player.direction = Constants.PLAYER_DIRECTION_RIGHT return end
+  if command == Constants.PLAYER_DIRECTION_LEFT then player.direction = Constants.PLAYER_DIRECTION_LEFT return end
 
 end
 
@@ -40,15 +40,15 @@ function JumpState:update(dt)
 
   local velocityX, velocityY = player.physics.body:getLinearVelocity()
 
-  if (player.direction == 'left') then velocityX = -player.speed end
-  if (player.direction == 'right') then velocityX = player.speed end
+  if (player.direction == Constants.PLAYER_DIRECTION_LEFT ) then velocityX = -player.speed end
+  if (player.direction == Constants.PLAYER_DIRECTION_RIGHT ) then velocityX = player.speed end
 
   player.anim = player.animations.jump[player.animationDirection]
 
   player.physics.body:setLinearVelocity(velocityX, velocityY) 
 
   if velocityY > 0 then 
-    player.state = FallingState(player) 
+    return FallingState(player) 
   end
 
 

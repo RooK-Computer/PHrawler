@@ -15,7 +15,7 @@ function RunningState:input(command)
 
   if command == 'left' then player.direction = command end
   if command == 'right' then player.direction = command end
-  if command == 'idle' then return IdleState(player) end
+  if command == 'idle' then return MovingIdleState(player) end
   if command == 'jump' then return JumpState(player) end
 
 end
@@ -25,7 +25,7 @@ function RunningState:inputEnd(command)
 
 
   local player = self.player
-  return IdleState(player)
+  return MovingIdleState(player)
 
 end
 
@@ -33,8 +33,7 @@ function RunningState:update(dt)
 
   local player = self.player
   if not player.isOnGround then 
-    player.state = FallingState(player) 
-    return
+    return FallingState(player) 
   end
 
 

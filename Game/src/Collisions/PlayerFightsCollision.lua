@@ -17,6 +17,7 @@ PlayerFightsCollision = {
     enemy.health = enemy.health - 1 
     --enemy.health = 0 
     enemy.physics.body:applyLinearImpulse( impulseX, impulseY )
+    if enemy.health > 0 then enemy.anim = enemy.animations['hit'][enemy.animationDirection] end
 
   end,
 

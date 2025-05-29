@@ -1,7 +1,7 @@
 require('src/player/config/gamepadConfig')
 require('src/player/config/animationConfig')
 
-tmpPlayersConfig = {
+PlayersConfig = {
   {
     name = 'Player One',
     id = 'player_one',

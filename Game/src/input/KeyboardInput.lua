@@ -20,7 +20,7 @@ function KeyboardInput:registerPlayer(player, controls)
     self.keys[key].id = player.id
     self.keys[key].command = command
 
-    if command == 'left' or command == 'right' then
+    if command == 'left' or command == 'right' or command == 'fight' then
       self.continuousInputKeys[key] = {}
       self.continuousInputKeys[key].id = player.id
       self.continuousInputKeys[key].command = command

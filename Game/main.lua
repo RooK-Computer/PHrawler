@@ -33,18 +33,20 @@ function love.load(arg)
       highdpi = true
     })
 
-  require 'src/player/config/tmpPlayersConfig' 
+  require 'src/player/config/PlayersConfig' 
 
-  local playersConfig = tmpPlayersConfig
+  local playersConfig = PlayersConfig
 
   --playersConfig = {}
-  --table.insert(playersConfig, table.remove(tmpPlayersConfig, 1))
+  --table.insert(playersConfig, table.remove(PlayersConfig, 1))
+  
+  local test = {}
 
-  for i,playerConfig in pairs(playersConfig) do
+
+  for i,playerConfig in ipairs(playersConfig) do
     local player =  Player(playerConfig, game)
     table.insert(game.players, player)
   end
-
 
 
 end

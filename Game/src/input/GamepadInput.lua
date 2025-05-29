@@ -30,7 +30,7 @@ function GamepadInput:registerPlayer(player, controls)
       self.buttons[playerID][button] = {}
       self.buttons[playerID][button] = command
 
-      if command == 'left' or command == 'right' then
+    if command == 'left' or command == 'right' or command == 'fight' then
         self.continuousInputButtons[playerID][button] = {}
         self.continuousInputButtons[playerID][button] = command
       else 
