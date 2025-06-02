@@ -1,11 +1,12 @@
 FightingState = State:extend()
 
 function FightingState:new(player)
-  self.player = player
+  FightingState.super.new(self, player)
+  
   self.name = Constants.FIGHT_STATE
-
   self.player.anim = player.animations[Constants.FIGHT_STATE][player.animationDirection]
 
+  if player.physics.fightFixture ~= nil and not player.physics.fightFixture:isDestroyed() then return self end
 
   local offsetX = player.width/5
 
@@ -19,31 +20,32 @@ function FightingState:new(player)
   self.player.physics.fightFixture = fixture
 
   return self
-
 end
 
 
 function FightingState:input(command)
-
+  FightingState.super.input(self, command)
   local player = self.player
+
   if command == Constants.PLAYER_HIT_COMMAND then return HitState(player) end
 
 end
 
 
 function FightingState:update(dt)
-
   local player = self.player
-  player.anim = player.animations[Constants.FIGHT_STATE][player.animationDirection]
   
+  player.anim = player.animations[Constants.FIGHT_STATE][player.animationDirection]
+
 end
 
 
 function FightingState:inputEnd(command)
   local player = self.player
+  
   player.anim = player.animations[Constants.IDLE_STATE][player.animationDirection]
-  player.physics.fightFixture:destroy()
+  if not player.physics.fightFixture:isDestroyed() then player.physics.fightFixture:destroy() end
 
-  return ActionIdleState:new(player)
+  return ActionIdleState(player)
 
 end

@@ -9,7 +9,7 @@ end
 
 
 function StateMachine:update(dt)
-  local newState = self.state:update(command)
+  local newState = self.state:update(dt)
   if newState then 
     self.state = newState
   end

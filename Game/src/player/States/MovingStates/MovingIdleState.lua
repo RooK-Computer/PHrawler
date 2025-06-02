@@ -8,7 +8,7 @@ MovingIdleState = State:extend()
 function MovingIdleState:new(player)
   MovingIdleState.super.new(self, player)
   self.name = Constants.IDLE_STATE
-  
+
   self.player.velocityX = 0
   self.player.velocityY = player.speed/2
   self.player.hasJumped = 0
@@ -20,22 +20,23 @@ function MovingIdleState:new(player)
 end
 
 function MovingIdleState:input(command)
+  local player = self.player
+  if player.isDead then return end
   MovingIdleState.super.input(self, command)
 
-  local player = self.player
 
   if command == Constants.PLAYER_DIRECTION_LEFT then 
     player.direction = Constants.PLAYER_DIRECTION_LEFT
     return RunningState(player) 
   end
-  
+
   if command == Constants.PLAYER_DIRECTION_RIGHT then 
     player.direction = Constants.PLAYER_DIRECTION_RIGHT
     return RunningState(player) 
   end
-  
+
   if command == Constants.JUMP_STATE then 
     return JumpState(player) 
   end
-  
+
 end

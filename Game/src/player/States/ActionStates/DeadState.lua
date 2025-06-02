@@ -1,28 +1,29 @@
 DeadState = State:extend()
 
 function DeadState:new(player)
-  self.player = player
+  DeadState.super.new(self, player)
+
   self.name = Constants.DEAD_STATE
   self.player.startTimer = love.timer.getTime()
   self.player.anim = player.animations[Constants.DEAD_STATE][player.animationDirection]
-  self.player.physics.body:setType('static')
-  self.player.physics.body:setActive(true)
-  
-  return self
+  self.player.physics.body:setAngle(math.rad(90))
+  self.player.collisionClass = Constants.DEAD_STATE
+  self.player.isDead = true
 
+  return self
 end
 
-function DeadState:update(command)
-
+function DeadState:update(dt)
+  DeadState.super.input(self, command)
   local player = self.player
+
   player.anim = player.animations[Constants.DEAD_STATE][player.animationDirection]
 
   if player.anim.status == 'paused' then
-
     local passedTime = love.timer.getTime() - player.startTimer
 
     if passedTime > 2 then 
-      player.physics.fixture:destroy()
+      if not self.player.physics.fixture:isDestroyed() then self.player.physics.fixture:destroy() end
 
       for i, gamePlayer in ipairs(game.players) do 
 

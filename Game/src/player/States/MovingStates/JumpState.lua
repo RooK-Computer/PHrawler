@@ -11,7 +11,6 @@ function JumpState:new(player)
 
   local vx, vy = player.physics.body:getLinearVelocity()
 
-  local player = self.player
   if player.hasJumped < 3 then 
     player.physics.body:setLinearVelocity(vx, -360) 
   end
