@@ -1,5 +1,5 @@
 ## PHrawler
-A simple yet fun local 2D-Mutiplayer-Brawler for R∞k 
+A simple yet (hopefully) fun local 2D-Mutiplayer-Brawler for R∞k 
 
 ## Development
 
@@ -25,12 +25,12 @@ A simple yet fun local 2D-Mutiplayer-Brawler for R∞k
 
 
 ## Not Working, But Planed
-- up to 16 players on one console
-- Settings menu
 - Start Menu
 - Player selection screen
+- Settings menu
 - More levels
 - Level selection screen
+- up to 16 players on one console
 
 ## Wishes for Upgrades
 - Using objects
