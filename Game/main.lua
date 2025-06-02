@@ -7,7 +7,6 @@ game = {
   scale = 1,
   activateDebug = false,
   PIXELS_PER_METER = 100,
-  savedAnimationDuration = 0,
   level = {},
   world = {},
   players = {},
@@ -38,7 +37,10 @@ function love.load(arg)
   local playersConfig = PlayersConfig
 
   --playersConfig = {}
-  --table.insert(playersConfig, table.remove(PlayersConfig, 1))
+  --table.insert(playersConfig, table.remove(PlayersConfig, 1)) --only insert player 1
+  --table.insert(playersConfig, table.remove(PlayersConfig, 1)) --only insert player 2
+  --table.insert(playersConfig, table.remove(PlayersConfig, 1)) --only insert player 3
+  --table.insert(playersConfig, table.remove(PlayersConfig, 1)) --only insert player 4
 
   for i,playerConfig in ipairs(playersConfig) do
     local player =  Player(playerConfig, game)
