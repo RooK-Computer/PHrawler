@@ -60,13 +60,24 @@ Helper = {
   getPlayerById = function(id)
 
     player = nil
-    
+
     for i = 1, #game.players do
       if game.players[i].id == id then player = game.players[i] end
     end
-    
+
     return player
 
+  end,
+
+  shuffleArray = function(t)
+    math.randomseed(os.time()) -- so that the results are always different
+    local s = {}
+    for i = 1, #t do s[i] = t[i] end
+    for i = #t, 2, -1 do
+        local j = math.random(i)
+        s[i], s[j] = s[j], s[i]
+    end
+    return s
   end,
 
 }

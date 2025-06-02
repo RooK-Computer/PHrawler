@@ -23,9 +23,6 @@ function Player:new(config, game)
 
   self.inputManager = self.inputs[self.activeInput]
   self.config = config
-
-  self:setup()
-
 end
 
 function Player:setup()
@@ -83,6 +80,11 @@ function Player:setup()
 
   player.stateManager = StateManager(player)
 
+end
+
+function Player:setStartingPoint(point) 
+  self.x = point.x
+  self.y = point.y
 end
 
 function Player:checkIsOnGround() 

@@ -1,15 +1,23 @@
 Level = Object:extend()
 
 function Level:new(world, config)
-  self.level = {}
+  self.stage = {}
   if config.level == 'betastage' then 
       require('src/level/TiledMaps/BetaStage')
-      self.level = BetaStage(world)      
+      self.stage = BetaStage(world)      
     end
 
 end
 
 
 function Level:draw()
-  self.level:draw()
+  self.stage:draw()
+end
+
+function Level:getStartingPoints()
+    return self.stage.startingPoints
+end
+
+function Level:getStartingPoint(i)
+    return self.stage.startingPoints[i]
 end

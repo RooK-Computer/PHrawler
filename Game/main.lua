@@ -44,6 +44,9 @@ function love.load(arg)
 
   for i,playerConfig in ipairs(playersConfig) do
     local player =  Player(playerConfig, game)
+    player:setStartingPoint(game.level.stage.startingPoints[i])
+    player:setup()
+
     table.insert(game.players, player)
   end
 

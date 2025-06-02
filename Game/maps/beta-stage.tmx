@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="74">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="98">
  <editorsettings>
   <export target="beta-stage.lua" format="lua"/>
  </editorsettings>
@@ -187,7 +187,7 @@
   <object id="41" x="649.587" y="-265.705" width="37.5346" height="769.459"/>
   <object id="72" x="-32.98" y="-296.82" width="711.425" height="32.98"/>
  </objectgroup>
- <objectgroup id="11" name="Plattforms">
+ <objectgroup id="11" name="Plattforms" visible="0">
   <object id="57" x="193.681" y="15.7366" width="317.758" height="10"/>
   <object id="58" x="209.314" y="138.347" width="286.288" height="10"/>
   <object id="59" x="256.199" y="218.053" width="239.119" height="10"/>
@@ -201,6 +201,71 @@
   <object id="67" x="511.543" y="272.709" width="174.482" height="10"/>
   <object id="68" x="17.5231" y="144.447" width="186.597" height="10"/>
   <object id="73" x="-43.0328" y="479.65" width="731.126" height="10"/>
+ </objectgroup>
+ <objectgroup id="13" name="StartPoints" visible="0">
+  <object id="77" x="33.5847" y="50.0825">
+   <ellipse/>
+  </object>
+  <object id="78" x="173.226" y="43.012">
+   <ellipse/>
+  </object>
+  <object id="79" x="467.24" y="113.717">
+   <ellipse/>
+  </object>
+  <object id="80" x="560.335" y="189.724">
+   <ellipse/>
+  </object>
+  <object id="81" x="73.6507" y="193.259">
+   <ellipse/>
+  </object>
+  <object id="82" x="461.348" y="194.438">
+   <ellipse/>
+  </object>
+  <object id="83" x="77.186" y="270.445">
+   <ellipse/>
+  </object>
+  <object id="84" x="461.937" y="275.748">
+   <ellipse/>
+  </object>
+  <object id="85" x="69.5263" y="356.469">
+   <ellipse/>
+  </object>
+  <object id="86" x="460.17" y="354.702">
+   <ellipse/>
+  </object>
+  <object id="87" x="73.0615" y="435.423">
+   <ellipse/>
+  </object>
+  <object id="88" x="290.478" y="426.585">
+   <ellipse/>
+  </object>
+  <object id="89" x="468.419" y="415.39">
+   <ellipse/>
+  </object>
+  <object id="90" x="570.351" y="306.976">
+   <ellipse/>
+  </object>
+  <object id="91" x="299.906" y="192.081">
+   <ellipse/>
+  </object>
+  <object id="92" x="300.495" y="275.748">
+   <ellipse/>
+  </object>
+  <object id="93" x="296.37" y="353.523">
+   <ellipse/>
+  </object>
+  <object id="94" x="262.197" y="113.128" width="0.589206">
+   <ellipse/>
+  </object>
+  <object id="95" x="298.138" y="111.949">
+   <ellipse/>
+  </object>
+  <object id="96" x="607.471" y="32.9955">
+   <ellipse/>
+  </object>
+  <object id="97" x="573.297" y="431.299">
+   <ellipse/>
+  </object>
  </objectgroup>
  <layer id="2" name="Details" width="40" height="30">
   <data encoding="csv">

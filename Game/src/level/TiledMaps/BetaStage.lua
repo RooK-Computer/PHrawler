@@ -5,6 +5,7 @@ BetaStage = TiledMaps:extend()
 function BetaStage:new(world)
   self.sti = sti('maps/beta-stage.lua') -- draw method comes from TiledMaps abstract class
   self.world = world
+  self.startingPoints = {}
   self:setup()
   return self
 
@@ -47,6 +48,26 @@ function BetaStage:setup()
 
     end
   end
+
+
+  if level.layers['StartPoints'] then
+    for i, obj in pairs(level.layers['StartPoints'].objects) do
+      self.startingPoints[i] = {x = obj.x, y = obj.y}
+
+      local startingPointsDebug = {}
+
+      startingPointsDebug.body = love.physics.newBody(world, obj.x, obj.y, 'static')
+      startingPointsDebug.shape = love.physics.newCircleShape( obj.x, obj.y, 1 )
+      startingPointsDebug.fixture = love.physics.newFixture( startingPointsDebug.body, startingPointsDebug.shape )
+      startingPointsDebug.fixture:setSensor(true)  
+
+  end
+  
+  self.startingPoints = Helper.shuffleArray(self.startingPoints)
+
+  end
+
+
 end
 
 
