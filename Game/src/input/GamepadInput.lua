@@ -8,6 +8,7 @@ function GamepadInput:new()
   self.registeredButtons = {}
   self.continuousInputButtons = {}
   self.playerGamepads = {}
+  self.analogeStickUsed = false
 
   return self
 
@@ -30,7 +31,7 @@ function GamepadInput:registerPlayer(player, controls)
       self.buttons[playerID][button] = {}
       self.buttons[playerID][button] = command
 
-      if command == 'left' or command == 'right' or command == 'fight' then
+      if command == Constants.PLAYER_DIRECTION_LEFT or command == Constants.PLAYER_DIRECTION_RIGHT or command == Constants.PLAYER_FIGHT_COMMAND then
         self.continuousInputButtons[playerID][button] = {}
         self.continuousInputButtons[playerID][button] = command
       else 
@@ -72,22 +73,25 @@ function GamepadInput:checkForInput()
         if not player.isDead and playerGamepad:isGamepadDown( button ) then
           player:inputStart(command)
           player.activeInput = self.name
-          return
+          self.analogeStickUsed = false
+          break
         end
 
         if not player.isDead then 
           local analogStickleft = playerGamepad:getGamepadAxis("leftx")
 
-          if analogStickleft == 0 then
+          if self.analogeStickUsed and analogStickleft == 0 then
             player:inputStart('idle')
           end
 
           if analogStickleft > 0 then
             player:inputStart('right')
+            self.analogeStickUsed  = true
             player.activeInput = self.name
           end
           if analogStickleft < 0 then
             player:inputStart('left')
+            self.analogeStickUsed = true
             player.activeInput = self.name
           end
         end

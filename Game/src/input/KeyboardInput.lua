@@ -19,7 +19,7 @@ function KeyboardInput:registerPlayer(player, controls)
     self.keys[key].id = player.id
     self.keys[key].command = command
 
-    if command == 'left' or command == 'right' or command == 'fight' then
+    if command == Constants.PLAYER_DIRECTION_LEFT or command == Constants.PLAYER_DIRECTION_RIGHT or command == Constants.PLAYER_FIGHT_COMMAND then
       self.continuousInputKeys[key] = {}
       self.continuousInputKeys[key].id = player.id
       self.continuousInputKeys[key].command = command
@@ -87,7 +87,6 @@ function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
 
         if pressedKey == registeredKey then
           player:inputStart(playerInfo.command)      
-          player.debug.keyPressed = pressedKey
         end
       end
 
@@ -116,7 +115,6 @@ function KeyboardInput:keyreleased(releasedKey, scancode, isrepeat)
 
       if player ~= nil then 
         player:inputEnd(playerInfo.command)      
-        player.debug.keyReleased = releasedKey
       end
     end
 
