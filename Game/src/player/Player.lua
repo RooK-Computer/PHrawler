@@ -40,6 +40,7 @@ function Player:setup()
   player.health = 5
   player.debug = {}
   player.isOnGround = false
+  player.isDead = false
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
@@ -80,7 +81,7 @@ function Player:setup()
   end
 
 
-  player.stateMachine = StateManager(player)
+  player.stateManager = StateManager(player)
 
 end
 
@@ -97,8 +98,8 @@ function Player:update(dt)
 
   player:checkIsOnGround()
   player.inputs[player.activeInput]:checkForInput()
-
-  player.stateMachine:update(dt)
+  
+  player.stateManager:update(dt)
 
   player.x = player.physics.body:getX() - player.width/2
   player.y = player.physics.body:getY() - player.height/2
@@ -107,11 +108,11 @@ function Player:update(dt)
 end
 
 function Player:inputStart(command)
-  self.stateMachine:inputStart(command)
+  self.stateManager:inputStart(command)
 end
 
 function Player:inputEnd(command)  
-  self.stateMachine:inputEnd(command)
+  self.stateManager:inputEnd(command)
 end
 
 function Player:draw()

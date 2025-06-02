@@ -55,6 +55,18 @@ Helper = {
     end
     setmetatable(target, meta)
     return target
-  end
+  end,
+
+  getPlayerById = function(id)
+
+    player = nil
+    
+    for i = 1, #game.players do
+      if game.players[i].id == id then player = game.players[i] end
+    end
+    
+    return player
+
+  end,
 
 }

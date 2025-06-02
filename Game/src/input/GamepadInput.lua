@@ -30,7 +30,7 @@ function GamepadInput:registerPlayer(player, controls)
       self.buttons[playerID][button] = {}
       self.buttons[playerID][button] = command
 
-    if command == 'left' or command == 'right' or command == 'fight' then
+      if command == 'left' or command == 'right' or command == 'fight' then
         self.continuousInputButtons[playerID][button] = {}
         self.continuousInputButtons[playerID][button] = command
       else 
@@ -63,36 +63,33 @@ function GamepadInput:checkForInput()
 
   for playerID, buttons in pairs(continuousInputButtons) do
 
-
-    if playerID == 'player_one' then
-      local stop = 1
-    end
-
     local playerGamepad = self.playerGamepads[playerID]
     if playerGamepad then 
 
       for button, command in pairs(buttons) do
         local player = self.players[playerID]
 
-        if playerGamepad:isGamepadDown( button ) then
+        if not player.isDead and playerGamepad:isGamepadDown( button ) then
           player:inputStart(command)
           player.activeInput = self.name
           return
         end
 
-        local analogStickleft = playerGamepad:getGamepadAxis("leftx")
+        if not player.isDead then 
+          local analogStickleft = playerGamepad:getGamepadAxis("leftx")
 
-        if analogStickleft == 0 then
-          player:inputStart('idle')
-        end
+          if analogStickleft == 0 then
+            player:inputStart('idle')
+          end
 
-        if analogStickleft > 0 then
-          player:inputStart('right')
-          player.activeInput = self.name
-        end
-        if analogStickleft < 0 then
-          player:inputStart('left')
-          player.activeInput = self.name
+          if analogStickleft > 0 then
+            player:inputStart('right')
+            player.activeInput = self.name
+          end
+          if analogStickleft < 0 then
+            player:inputStart('left')
+            player.activeInput = self.name
+          end
         end
 
       end
@@ -139,7 +136,7 @@ function GamepadInput:gamepadpressed(joystick, pressedButton)
   local registeredButtons = self.registeredButtons[player.id]
 
   for button, command in pairs(registeredButtons) do
-    if pressedButton == button then 
+    if pressedButton == button and not player.isDead then 
       player:inputStart(command)
     end
   end
@@ -154,7 +151,7 @@ function GamepadInput:gamepadreleased(joystick, releasedButton)
 
 
   for button, command in pairs(registeredButtons) do
-    if releasedButton == button then 
+    if releasedButton == button and not player.isDead then 
       player:inputEnd(command)
     end
   end

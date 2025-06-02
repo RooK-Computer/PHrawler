@@ -2,7 +2,6 @@ KeyboardInput = Object:extend()
 
 function KeyboardInput:new()
   self.name = 'keyboard'
-  self.players = {}
   self.keys = {}
   self.registeredKeys = {}
   self.continuousInputKeys = {}
@@ -32,8 +31,6 @@ function KeyboardInput:registerPlayer(player, controls)
 
     end
   end
-
-  self.players[player.id] = player
 end
 
 function KeyboardInput:checkForInput()
@@ -43,9 +40,11 @@ function KeyboardInput:checkForInput()
   for key, playerInfo in pairs(continuousInputKeys) do
 
     if love.keyboard.isDown(key) then 
-      local player = self.players[playerInfo.id]
-      player:inputStart(playerInfo.command)
-      player.activeInput = self.name
+      local player = Helper.getPlayerById(playerInfo.id)
+      if player ~= nil then
+        player:inputStart(playerInfo.command)
+        player.activeInput = self.name
+      end
     end
   end
 
@@ -58,7 +57,7 @@ end
 
 function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
 
-  local players = self.players
+  local players = game.players
   local keys = self.registeredKeys
 
   if pressedKey == "." then game.activateDebug = not game.activateDebug end
@@ -74,13 +73,14 @@ function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
   end
 
   for registeredKey, playerInfo in pairs(keys) do
-    local player = players[playerInfo.id]
+    local player = Helper.getPlayerById(playerInfo.id)
 
-    if pressedKey == registeredKey then 
+    if player ~= nil and pressedKey == registeredKey then 
       player:inputStart(playerInfo.command)      
       player.debug.keyPressed = pressedKey
+      player.activeInput = self.name
+
     end
-    player.activeInput = self.name
 
   end
 
@@ -95,15 +95,17 @@ end
 
 function KeyboardInput:keyreleased(releasedKey, scancode, isrepeat)
 
-  local players = self.players
   local keys = self.keys
 
   for registeredKey, playerInfo in pairs(keys) do
 
     if releasedKey == registeredKey then 
-      local player = players[playerInfo.id]
-      player:inputEnd(playerInfo.command)      
-      player.debug.keyReleased = releasedKey
+      local player = Helper.getPlayerById(playerInfo.id)
+
+      if player ~= nil then 
+        player:inputEnd(playerInfo.command)      
+        player.debug.keyReleased = releasedKey
+      end
     end
 
   end
