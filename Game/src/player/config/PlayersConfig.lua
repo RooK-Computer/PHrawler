@@ -59,7 +59,7 @@ PlayersConfig = {
         },
         gamepad = gamepadConfig,
       },
-      defaultInput = 'keyboard',
+      defaultInput = 'gamepad',
     },
     animations = animationConfigMale
   },
@@ -79,7 +79,7 @@ PlayersConfig = {
         },
         gamepad = gamepadConfig,
       },
-      defaultInput = 'keyboard',
+      defaultInput = 'gamepad',
     },
     animations = animationConfigMale
   }

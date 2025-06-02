@@ -58,7 +58,9 @@ end
 function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
 
   local players = game.players
-  local keys = self.registeredKeys
+  local registeredKeys = self.registeredKeys
+  local allKeys = self.keys
+
 
   if pressedKey == "." then game.activateDebug = not game.activateDebug end
 
@@ -72,17 +74,27 @@ function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
     print('######')
   end
 
-  for registeredKey, playerInfo in pairs(keys) do
+  for key, playerInfo in pairs(allKeys) do 
     local player = Helper.getPlayerById(playerInfo.id)
 
-    if player ~= nil and pressedKey == registeredKey then 
-      player:inputStart(playerInfo.command)      
-      player.debug.keyPressed = pressedKey
+    -- first check if keyboard was pressed by player so we can hotswap the active input to keyboard
+    if player ~= nil and pressedKey == key then 
+
       player.activeInput = self.name
+
+      -- after that we check if this key should send a command
+      for registeredKey, playerInfo in pairs(registeredKeys) do
+
+        if pressedKey == registeredKey then
+          player:inputStart(playerInfo.command)      
+          player.debug.keyPressed = pressedKey
+        end
+      end
 
     end
 
-  end
+  end 
+
 
 
 end
