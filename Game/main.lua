@@ -90,9 +90,9 @@ function love.draw()
       else 
         statsPositionY = statsPositionY + 20
         local player = game.players[i]
-        --love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
-        love.graphics.print(player.name .. " AnimDirection: ".. player.animationDirection .. ' / isFighting: ' .. tostring(player.isFighting), statsPositionX, statsPositionY)
-        statsPositionY = statsPositionY + 10            
+        love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
+        --love.graphics.print(player.name .. " AnimDirection: ".. player.animationDirection .. ' / isFighting: ' .. tostring(player.isFighting), statsPositionX, statsPositionY)
+        --statsPositionY = statsPositionY + 10            
 
 
         love.graphics.print(player.name .. " health: ".. player.health, statsPositionX, statsPositionY)

@@ -62,7 +62,7 @@ Helper = {
     player = nil
 
     for i = 1, #game.players do
-      if game.players[i].id == id then player = game.players[i] end
+      if game.players[i].id == id then player = game.players[i] break end
     end
 
     return player
