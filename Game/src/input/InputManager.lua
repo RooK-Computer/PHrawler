@@ -12,6 +12,7 @@ function InputManager:new()
   self.inputTypes.keyboard = KeyboardInput()
   self.inputTypes.joystick = JoystickInput()
   self.inputTypes.gamepad = GamepadInput()
+  self.inputTypes.none = nil
 
 end
 

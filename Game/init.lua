@@ -17,3 +17,4 @@ require 'src/player/config/PlayersConfig'
 require('src/collisions/Collisions')
 require('src/level/Level')
 require('src/player/player')
+require 'src/screens/Screens' 

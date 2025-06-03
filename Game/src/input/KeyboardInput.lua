@@ -52,7 +52,9 @@ function KeyboardInput:checkForInput()
 end
 
 function love.keypressed(key, scancode, isrepeat)
-  game.inputManager.inputTypes.keyboard:keypressed(key, scancode, isrepeat)
+  if game.inputManager ~=  nil then
+    game.inputManager.inputTypes.keyboard:keypressed(key, scancode, isrepeat)
+  end
 end
 
 function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
@@ -101,7 +103,9 @@ end
 
 
 function love.keyreleased( key, scancode )
-  game.inputManager.inputTypes.keyboard:keyreleased(key, scancode)
+  if game.inputManager ~=  nil then
+    game.inputManager.inputTypes.keyboard:keyreleased(key, scancode)
+  end
 end 
 
 function KeyboardInput:keyreleased(releasedKey, scancode, isrepeat)

@@ -128,6 +128,8 @@ end
 
 
 function love.joystickadded( joystick )
+  
+  if game.inputManager ==  nil then return end
 
   local isGamepad = joystick:isGamepad()
   if isGamepad then game.inputManager.inputTypes.gamepad:addGamepad(joystick) end
@@ -164,6 +166,7 @@ function GamepadInput:gamepadreleased(joystick, releasedButton)
 end
 
 function love.gamepadpressed( joystick, button )
+  if game.inputManager ==  nil then return end
 
   local isGamepad = joystick:isGamepad()
   if isGamepad then game.inputManager.inputTypes.gamepad:gamepadpressed(joystick, button) end
@@ -172,6 +175,8 @@ end
 
 
 function love.gamepadreleased( joystick, button )
+  if game.inputManager ==  nil then return end
+
   local isGamepad = joystick:isGamepad()
   if isGamepad then game.inputManager.inputTypes.gamepad:gamepadreleased(joystick, button) end
 end

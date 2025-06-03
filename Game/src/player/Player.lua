@@ -15,13 +15,14 @@ function Player:new(config, game)
   self.controls = config.controls
   self.activeInput = config.controls.defaultInput
   self.inputs = {}
+  self.inputs['none'] =  nil
 
 
   for inputType, controls in pairs(self.controls.inputs) do
     self.inputs[inputType] = game.inputManager:registerPlayer(self, inputType, controls)
   end 
 
-  self.inputManager = self.inputs[self.activeInput]
+  self.inputManager = self.inputs['none']
   self.config = config
 end
 
@@ -85,6 +86,10 @@ end
 function Player:setStartingPoint(point) 
   self.x = point.x
   self.y = point.y
+end
+
+function Player:setInput() 
+  self.inputManager = self.inputs[self.activeInput]
 end
 
 function Player:checkIsOnGround() 
