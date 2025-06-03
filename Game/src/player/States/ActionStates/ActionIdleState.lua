@@ -1,6 +1,6 @@
-require('src/player/States/ActionStates/DeadState')
-require('src/player/States/ActionStates/FightingState')
-require('src/player/States/ActionStates/HitState')
+require('src/player/states/ActionStates/DeadState')
+require('src/player/states/ActionStates/FightingState')
+require('src/player/states/ActionStates/HitState')
 
 --EntryState
 ActionIdleState = State:extend()

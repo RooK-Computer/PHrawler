@@ -1,5 +1,5 @@
-require 'src/Collisions/PlayerPlattformCollision'
-require 'src/Collisions/PlayerFightsCollision'
+require 'src/collisions/PlayerPlattformCollision'
+require 'src/collisions/PlayerFightsCollision'
 
 local Collissions = {
   PlayerPlattformCollision,

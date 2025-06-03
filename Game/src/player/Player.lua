@@ -1,5 +1,5 @@
 require('src/input/InputManager')
-require('src/player/States/StateManager')
+require('src/player/states/StateManager')
 
 
 Player = Object:extend()

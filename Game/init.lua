@@ -16,5 +16,5 @@ require('src/misc/Helper')
 require 'src/player/config/PlayersConfig' 
 require('src/collisions/Collisions')
 require('src/level/Level')
-require('src/player/player')
+require('src/player/Player')
 require 'src/screens/Screens' 

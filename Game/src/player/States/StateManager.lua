@@ -1,7 +1,7 @@
-require('src/player/States/States')
-require('src/player/States/StateMachine')
-require('src/player/States/ActionStates/ActionIdleState')
-require('src/player/States/MovingStates/MovingIdleState')
+require('src/player/states/States')
+require('src/player/states/StateMachine')
+require('src/player/states/ActionStates/ActionIdleState')
+require('src/player/states/MovingStates/MovingIdleState')
 
 StateManager = Object:extend()
 
