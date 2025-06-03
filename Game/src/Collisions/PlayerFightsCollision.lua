@@ -14,9 +14,8 @@ PlayerFightsCollision = {
 
     local playerImpulseX, playerImpulseY = -enemyImpulseX, enemyImpulseY
     player.physics.body:applyLinearImpulse( playerImpulseX, playerImpulseY )
-
-    enemy.health = enemy.health - 1 
     enemy.physics.body:applyLinearImpulse( enemyImpulseX, enemyImpulseY )
+
     enemy:inputStart(Constants.PLAYER_HIT_COMMAND)
 
   end,

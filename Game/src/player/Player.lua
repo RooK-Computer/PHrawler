@@ -1,5 +1,6 @@
 require('src/input/InputManager')
 require('src/player/states/StateManager')
+require('src/player/attachments/Attachments')
 
 
 Player = Object:extend()
@@ -36,9 +37,15 @@ function Player:setup()
   player.hasJumped = 0
   player.upThreshold = 0
   player.health = 5
+  player.maxHealth = player.health
   player.debug = {}
   player.isOnGround = false
   player.isDead = false
+
+
+  player.attachments = {
+    healthbar = Healthbar(self)
+  }
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
@@ -97,6 +104,16 @@ function Player:checkIsOnGround()
   if vy == 0 then self.isOnGround = true end  
 end
 
+function Player:setDamage(damagePoints)
+
+  local player = self
+
+  player.health = player.health - damagePoints
+
+  player.attachments.healthbar:setHealthbar(player.health)
+
+end
+
 
 function Player:update(dt)
 
@@ -105,7 +122,7 @@ function Player:update(dt)
 
   player:checkIsOnGround()
   player.inputs[player.activeInput]:checkForInput()
-  
+
   player.stateManager:update(dt)
 
   player.x = player.physics.body:getX() - player.width/2
@@ -124,6 +141,9 @@ end
 
 function Player:draw()
   self.anim:draw(self.spritesheet, self.x, self.y, nil, game.scale)
+
+  for i,attachment in pairs(self.attachments) do attachment:draw() end
+
 end
 
 

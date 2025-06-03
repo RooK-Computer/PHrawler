@@ -6,8 +6,13 @@ function DeadState:new(player)
   self.name = Constants.DEAD_STATE
   self.player.startTimer = love.timer.getTime()
   self.player.anim = player.animations[Constants.DEAD_STATE][player.animationDirection]
-  self.player.physics.body:setAngle(math.rad(90))
   self.player.collisionClass = Constants.DEAD_STATE
+
+  self.player.physics.shape = love.physics.newRectangleShape(0, 14, 1, 1, math.rad(90))
+  self.player.physics.fixture:destroy()
+  self.player.physics.fixture = love.physics.newFixture(self.player.physics.body, self.player.physics.shape)
+
+
   self.player.isDead = true
 
   return self

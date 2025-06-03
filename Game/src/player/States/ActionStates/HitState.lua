@@ -6,6 +6,7 @@ function HitState:new(player)
   self.name = Constants.HIT_STATE
   self.player.startTimer = love.timer.getTime()
   self.player.anim = player.animations[Constants.HIT_STATE][player.animationDirection]
+  self.player:setDamage(1)
 
   return self
 end
