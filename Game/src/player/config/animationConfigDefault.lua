@@ -52,7 +52,7 @@ animationConfigDefault = {
     },
     onLoop = 'pauseAtEnd'
   },
-  [Constants.HIT_STATE] = {
+  [Constants.DAMAGE_STATE] = {
     frames = {
       {
         grid = '7-8',

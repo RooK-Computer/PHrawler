@@ -1,5 +1,6 @@
 require('src/player/states/ActionStates/DeadState')
 require('src/player/states/ActionStates/FightingState')
+require('src/player/states/ActionStates/DamageState')
 require('src/player/states/ActionStates/HitState')
 
 --EntryState
@@ -10,6 +11,7 @@ function ActionIdleState:new(player)
   
   self.name = Constants.IDLE_STATE
   self.player.anim = player.animations[Constants.IDLE_STATE][player.animationDirection]
+  self.player.isMovementBlocked = false
 
   return self
 end
@@ -19,6 +21,7 @@ function ActionIdleState:input(command)
   local player = self.player
   
   if command == Constants.PLAYER_HIT_COMMAND then return HitState(player) end
+  if command == Constants.PLAYER_DAMAGE_COMMAND then return DamageState(player) end
   if command == Constants.PLAYER_FIGHT_COMMAND then return FightingState(player) end  
 
 end

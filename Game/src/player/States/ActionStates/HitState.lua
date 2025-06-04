@@ -2,11 +2,17 @@ HitState = State:extend()
 
 function HitState:new(player)
   HitState.super.new(self, player)
-  
+
   self.name = Constants.HIT_STATE
-  self.player.startTimer = love.timer.getTime()
-  self.player.anim = player.animations[Constants.HIT_STATE][player.animationDirection]
-  self.player:setDamage(1)
+  self.startTimer = love.timer.getTime()
+  self.player.anim = player.animations[Constants.JUMP_STATE][player.animationDirection]
+  self.player.isMovementBlocked = true
+
+
+  local playerImpulseX, playerImpulseY = -150, -150
+  if player.animationDirection == 'left' then playerImpulseX = -playerImpulseX end
+  player.physics.body:applyLinearImpulse( playerImpulseX, playerImpulseY )
+
 
   return self
 end
@@ -15,15 +21,13 @@ end
 function HitState:update(dt)
 
   local player = self.player
-  
-  player.anim = player.animations[Constants.HIT_STATE][player.animationDirection]
-  player.physics.body:setType('static')
 
-  local passedTime = love.timer.getTime() - player.startTimer
+  player.anim = player.animations[Constants.JUMP_STATE][player.animationDirection]
 
-  if passedTime > 1 then  
-    player.physics.body:setType('dynamic')
-    return ActionIdleState(player)
+  local passedTime = love.timer.getTime() - self.startTimer
+
+  if passedTime > 1 then 
+    return ActionIdleState(player) 
   end
 
 end

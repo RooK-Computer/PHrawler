@@ -6,8 +6,9 @@ Constants = {
   RUN_STATE = 'running',
   DYING_STATE = 'dying',
   DEAD_STATE = 'dead',
+  DAMAGE_STATE = 'damaging',
   FIGHT_STATE = 'fighting',
-  HIT_STATE = 'hit',
+  HIT_STATE = 'hiting',
   
   PLAYER_DIRECTION_LEFT = 'left',
   PLAYER_DIRECTION_RIGHT = 'right',
@@ -18,5 +19,6 @@ Constants = {
   PLAYER_JUMP_COMMAND = 'jump',
   PLAYER_RUN_COMMAND = 'run',
   PLAYER_HIT_COMMAND = 'hit',
+  PLAYER_DAMAGE_COMMAND = 'damage',
 
 }

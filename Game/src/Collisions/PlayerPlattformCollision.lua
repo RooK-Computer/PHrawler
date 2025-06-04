@@ -1,5 +1,5 @@
 PlayerPlattformCollision = {
-  
+
   collisionClassA = 'Plattform',
   collisionClassB = 'Player',
 
@@ -40,6 +40,14 @@ PlayerPlattformCollision = {
   end, 
 
   postSolve = function(plattform, player, contact, normalimpulse, tangentimpulse)
+  end,
+
+  checkCollisionClassA = function(class) 
+    return class == PlayerPlattformCollision.collisionClassA
+  end,  
+
+  checkCollisionClassB = function(class) 
+    return class == PlayerPlattformCollision.collisionClassB
   end,
 
 }

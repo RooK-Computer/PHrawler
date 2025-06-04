@@ -13,12 +13,12 @@ function beginContact(a, b, contact)
   if aObject == nil or bObject == nil then return end
 
   for i,collision in ipairs(Collissions) do
-    if aObject.collisionClass == collision.collisionClassB and bObject.collisionClass == collision.collisionClassA then 
+    if collision.checkCollisionClassB(aObject.collisionClass) and collision.checkCollisionClassA(bObject.collisionClass) then 
       aObject = b:getUserData()
       bObject = a:getUserData()
     end 
 
-    if aObject.collisionClass == collision.collisionClassA and bObject.collisionClass == collision.collisionClassB then 
+    if collision.checkCollisionClassA(aObject.collisionClass) and collision.checkCollisionClassB(bObject.collisionClass) then 
       collision.beginContact(aObject, bObject, contact) 
     end  
   end
@@ -34,12 +34,12 @@ function endContact(a, b, contact)
 
 
   for i,collision in ipairs(Collissions) do
-    if aObject.collisionClass == collision.collisionClassB and bObject.collisionClass == collision.collisionClassA then 
+    if collision.checkCollisionClassB(aObject.collisionClass) and collision.checkCollisionClassA(bObject.collisionClass) then 
       aObject = b:getUserData()
       bObject = a:getUserData()
     end 
 
-    if aObject.collisionClass == collision.collisionClassA and bObject.collisionClass == collision.collisionClassB then collision.endContact(aObject, bObject, contact) end  
+    if collision.checkCollisionClassA(aObject.collisionClass) and collision.checkCollisionClassB(bObject.collisionClass) then collision.endContact(aObject, bObject, contact) end  
   end
 
 end
@@ -52,12 +52,12 @@ function preSolve(a, b, contact)
 
 
   for i,collision in ipairs(Collissions) do
-    if aObject.collisionClass == collision.collisionClassB and bObject.collisionClass == collision.collisionClassA then 
+    if collision.checkCollisionClassB(aObject.collisionClass) and collision.checkCollisionClassA(bObject.collisionClass) then 
       aObject = b:getUserData()
       bObject = a:getUserData()
     end 
 
-    if aObject.collisionClass == collision.collisionClassA and bObject.collisionClass == collision.collisionClassB then collision.preSolve(aObject, bObject, contact) end  
+    if collision.checkCollisionClassA(aObject.collisionClass) and collision.checkCollisionClassB(bObject.collisionClass) then collision.preSolve(aObject, bObject, contact) end  
   end
 
 end
@@ -70,12 +70,12 @@ function postSolve(a, b, contact, normalimpulse, tangentimpulse)
 
 
   for i,collision in ipairs(Collissions) do
-    if aObject.collisionClass == collision.collisionClassB and bObject.collisionClass == collision.collisionClassA then 
+    if collision.checkCollisionClassB(aObject.collisionClass) and collision.checkCollisionClassA(bObject.collisionClass) then 
       aObject = b:getUserData()
       bObject = a:getUserData()
     end 
 
-    if aObject.collisionClass == collision.collisionClassA and bObject.collisionClass == collision.collisionClassB then collision.postSolve(aObject, bObject, contact, normalimpulse, tangentimpulse) end  
+    if collision.checkCollisionClassA(aObject.collisionClass) and collision.checkCollisionClassB(bObject.collisionClass) then collision.postSolve(aObject, bObject, contact, normalimpulse, tangentimpulse) end  
   end
 
 end

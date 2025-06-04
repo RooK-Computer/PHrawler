@@ -21,7 +21,7 @@ end
 
 function MovingIdleState:input(command)
   local player = self.player
-  if player.isDead then return end
+  if player.isMovementBlocked then return end
   MovingIdleState.super.input(self, command)
 
 

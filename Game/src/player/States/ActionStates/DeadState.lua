@@ -14,6 +14,7 @@ function DeadState:new(player)
 
 
   self.player.isDead = true
+  self.player.isMovementBlocked = true
 
   return self
 end

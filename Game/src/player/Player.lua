@@ -41,6 +41,7 @@ function Player:setup()
   player.debug = {}
   player.isOnGround = false
   player.isDead = false
+  player.isMovementBlocked = false
 
 
   player.attachments = {
