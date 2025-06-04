@@ -10,8 +10,26 @@ game = {
   level = {},
   world = {},
   players = {},
+  showFPS = false,
 }
 game.gravity = 9.81 * game.PIXELS_PER_METER
+
+game.start = function()
+  game.players = {}
+  game.screen = nil
+  game.screen = StartScreen()
+  game.screen:load()
+end
+
+
+game.restart = function()
+  game.start()
+end
+
+
+game.endGame = function()
+  
+end
 
 
 function love.load(arg)
@@ -25,7 +43,10 @@ function love.load(arg)
       highdpi = true
     })
 
-  game.screen = StartScreen()
+  --game.screen = StartScreen()
+
+  game.screen = GameScreen()
+  game.screen:load()
 
 end
 
@@ -40,6 +61,7 @@ end
 
 function love.draw()
   push:start()
-    game.screen:draw()
+  game.screen:draw()
+  if game.showFPS then love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), 10, 10) end
   push:finish()
 end

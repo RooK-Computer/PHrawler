@@ -104,5 +104,14 @@ function GameScreen:draw()
 
 end
 
+function GameScreen:restart()
+  
+  game.players = {}
+  game.screen = nil
+  game.screen = GameScreen()
+  game.screen:load()
+  
+end
+
 function GameScreen:exit()
 end
