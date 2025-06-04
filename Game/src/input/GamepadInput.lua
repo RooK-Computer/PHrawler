@@ -55,6 +55,11 @@ function GamepadInput:registerPlayer(player, controls)
     self.players[sortedPlayers.id] = sortedPlayers
   end
 
+  local joysticks = love.joystick.getJoysticks()
+  for i, joystick in pairs(joysticks) do
+    self:addGamepad( joystick )
+  end
+
 end
 
 
@@ -62,10 +67,13 @@ function GamepadInput:checkForInput()
 
   local continuousInputButtons = self.continuousInputButtons
 
+
   for playerID, buttons in pairs(continuousInputButtons) do
 
     local playerGamepad = self.playerGamepads[playerID]
     if playerGamepad then 
+
+      self:checkForRestart(playerGamepad)
 
       for button, command in pairs(buttons) do
         local player = self.players[playerID]
@@ -111,13 +119,19 @@ function GamepadInput:addGamepad( joystick )
 
   if connectedGamepads[joystick:getGUID()] then return end
 
-  local highestPriorityPlayer = { priority = 100 }
+  local highestPriorityPlayer = { priority = 100, notPlayer = true }
 
   for playerID, player in pairs(self.players) do 
     if highestPriorityPlayer.priority > player.priority and not player.hasGamepad then 
       highestPriorityPlayer = player
     end
   end
+  
+  if highestPriorityPlayer.notPlayer then return end
+  
+  
+  local vendorID, productID, productVersion = joystick:getDeviceInfo()
+  local deviceName = joystick:getName()
 
   highestPriorityPlayer.hasGamepad = true
   self.connectedGamepads[joystick:getGUID()] = highestPriorityPlayer
@@ -128,7 +142,7 @@ end
 
 
 function love.joystickadded( joystick )
-  
+
   if game.inputManager ==  nil then return end
 
   local isGamepad = joystick:isGamepad()
@@ -148,6 +162,8 @@ function GamepadInput:gamepadpressed(joystick, pressedButton)
   end
   player.activeInput = self.name
 
+  if pressedButton == 'back' then game.showFPS = not game.showFPS end
+
 end
 
 function GamepadInput:gamepadreleased(joystick, releasedButton)
@@ -162,6 +178,19 @@ function GamepadInput:gamepadreleased(joystick, releasedButton)
     end
   end
   player.activeInput = self.name
+
+end
+
+function GamepadInput:checkForRestart(playerGamepad)
+
+  if playerGamepad:isGamepadDown('a') and
+  playerGamepad:isGamepadDown('b') and
+  playerGamepad:isGamepadDown('x') and
+  playerGamepad:isGamepadDown('y') and
+  playerGamepad:isGamepadDown('start') then
+    GameScreen:restart()
+    --game.start()
+  end
 
 end
 
