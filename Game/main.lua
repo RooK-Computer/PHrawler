@@ -43,10 +43,10 @@ function love.load(arg)
       highdpi = true
     })
 
-  --game.screen = StartScreen()
+  game.start()
 
-  game.screen = GameScreen()
-  game.screen:load()
+  --game.screen = GameScreen()
+  --game.screen:load()
 
 end
 
