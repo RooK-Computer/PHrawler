@@ -17,6 +17,9 @@ function RunningState:input(command)
   if command == 'right' then player.direction = command end
   if command == 'idle' then return MovingIdleState(player) end
   if command == 'jump' then return JumpState(player) end
+    if command == Constants.PLAYER_DROP_COMMAND then 
+    return DropState(player) 
+  end
 
 end
 

@@ -9,6 +9,7 @@ Constants = {
   DAMAGE_STATE = 'damaging',
   FIGHT_STATE = 'fighting',
   HIT_STATE = 'hiting',
+  DROP_STATE = 'dropping',
   
   PLAYER_DIRECTION_LEFT = 'left',
   PLAYER_DIRECTION_RIGHT = 'right',
@@ -20,5 +21,6 @@ Constants = {
   PLAYER_RUN_COMMAND = 'run',
   PLAYER_HIT_COMMAND = 'hit',
   PLAYER_DAMAGE_COMMAND = 'damage',
+  PLAYER_DROP_COMMAND = 'drop',
 
 }

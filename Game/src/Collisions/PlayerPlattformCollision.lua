@@ -1,7 +1,7 @@
 PlayerPlattformCollision = {
 
   collisionClassA = 'Plattform',
-  collisionClassB = 'Player',
+  collisionClassB = {'Player', 'PlayerDrop'},
 
   beginContact = function(plattform, player, contact)
     player.isOnGround = true 
@@ -20,9 +20,22 @@ PlayerPlattformCollision = {
 
   endContact = function(plattform, player, contact)
     player.isOnGround = false 
+
+    -- player dropped from plattform
+    if player.collisionClass == 'PlayerDrop' then 
+      player.collisionClass = 'Player'
+    end
+
   end,
 
   preSolve = function(plattform, player, contact)
+
+    -- player wants to drop from plattform
+    if player.collisionClass == 'PlayerDrop' then 
+      player.isOnGround = false 
+      contact:setEnabled(false)
+      return
+    end
 
     local plattformX = plattform.body:getX()
     local plattformY = plattform.body:getY()
@@ -47,7 +60,14 @@ PlayerPlattformCollision = {
   end,  
 
   checkCollisionClassB = function(class) 
-    return class == PlayerPlattformCollision.collisionClassB
+
+    local check = false
+
+    for _, collisionClass in ipairs(PlayerPlattformCollision.collisionClassB) do
+      if class == collisionClass then check = true end
+    end
+
+    return check
   end,
 
 }

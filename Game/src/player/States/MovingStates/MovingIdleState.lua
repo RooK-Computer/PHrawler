@@ -1,6 +1,7 @@
 require('src/player/states/MovingStates/RunningState')
 require('src/player/states/MovingStates/JumpState')
 require('src/player/states/MovingStates/FallingState')
+require('src/player/states/MovingStates/DropState')
 
 --EntryState
 MovingIdleState = State:extend()
@@ -37,6 +38,10 @@ function MovingIdleState:input(command)
 
   if command == Constants.JUMP_STATE then 
     return JumpState(player) 
+  end  
+  
+  if command == Constants.PLAYER_DROP_COMMAND then 
+    return DropState(player) 
   end
 
 end
