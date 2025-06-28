@@ -26,7 +26,19 @@ function BetaStage:setup()
       }
 
       plattform.body = love.physics.newBody(world, obj.x, obj.y, 'static')
-      plattform.shape = love.physics.newRectangleShape( obj.width/2, obj.height/2, obj.width, obj.height)
+
+      if (obj.shape == 'rectangle') then plattform.shape = love.physics.newRectangleShape( obj.width/2, obj.height/2, obj.width, obj.height ) end
+      if (obj.shape == 'polygon') then 
+
+        local vertices = {}
+        for _, vertice in ipairs(obj.polygon) do
+          table.insert(vertices, vertice.x)
+          table.insert(vertices, vertice.y)
+        end
+        
+        plattform.shape = love.physics.newPolygonShape(vertices) 
+
+      end
       plattform.fixture = love.physics.newFixture( plattform.body, plattform.shape)
       plattform.fixture:setUserData(plattform)  
 
@@ -61,9 +73,9 @@ function BetaStage:setup()
       startingPointsDebug.fixture = love.physics.newFixture( startingPointsDebug.body, startingPointsDebug.shape )
       startingPointsDebug.fixture:setSensor(true)  
 
-  end
-  
-  self.startingPoints = Helper.shuffleArray(self.startingPoints)
+    end
+
+    self.startingPoints = Helper.shuffleArray(self.startingPoints)
 
   end
 
