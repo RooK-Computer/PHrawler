@@ -4,7 +4,7 @@ GameScreen = Screen:extend()
 
 function GameScreen:new()
   self.name = 'GameScreen'
-
+  self.isPaused = false
   return self
 end
 
@@ -23,8 +23,6 @@ function GameScreen:load()
 
   local playerNumber = game.levelConfig.selectedPlayerNumber
   local playersConfig = PlayersConfig.get(game.levelConfig.selectedPlayerNumber)
-  --local playersConfig = PlayersConfig.beta
-
 
   for i,playerConfig in ipairs(playersConfig) do
     local player =  Player(playerConfig, game)
@@ -46,6 +44,7 @@ function GameScreen:enter()
 end
 
 function GameScreen:update(dt)
+  if self.isPaused then return end
 
   local allPlayers = game.players
 
@@ -102,9 +101,14 @@ function GameScreen:draw()
 
   end
 
+  if self.isPaused then
+
+    self.pausescreen:draw()
+  end
+
 end
 
-function GameScreen:restart()
+function GameScreen:restartGame()
 
   game.players = {}
   game.screen = nil
@@ -113,5 +117,32 @@ function GameScreen:restart()
 
 end
 
+
+function GameScreen:pauseScreen()
+
+  self.isPaused = true
+
+  game.inputManager:registerInput(PauseScreenKeyboardInput(), 'keyboard')
+  
+  self.pausescreen = PauseScreen()
+
+end
+
+function GameScreen:resume()
+
+  self.isPaused = false
+
+  game.inputManager:registerInput(KeyboardInput(), 'keyboard')
+  game.inputManager:registerInput(GamepadInput(), 'gamepad')
+
+  for i, player in ipairs(game.players) do
+    player:setupInput()
+  end
+
+  self:enter()
+
+end
+
 function GameScreen:exit()
+  game.restart()
 end

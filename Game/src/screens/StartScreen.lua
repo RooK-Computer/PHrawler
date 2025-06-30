@@ -9,7 +9,7 @@ function StartScreen:new()
     local level = Level(game.world, levelID)
     table.insert(allLevels, {id = levelID, label = level:getName()})
   end
-  
+
   local supportedPlayerNumbers = {}
   for i,number in ipairs(game.supportedPlayerNumbers) do
     table.insert(supportedPlayerNumbers, {id = number, label = number})
@@ -161,7 +161,7 @@ function StartScreen:draw()
 
     -- Active Indicator
     if (menuItem.isActive) then
-      love.graphics.draw(self.activeIndicator, x - 50, y)
+      love.graphics.draw(self.activeIndicator, x - 50, y, 0, 1, 1, 0, 1)
       self.activeItemIndex = i
     end
 
@@ -219,6 +219,10 @@ end
 
 
 function StartScreenKeyboardInput:keyreleased( key, scancode )
+
+end 
+
+function StartScreenKeyboardInput:keypressed(key, scancode, isrepeat)
   local screen = game.screen
 
   if key == 'down' then
@@ -252,7 +256,4 @@ function StartScreenKeyboardInput:keyreleased( key, scancode )
     screen.menuItems[screen.activeItemIndex].selectOption()
 
   end  
-end 
-
-function StartScreenKeyboardInput:keypressed(key, scancode, isrepeat)
 end

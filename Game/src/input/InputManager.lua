@@ -19,6 +19,11 @@ function InputManager:registerInput(input, type)
 end
 
 
+function InputManager:getInput(type)
+  return self.inputTypes[type]
+end
+
+
 function InputManager:registerPlayer(player, type, controls)
 
   self.inputTypes[type]:registerPlayer(player, controls)

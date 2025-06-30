@@ -57,8 +57,7 @@ function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
   local registeredKeys = self.registeredKeys
   local allKeys = self.keys
 
-  if pressedKey == "escape" then game.screen:restart() end --game.start() end
-
+  if pressedKey == "escape" then  game.screen:pauseScreen() end
 
 
   if pressedKey == "." then game.activateDebug = not game.activateDebug end

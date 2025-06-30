@@ -18,11 +18,7 @@ function Player:new(config, game)
   self.inputs = {}
   self.inputs['none'] =  nil
 
-
-  for inputType, controls in pairs(self.controls.inputs) do
-    self.inputs[inputType] = game.inputManager:registerPlayer(self, inputType, controls)
-  end 
-
+  self:setupInput()
   self.inputManager = self.inputs['none']
   self.config = config
 end
@@ -94,6 +90,12 @@ end
 function Player:setStartingPoint(point) 
   self.x = point.x
   self.y = point.y
+end
+
+function Player:setupInput() 
+  for inputType, controls in pairs(self.controls.inputs) do
+    self.inputs[inputType] = game.inputManager:registerPlayer(self, inputType, controls)
+  end 
 end
 
 function Player:setInput() 

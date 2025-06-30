@@ -14,8 +14,6 @@ function love.load(arg)
   game.start()
 
   --game.screen = StartScreen()
-  --game.screen = RookScreen()
-  --game.screen = GameScreen()
   --game.screen:load()
 
 end
