@@ -1,3 +1,5 @@
+require 'src/player/config/PlayersConfig' 
+
 GameScreen = Screen:extend()
 
 function GameScreen:new()
@@ -9,22 +11,20 @@ end
 function GameScreen:load()
   game.world = love.physics.newWorld(0, game.gravity)
   game.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
-  game.level = Level(game.world, {level = 'betastage'})
-  game.inputManager = InputManager()
+
+  game.level = Level(game.world, game.levelConfig.selectedLevel)
+  game.level:setupLevel()
 
   love.graphics.setDefaultFilter('nearest', 'nearest') -- best for pixel art
 
 
+  game.inputManager:registerInput(KeyboardInput(), 'keyboard')
+  game.inputManager:registerInput(GamepadInput(), 'gamepad')
 
-  require 'src/player/config/PlayersConfig' 
+  local playerNumber = game.levelConfig.selectedPlayerNumber
+  local playersConfig = PlayersConfig.get(game.levelConfig.selectedPlayerNumber)
+  --local playersConfig = PlayersConfig.beta
 
-  local playersConfig = PlayersConfig
-
-  --playersConfig = {}
-  --table.insert(playersConfig, table.remove(PlayersConfig, 1)) --only insert player 1
-  --table.insert(playersConfig, table.remove(PlayersConfig, 1)) --only insert player 2
-  --table.insert(playersConfig, table.remove(PlayersConfig, 1)) --only insert player 3
-  --table.insert(playersConfig, table.remove(PlayersConfig, 1)) --only insert player 4
 
   for i,playerConfig in ipairs(playersConfig) do
     local player =  Player(playerConfig, game)
@@ -105,12 +105,12 @@ function GameScreen:draw()
 end
 
 function GameScreen:restart()
-  
+
   game.players = {}
   game.screen = nil
   game.screen = GameScreen()
   game.screen:load()
-  
+
 end
 
 function GameScreen:exit()

@@ -7,14 +7,18 @@ windfield = require 'lib/windfield' -- physics library wrapper
 inspect = require('lib/inspect') -- gives us something like var_dump in php
 push = require('lib/push') -- gives us resizable screens
 
+
+
 --GLOBALS
+require('src/misc/Constants')
+require('src/misc/Helper')
+require('game')
 
 
 --classes
-require('src/misc/Constants')
-require('src/misc/Helper')
 require 'src/player/config/PlayersConfig' 
 require('src/collisions/Collisions')
 require('src/level/Level')
 require('src/player/Player')
 require 'src/screens/Screens' 
+

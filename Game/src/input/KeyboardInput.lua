@@ -51,12 +51,6 @@ function KeyboardInput:checkForInput()
   return self
 end
 
-function love.keypressed(key, scancode, isrepeat)
-  if game.inputManager ~=  nil then
-    game.inputManager.inputTypes.keyboard:keypressed(key, scancode, isrepeat)
-  end
-end
-
 function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
 
   local players = game.players
@@ -103,13 +97,6 @@ function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
 
 end
 
-
-
-function love.keyreleased( key, scancode )
-  if game.inputManager ~=  nil then
-    game.inputManager.inputTypes.keyboard:keyreleased(key, scancode)
-  end
-end 
 
 function KeyboardInput:keyreleased(releasedKey, scancode, isrepeat)
 

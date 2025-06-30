@@ -22,5 +22,8 @@ Constants = {
   PLAYER_HIT_COMMAND = 'hit',
   PLAYER_DAMAGE_COMMAND = 'damage',
   PLAYER_DROP_COMMAND = 'drop',
+  
+  
+  LEVEL_1 = 'Palasthotel',
 
 }

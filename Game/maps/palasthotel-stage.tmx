@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="124">
  <editorsettings>
-  <export target="beta-stage.lua" format="lua"/>
+  <export target="palasthotel-stage.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" name="Palasthotel" tilewidth="16" tileheight="16" tilecount="36" columns="18">
   <image source="tilemaps/assets/Palasthotel.png" width="288" height="32"/>
  </tileset>
- <tileset firstgid="37" source="background.tsx"/>
- <tileset firstgid="181" source="tilemaps/tilemap_all.tsx"/>
+ <tileset firstgid="37" name="background" tilewidth="16" tileheight="16" tilecount="144" columns="16">
+  <image source="tilemaps/assets/background.png" width="256" height="159"/>
+ </tileset>
+ <tileset firstgid="181" name="tilemap_all" tilewidth="16" tileheight="16" tilecount="1972" columns="34">
+  <image source="tilemaps/assets/tilemap_all.png" width="544" height="928"/>
+ </tileset>
  <layer id="3" name="Background" width="40" height="30" locked="1">
   <data encoding="csv">
 74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,

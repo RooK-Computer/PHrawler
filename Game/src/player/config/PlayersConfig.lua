@@ -2,10 +2,11 @@ require('src/player/config/gamepadConfig')
 require('src/player/config/animationConfigDefault')
 require('src/player/config/animationConfigMale')
 
-PlayersConfig = {
+PlayersConfig = {}
+PlayersConfig.beta = {
   {
     name = 'Player One',
-    id = 'player_one',
+    id = 'player_1',
     priority = 1,
     x = 100,
     y = 50,
@@ -26,7 +27,7 @@ PlayersConfig = {
   },
   {
     name = 'Player Two',
-    id = 'player_two',
+    id = 'player_2',
     priority = 2,
     x = 150,
     y = 300,
@@ -43,11 +44,11 @@ PlayersConfig = {
       },
       defaultInput = 'gamepad',
     },
-    animations = animationConfigDefault
+    animations = animationConfigMale
   },
   {
     name = 'Player Three',
-    id = 'player_three',
+    id = 'player_3',
     priority = 3,
     x = 300,
     y = 200,
@@ -64,11 +65,11 @@ PlayersConfig = {
       },
       defaultInput = 'gamepad',
     },
-    animations = animationConfigMale
+    animations = animationConfigDefault
   },
   {
     name = 'Player Four',
-    id = 'player_four',
+    id = 'player_4',
     priority = 4,
     x = 450,
     y = 250,
@@ -88,3 +89,38 @@ PlayersConfig = {
     animations = animationConfigMale
   }
 }
+
+
+PlayersConfig.get = function(playerNumber) 
+
+  local playerConfig = {}
+
+  for i=1,playerNumber do
+
+    local defaultConfig = {
+      name = 'Player ' .. i,
+      id = 'player_' .. i,
+      priority = 1,
+      x = 0,
+      y = 0,
+      controls = {
+        inputs = {
+          gamepad = gamepadConfig,
+        },
+        defaultInput = 'gamepad',
+      },
+      animations = animationConfigDefault
+    }
+
+    if   i <= 4 then defaultConfig.controls.inputs.keyboard = keyboardConfig[i] end
+    if i%2 == 0 then defaultConfig.animations = animationConfigMale end
+
+    table.insert(playerConfig, defaultConfig)
+
+
+  end
+
+  return playerConfig
+
+
+end

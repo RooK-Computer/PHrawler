@@ -1,19 +1,19 @@
 require('src/level/TiledMaps/TiledMaps')
 
-BetaStage = TiledMaps:extend()
+Palasthotel_Stage1 = TiledMaps:extend()
 
-function BetaStage:new(world)
-  self.sti = sti('maps/beta-stage.lua') -- draw method comes from TiledMaps abstract class
+function Palasthotel_Stage1:new(world)
   self.world = world
   self.startingPoints = {}
-  self:setup()
+  self.name = 'Palasthotel...Stage 1'
   return self
 
 end
 
 
-function BetaStage:setup()
+function Palasthotel_Stage1:setup()
   local world = self.world
+  self.sti = sti('maps/palasthotel-stage.lua') -- draw method comes from TiledMaps abstract class
 
   local level = self.sti
 

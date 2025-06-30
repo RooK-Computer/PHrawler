@@ -4,8 +4,7 @@ function DropState:new(player)
   DropState.super.new(self, player)
   self.name = Constants.DROP_STATE
   self.player.collisionClass = 'PlayerDrop'
-  self.timer = 1
-
+  self.player.physics.body:setLinearVelocity(0, -1) --initialzes new collision contact which we need to drop
 end
 
 function DropState:input(command)
@@ -17,9 +16,7 @@ function DropState:input(command)
 end
 
 function DropState:update(dt)
-  
-  self.timer = self.timer + 1
-  
+    
   if self.player.collisionClass == 'Player' then
       return MovingIdleState(self.player)
   end

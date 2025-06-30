@@ -141,15 +141,6 @@ function GamepadInput:addGamepad( joystick )
 end
 
 
-function love.joystickadded( joystick )
-
-  if game.inputManager ==  nil then return end
-
-  local isGamepad = joystick:isGamepad()
-  if isGamepad then game.inputManager.inputTypes.gamepad:addGamepad(joystick) end
-end 
-
-
 function GamepadInput:gamepadpressed(joystick, pressedButton)
 
   local player = self.connectedGamepads[joystick:getGUID()]
@@ -194,18 +185,3 @@ function GamepadInput:checkForRestart(playerGamepad)
 
 end
 
-function love.gamepadpressed( joystick, button )
-  if game.inputManager ==  nil then return end
-
-  local isGamepad = joystick:isGamepad()
-  if isGamepad then game.inputManager.inputTypes.gamepad:gamepadpressed(joystick, button) end
-
-end
-
-
-function love.gamepadreleased( joystick, button )
-  if game.inputManager ==  nil then return end
-
-  local isGamepad = joystick:isGamepad()
-  if isGamepad then game.inputManager.inputTypes.gamepad:gamepadreleased(joystick, button) end
-end
