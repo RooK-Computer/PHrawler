@@ -1,6 +1,6 @@
 gamepadConfig = {
   jump = {'a', 'dpup'},
-  drop = {'ddown'},
+  drop = {'dpdown'},
   left = {'dpleft'},
   right = {'dpright'},
   fight = {'b'}

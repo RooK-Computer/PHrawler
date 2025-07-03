@@ -64,6 +64,7 @@ function StartScreen:new()
 
   game.inputManager = InputManager()
   game.inputManager:registerInput(StartScreenKeyboardInput, 'keyboard')
+  game.inputManager:registerInput(StartScreenGamepadInput, 'gamepad')
 
   self.activeItemIndex = self.menuItems[1]
 
@@ -256,4 +257,62 @@ function StartScreenKeyboardInput:keypressed(key, scancode, isrepeat)
     screen.menuItems[screen.activeItemIndex].selectOption()
 
   end  
+end
+
+StartScreenGamepadInput = Object:extend()
+
+function StartScreenGamepadInput:new()
+  self.name = 'gamepad_startscreen'
+  self.connectedGamepads = game.inputManager:getGamepads()
+  return self
+end
+
+
+function StartScreenGamepadInput:gamepadreleased(joystick, pressedButton)
+
+  local screen = game.screen
+
+
+  if pressedButton == 'dpdown' then
+    if (screen.activeItemIndex < #screen.menuItems) then 
+      screen.menuItems[screen.activeItemIndex].isActive = false
+      screen.activeItemIndex = screen.activeItemIndex + 1
+      screen.menuItems[screen.activeItemIndex].isActive = true
+    end
+  end
+
+  if pressedButton == 'dpup' then
+    if (screen.activeItemIndex > 1) then 
+      screen.menuItems[screen.activeItemIndex].isActive = false
+      screen.activeItemIndex = screen.activeItemIndex - 1
+      screen.menuItems[screen.activeItemIndex].isActive = true
+    end
+  end
+
+  if pressedButton == 'dpleft' then
+    screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex],'left')
+  end
+
+
+  if pressedButton == 'dpright' then
+    screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex],'right')
+  end
+
+  if pressedButton == 'a' and screen.activeItemIndex == 1 then 
+    screen.menuItems[screen.activeItemIndex].selectOption()
+  end  
+
+
+  if pressedButton == 'start' and screen.activeItemIndex == 1 then 
+    screen.menuItems[screen.activeItemIndex].selectOption()
+  end  
+end
+
+function StartScreenGamepadInput:gamepadpressed(joystick, releasedButton)
+
+end
+
+
+function StartScreenGamepadInput:addGamepad( joystick )
+
 end

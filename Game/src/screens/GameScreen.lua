@@ -16,6 +16,7 @@ function GameScreen:load()
   game.level:setupLevel()
 
   love.graphics.setDefaultFilter('nearest', 'nearest') -- best for pixel art
+  love.graphics.setFont(game.defaultFont)
 
 
   game.inputManager:registerInput(KeyboardInput(), 'keyboard')
@@ -123,7 +124,8 @@ function GameScreen:pauseScreen()
   self.isPaused = true
 
   game.inputManager:registerInput(PauseScreenKeyboardInput(), 'keyboard')
-  
+  game.inputManager:registerInput(PauseScreenGamepadInput(), 'gamepad')
+
   self.pausescreen = PauseScreen()
 
 end

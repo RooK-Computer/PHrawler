@@ -3,7 +3,7 @@ GamepadInput = Object:extend()
 function GamepadInput:new()
   self.name = 'gamepad'
   self.players = {}
-  self.connectedGamepads = {}
+  self.connectedGamepads = game.inputManager:getGamepads()
   self.buttons = {}
   self.registeredButtons = {}
   self.continuousInputButtons = {}
@@ -153,8 +153,6 @@ function GamepadInput:gamepadpressed(joystick, pressedButton)
   end
   player.activeInput = self.name
 
-  if pressedButton == 'back' then game.showFPS = not game.showFPS end
-
 end
 
 function GamepadInput:gamepadreleased(joystick, releasedButton)
@@ -170,6 +168,10 @@ function GamepadInput:gamepadreleased(joystick, releasedButton)
   end
   player.activeInput = self.name
 
+
+  if releasedButton == 'back' then game.showFPS = not game.showFPS end
+  if releasedButton == 'start' then game.screen:pauseScreen() end
+
 end
 
 function GamepadInput:checkForRestart(playerGamepad)
@@ -179,8 +181,7 @@ function GamepadInput:checkForRestart(playerGamepad)
   playerGamepad:isGamepadDown('x') and
   playerGamepad:isGamepadDown('y') and
   playerGamepad:isGamepadDown('start') then
-    GameScreen:restart()
-    --game.start()
+    game.screen.restartGame()
   end
 
 end
