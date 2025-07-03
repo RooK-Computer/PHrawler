@@ -9,6 +9,7 @@ game.defaultConfig = function() -- needed for restart purposes
     levels = {Constants.LEVEL_1},
     world = {},
     players = {},
+    defaultFont = love.graphics.getFont(),
     levelConfig = {
       selectedPlayerNumber = 2,
       selectedLevel = Constants.LEVEL_1
