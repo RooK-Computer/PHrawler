@@ -1,318 +1,266 @@
 StartScreen = Screen:extend()
 
 function StartScreen:new()
-  self.name = 'StartScreen'
+	self.name = "StartScreen"
 
+	local allLevels = {}
+	for i, levelID in ipairs(game.levels) do
+		local level = Level(game.world, levelID)
+		table.insert(allLevels, { id = levelID, label = level:getName() })
+	end
 
-  local allLevels = {}
-  for i,levelID in ipairs(game.levels) do
-    local level = Level(game.world, levelID)
-    table.insert(allLevels, {id = levelID, label = level:getName()})
-  end
+	local supportedPlayerNumbers = {}
+	for i, number in ipairs(game.supportedPlayerNumbers) do
+		table.insert(supportedPlayerNumbers, { id = number, label = number })
+	end
 
-  local supportedPlayerNumbers = {}
-  for i,number in ipairs(game.supportedPlayerNumbers) do
-    table.insert(supportedPlayerNumbers, {id = number, label = number})
-  end
+	self.menuItems = {
+		{
+			name = "start",
+			label = "Start Game",
+			isActive = true,
+			changeOption = function() end,
+			selectOption = function()
+				local screen = game.screen
+				screen.nextScreen = GameScreen()
+				screen.nextScreen:load()
+				screen.nextScreen:enter()
+				game.screen = screen.nextScreen
+			end,
+		},
+		{
+			name = "players",
+			label = "Players... ",
+			isActive = false,
+			options = supportedPlayerNumbers,
+			selectedOption = 1,
+			changeOption = function(menuItem, direction)
+				local newOptionIndex = StartScreen.changeOption(menuItem, direction)
+				local selectedPlayerNumber = menuItem.options[newOptionIndex]
+				game.levelConfig.selectedPlayerNumber = selectedPlayerNumber.id
+			end,
+			selectOption = function() end,
+		},
+		{
+			name = "levels",
+			label = "Level... ",
+			isActive = false,
+			options = allLevels,
+			selectedOption = 1,
+			changeOption = function(menuItem, direction)
+				local newOptionIndex = StartScreen.changeOption(menuItem, direction)
+				local selectedLevel = menuItem.options[newOptionIndex]
+				game.levelConfig.selectedLevel = selectedLevel.id
+			end,
+			selectOption = function() end,
+		},
+	}
 
-  self.menuItems = {
-    { 
-      name = 'start', 
-      label = 'Start Game', 
-      isActive = true,
-      changeOption = function() end,
-      selectOption = function() 
-        local screen = game.screen
-        screen.nextScreen = GameScreen()
-        screen.nextScreen:load()
-        screen.nextScreen:enter()
-        game.screen = screen.nextScreen 
-      end
-    },
-    { 
-      name ='players', 
-      label = 'Players... ', 
-      isActive = false, 
-      options = supportedPlayerNumbers, 
-      selectedOption = 1,
-      changeOption = function(menuItem, direction)
+	game.inputManager = InputManager()
+	game.inputManager:registerInput(StartScreenKeyboardInput, "keyboard")
+	game.inputManager:registerInput(StartScreenGamepadInput, "gamepad")
 
-        local newOptionIndex = StartScreen.changeOption(menuItem, direction) 
-        local selectedPlayerNumber = menuItem.options[newOptionIndex]
-        game.levelConfig.selectedPlayerNumber = selectedPlayerNumber.id
+	self.activeItemIndex = self.menuItems[1]
 
-      end,
-      selectOption = function() end
-    },
-    { 
-      name = 'levels', 
-      label = 'Level... ', 
-      isActive = false, 
-      options = allLevels, 
-      selectedOption = 1,
-      changeOption = function(menuItem, direction)
+	self.gameConfig = {
+		level = game.selectedLevel,
+	}
 
-        local newOptionIndex = StartScreen.changeOption(menuItem, direction) 
-        local selectedLevel = menuItem.options[newOptionIndex]
-        game.levelConfig.selectedLevel = selectedLevel.id
-
-      end,
-      selectOption = function() end
-
-    }
-  }
-
-  game.inputManager = InputManager()
-  game.inputManager:registerInput(StartScreenKeyboardInput, 'keyboard')
-  game.inputManager:registerInput(StartScreenGamepadInput, 'gamepad')
-
-  self.activeItemIndex = self.menuItems[1]
-
-  self.gameConfig = {
-    level = game.selectedLevel
-
-  }
-
-  return self
+	return self
 end
-
 
 function StartScreen:load()
+	local fontPartyPack = love.graphics.newFont("/assets/fonts/Party_Pack_Normal.ttf")
+	local newGameFont = love.graphics.newFont("/assets/fonts/NewGameFont.ttf")
 
-  local fontPartyPack = love.graphics.newFont( '/assets/fonts/Party_Pack_Normal.ttf' )
-  local newGameFont = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf' )
+	self.font = newGameFont
+	self.font:setFilter("nearest")
+	love.graphics.setFont(self.font)
 
-  self.font = newGameFont
-  self.font:setFilter("nearest")
-  love.graphics.setFont(self.font)
-
-  self.activeIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
-  self.changeLeftIndicator = love.graphics.newImage('assets/images/triangle_points_left.png')
-  self.changeRightIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
-
+	self.activeIndicator = love.graphics.newImage("assets/images/triangle_points_right.png")
+	self.changeLeftIndicator = love.graphics.newImage("assets/images/triangle_points_left.png")
+	self.changeRightIndicator = love.graphics.newImage("assets/images/triangle_points_right.png")
 end
 
-
-function StartScreen:update(dt)
-
-end
+function StartScreen:update(dt) end
 
 function StartScreen.changeOption(menuItem, direction)
-  local optionIndex = menuItem.selectedOption
-  local newOptionIndex = optionIndex + 1
-  if newOptionIndex > #menuItem.options then newOptionIndex = 1 end
+	local optionIndex = menuItem.selectedOption
+	local newOptionIndex = optionIndex + 1
+	if newOptionIndex > #menuItem.options then
+		newOptionIndex = 1
+	end
 
-  if direction=='left' then 
-    newOptionIndex = optionIndex - 1 
-    if newOptionIndex < 1 then newOptionIndex = #menuItem.options end
-  end
-  menuItem.selectedOption = newOptionIndex
+	if direction == "left" then
+		newOptionIndex = optionIndex - 1
+		if newOptionIndex < 1 then
+			newOptionIndex = #menuItem.options
+		end
+	end
+	menuItem.selectedOption = newOptionIndex
 
-  return newOptionIndex
+	return newOptionIndex
 end
 
 function StartScreen:draw()
-  love.graphics.clear( 255/255, 220/255, 0, 1)
+	love.graphics.clear(255 / 255, 220 / 255, 0, 1)
 
-  local name = 'PHrawler'
+	local name = "PHrawler"
 
-  love.graphics.print({{144/255, 0, 255/255}, name}, 
-    100, 
-    100,
-    0,
-    2
-  )  
+	love.graphics.print({ { 144 / 255, 0, 255 / 255 }, name }, 100, 100, 0, 2)
 
-  local versionText = 'Version  ' .. tostring(game.version)
+	local versionText = "Version  " .. tostring(game.version)
 
+	love.graphics.print(
+		{ { 144 / 255, 0, 255 / 255 }, versionText },
+		25,
+		game.windowHeight - 25 - self.font:getHeight(versionText),
+		0
+	)
 
-  love.graphics.print({{144/255, 0, 255/255}, versionText}, 
-    25, 
-    game.windowHeight - 25 - self.font:getHeight(versionText),
-    0
-  )  
+	local scale = 1.5
+	local padding = 50
+	local lineHeight = 0
 
+	for i, menuItem in ipairs(self.menuItems) do
+		local label = menuItem.label
+		local x = game.windowWidth - padding - self.font:getWidth(label) * scale
+		local y = game.windowHeight / 2 + lineHeight - self.font:getHeight(label) * scale
 
-  local scale = 1.5
-  local padding = 50
-  local lineHeight = 0
+		local selectedOption = ""
+		-- calculate width of string
+		if menuItem.options ~= nil then
+			selectedOption = menuItem.options[menuItem.selectedOption].label
 
+			-- add padding for selected option
+			x = x - self.font:getWidth(selectedOption) * scale - 20
 
+			-- add padding for change arrows
+			x = x - self.changeLeftIndicator:getWidth() - self.changeRightIndicator:getWidth() - 30
+		end
 
-  for i, menuItem in ipairs(self.menuItems) do
+		-- Active Indicator
+		if menuItem.isActive then
+			love.graphics.draw(self.activeIndicator, x - 50, y, 0, 1, 1, 0, 1)
+			self.activeItemIndex = i
+		end
 
-    local label = menuItem.label
-    local x = game.windowWidth - padding - self.font:getWidth(label)*scale
-    local y = game.windowHeight/2 + lineHeight - self.font:getHeight(label)*scale
+		--Menu item label
+		love.graphics.print({ { 144 / 255, 0, 255 / 255 }, label }, x, y, 0, scale)
 
+		-- Arrow change to left
+		if menuItem.options ~= nil then
+			x = x + self.font:getWidth(label) * scale + 20
+			love.graphics.draw(self.changeLeftIndicator, x, y, 0, 0.65, 0.65, 0, -2.5)
+		end
 
-    local selectedOption = ''
--- calculate width of string
-    if (menuItem.options ~= nil) then
+		-- Selected Option
 
-      selectedOption = menuItem.options[menuItem.selectedOption].label
+		if menuItem.selectedOption ~= nil then
+			x = x + 30
+			love.graphics.print({ { 144 / 255, 0, 255 / 255 }, selectedOption }, x, y, 0, scale)
+		end
 
-      -- add padding for selected option
-      x = x - self.font:getWidth(selectedOption)*scale - 20      
+		-- Arrow change to right
+		if menuItem.options ~= nil then
+			x = x + self.font:getWidth(selectedOption) * scale + 20
+			love.graphics.draw(self.changeRightIndicator, x, y, 0, 0.65, 0.65, 0, -2.5)
+		end
 
-      -- add padding for change arrows
-      x = x - self.changeLeftIndicator:getWidth() - self.changeRightIndicator:getWidth() - 30
-
-    end
-
-    -- Active Indicator
-    if (menuItem.isActive) then
-      love.graphics.draw(self.activeIndicator, x - 50, y, 0, 1, 1, 0, 1)
-      self.activeItemIndex = i
-    end
-
-    --Menu item label
-    love.graphics.print({{144/255, 0, 255/255},label}, 
-      x, 
-      y,
-      0,
-      scale
-    )  
-
-
-    -- Arrow change to left
-    if (menuItem.options ~= nil) then
-      x = x + self.font:getWidth(label)*scale + 20
-      love.graphics.draw(self.changeLeftIndicator, x, y, 0, 0.65, 0.65, 0, -2.5)
-    end
-
-    -- Selected Option
-
-    if (menuItem.selectedOption ~= nil) then
-      x = x + 30
-      love.graphics.print({{144/255, 0, 255/255},selectedOption}, 
-        x, 
-        y,
-        0,
-        scale
-      )  
-    end
-
-    -- Arrow change to right
-    if (menuItem.options ~= nil) then
-      x = x + self.font:getWidth(selectedOption)*scale + 20
-      love.graphics.draw(self.changeRightIndicator, x, y, 0, 0.65, 0.65, 0, -2.5)
-    end
-
-    lineHeight = lineHeight + 50
-
-  end
-
-
+		lineHeight = lineHeight + 50
+	end
 end
 
-function StartScreen:exit()
-end
-
-
+function StartScreen:exit() end
 
 StartScreenKeyboardInput = Object:extend()
 
 function StartScreenKeyboardInput:new()
-  self.name = 'keyboard_startscreen'
-  return self
+	self.name = "keyboard_startscreen"
+	return self
 end
 
-
-function StartScreenKeyboardInput:keyreleased( key, scancode )
-
-end 
+function StartScreenKeyboardInput:keyreleased(key, scancode) end
 
 function StartScreenKeyboardInput:keypressed(key, scancode, isrepeat)
-  local screen = game.screen
+	local screen = game.screen
 
-  if key == 'down' then
-    if (screen.activeItemIndex < #screen.menuItems) then 
-      screen.menuItems[screen.activeItemIndex].isActive = false
-      screen.activeItemIndex = screen.activeItemIndex + 1
-      screen.menuItems[screen.activeItemIndex].isActive = true
-    end
-  end
+	if key == "down" then
+		if screen.activeItemIndex < #screen.menuItems then
+			screen.menuItems[screen.activeItemIndex].isActive = false
+			screen.activeItemIndex = screen.activeItemIndex + 1
+			screen.menuItems[screen.activeItemIndex].isActive = true
+		end
+	end
 
-  if key == 'up' then
-    if (screen.activeItemIndex > 1) then 
-      screen.menuItems[screen.activeItemIndex].isActive = false
-      screen.activeItemIndex = screen.activeItemIndex - 1
-      screen.menuItems[screen.activeItemIndex].isActive = true
-    end
-  end
+	if key == "up" then
+		if screen.activeItemIndex > 1 then
+			screen.menuItems[screen.activeItemIndex].isActive = false
+			screen.activeItemIndex = screen.activeItemIndex - 1
+			screen.menuItems[screen.activeItemIndex].isActive = true
+		end
+	end
 
-  if key == 'left' then
-    screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex],'left')
-  end
+	if key == "left" then
+		screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex], "left")
+	end
 
+	if key == "right" then
+		screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex], "right")
+	end
 
-  if key == 'right' then
-    screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex],'right')
-  end
-
-
-  if key == 'return' and screen.activeItemIndex == 1 then 
-
-    screen.menuItems[screen.activeItemIndex].selectOption()
-
-  end  
+	if key == "return" and screen.activeItemIndex == 1 then
+		screen.menuItems[screen.activeItemIndex].selectOption()
+	end
+	if key == "q" then
+		love.event.quit()
+	end
 end
 
 StartScreenGamepadInput = Object:extend()
 
 function StartScreenGamepadInput:new()
-  self.name = 'gamepad_startscreen'
-  self.connectedGamepads = game.inputManager:getGamepads()
-  return self
+	self.name = "gamepad_startscreen"
+	self.connectedGamepads = game.inputManager:getGamepads()
+	return self
 end
-
 
 function StartScreenGamepadInput:gamepadreleased(joystick, pressedButton)
+	local screen = game.screen
 
-  local screen = game.screen
+	if pressedButton == "dpdown" then
+		if screen.activeItemIndex < #screen.menuItems then
+			screen.menuItems[screen.activeItemIndex].isActive = false
+			screen.activeItemIndex = screen.activeItemIndex + 1
+			screen.menuItems[screen.activeItemIndex].isActive = true
+		end
+	end
 
+	if pressedButton == "dpup" then
+		if screen.activeItemIndex > 1 then
+			screen.menuItems[screen.activeItemIndex].isActive = false
+			screen.activeItemIndex = screen.activeItemIndex - 1
+			screen.menuItems[screen.activeItemIndex].isActive = true
+		end
+	end
 
-  if pressedButton == 'dpdown' then
-    if (screen.activeItemIndex < #screen.menuItems) then 
-      screen.menuItems[screen.activeItemIndex].isActive = false
-      screen.activeItemIndex = screen.activeItemIndex + 1
-      screen.menuItems[screen.activeItemIndex].isActive = true
-    end
-  end
+	if pressedButton == "dpleft" then
+		screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex], "left")
+	end
 
-  if pressedButton == 'dpup' then
-    if (screen.activeItemIndex > 1) then 
-      screen.menuItems[screen.activeItemIndex].isActive = false
-      screen.activeItemIndex = screen.activeItemIndex - 1
-      screen.menuItems[screen.activeItemIndex].isActive = true
-    end
-  end
+	if pressedButton == "dpright" then
+		screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex], "right")
+	end
 
-  if pressedButton == 'dpleft' then
-    screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex],'left')
-  end
+	if pressedButton == "a" and screen.activeItemIndex == 1 then
+		screen.menuItems[screen.activeItemIndex].selectOption()
+	end
 
-
-  if pressedButton == 'dpright' then
-    screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex],'right')
-  end
-
-  if pressedButton == 'a' and screen.activeItemIndex == 1 then 
-    screen.menuItems[screen.activeItemIndex].selectOption()
-  end  
-
-
-  if pressedButton == 'start' and screen.activeItemIndex == 1 then 
-    screen.menuItems[screen.activeItemIndex].selectOption()
-  end  
+	if pressedButton == "start" and screen.activeItemIndex == 1 then
+		screen.menuItems[screen.activeItemIndex].selectOption()
+	end
 end
 
-function StartScreenGamepadInput:gamepadpressed(joystick, releasedButton)
+function StartScreenGamepadInput:gamepadpressed(joystick, releasedButton) end
 
-end
-
-
-function StartScreenGamepadInput:addGamepad( joystick )
-
-end
+function StartScreenGamepadInput:addGamepad(joystick) end
