@@ -96,7 +96,7 @@ function GamepadInput:addGamepad( joystick )
 
   local connectedGamepads = self.connectedGamepads
 
-  if connectedGamepads[joystick:getGUID()] then return end
+  if connectedGamepads[joystick:getID()] then return end
 
   local highestPriorityPlayer = { priority = 100, notPlayer = true }
 
@@ -113,7 +113,7 @@ function GamepadInput:addGamepad( joystick )
   local deviceName = joystick:getName()
 
   highestPriorityPlayer.hasGamepad = true
-  self.connectedGamepads[joystick:getGUID()] = highestPriorityPlayer
+  self.connectedGamepads[joystick:getID()] = highestPriorityPlayer
   self.playerGamepads[highestPriorityPlayer.id] = joystick
   highestPriorityPlayer.activeInput = self.name
 
@@ -122,7 +122,7 @@ end
 
 function GamepadInput:gamepadpressed(joystick, pressedButton)
 
-  local player = self.connectedGamepads[joystick:getGUID()]
+  local player = self.connectedGamepads[joystick:getID()]
   local registeredButtons = self.registeredButtons[player.id]
 
   for button, command in pairs(registeredButtons) do
@@ -136,7 +136,7 @@ end
 
 function GamepadInput:gamepadreleased(joystick, releasedButton)
 
-  local player = self.connectedGamepads[joystick:getGUID()]
+  local player = self.connectedGamepads[joystick:getID()]
   local registeredButtons = self.buttons[player.id]
 
 
