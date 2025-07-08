@@ -162,7 +162,7 @@ function StartScreen:draw()
 
     -- Active Indicator
     if (menuItem.isActive) then
-      love.graphics.draw(self.activeIndicator, x - 50, y, 0, 1, 1, 0, 1)
+      love.graphics.draw(self.activeIndicator, x - 50, y, 0, 1, 1, 0, 2)
       self.activeItemIndex = i
     end
 
