@@ -11,7 +11,8 @@ function StartScreen:new()
   end
 
   local supportedPlayerNumbers = {}
-  for i,number in ipairs(game.supportedPlayerNumbers) do
+  
+  for number=1,game.maxSupportedPlayerNumber do 
     table.insert(supportedPlayerNumbers, {id = number, label = number})
   end
 
