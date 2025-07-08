@@ -12,7 +12,7 @@ function StartScreen:new()
 
   local supportedPlayerNumbers = {}
   
-  for number=1,game.maxSupportedPlayerNumber do 
+  for number=game.minSupportedPlayerNumber,game.maxSupportedPlayerNumber do 
     table.insert(supportedPlayerNumbers, {id = number, label = number})
   end
 
@@ -40,6 +40,7 @@ function StartScreen:new()
 
         local newOptionIndex = StartScreen.changeOption(menuItem, direction) 
         local selectedPlayerNumber = menuItem.options[newOptionIndex]
+                
         game.levelConfig.selectedPlayerNumber = selectedPlayerNumber.id
         game.screen:changeSelectedPlayerCharacters()
 

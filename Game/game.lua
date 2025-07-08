@@ -14,6 +14,7 @@ game.defaultConfig = function() -- needed for restart purposes
       selectedPlayerNumber = 2,
       selectedLevel = Constants.LEVEL_1
     },
+    minSupportedPlayerNumber = 2,
     maxSupportedPlayerNumber = 8,
     showFPS = false,
     version = 0.4,
