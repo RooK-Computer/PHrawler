@@ -41,6 +41,7 @@ function StartScreen:new()
         local newOptionIndex = StartScreen.changeOption(menuItem, direction) 
         local selectedPlayerNumber = menuItem.options[newOptionIndex]
         game.levelConfig.selectedPlayerNumber = selectedPlayerNumber.id
+        game.screen:changeSelectedPlayerCharacters()
 
       end,
       selectOption = function() end
@@ -59,7 +60,6 @@ function StartScreen:new()
 
       end,
       selectOption = function() end
-
     }
   }
 
@@ -73,6 +73,8 @@ function StartScreen:new()
     level = game.selectedLevel
 
   }
+
+  self:changeSelectedPlayerCharacters()
 
   return self
 end
@@ -96,9 +98,15 @@ end
 
 function StartScreen:update(dt)
 
+  for i,selectedPlayer in ipairs(self.selectedPlayerCharacters) do 
+
+    selectedPlayer.anim:update(dt)
+
+  end
 end
 
 function StartScreen.changeOption(menuItem, direction)
+
   local optionIndex = menuItem.selectedOption
   local newOptionIndex = optionIndex + 1
   if newOptionIndex > #menuItem.options then newOptionIndex = 1 end
@@ -111,6 +119,30 @@ function StartScreen.changeOption(menuItem, direction)
 
   return newOptionIndex
 end
+
+
+function StartScreen:changeSelectedPlayerCharacters()
+  local selectedPlayerNumber = game.levelConfig.selectedPlayerNumber
+
+  self.selectedPlayerCharacters = {}
+
+  for i=1,selectedPlayerNumber do 
+    local spritesheet = love.graphics.newImage('assets/players/player_' .. i .. '.png')
+    local grid = anim8.newGrid( 64, 64, spritesheet:getWidth(), spritesheet:getHeight() )
+
+    local anim = anim8.newAnimation( grid('1-8',1), 0.05)
+
+
+    local selectedPlayerCharacter = {
+      spritesheet = spritesheet,
+      anim = anim
+    }
+
+    table.insert(self.selectedPlayerCharacters, selectedPlayerCharacter)
+
+  end
+end
+
 
 function StartScreen:draw()
   love.graphics.clear( 255/255, 220/255, 0, 1)
@@ -198,6 +230,17 @@ function StartScreen:draw()
     if (menuItem.options ~= nil) then
       x = x + self.font:getWidth(selectedOption)*scale + 20
       love.graphics.draw(self.changeRightIndicator, x, y, 0, 0.65, 0.65, 0, -2.5)
+    end
+
+    if (menuItem.name == 'players') then 
+      local playerX = 50
+      for i,selectedPlayer in ipairs(self.selectedPlayerCharacters) do 
+
+        selectedPlayer.anim:draw(selectedPlayer.spritesheet, playerX, y, nil, 1, 1, 32, 32)
+
+        playerX = playerX + 32
+
+      end
     end
 
     lineHeight = lineHeight + 50
