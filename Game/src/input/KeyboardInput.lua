@@ -58,7 +58,7 @@ function KeyboardInput:keypressed(pressedKey, scancode, isrepeat)
   local allKeys = self.keys
 
   if pressedKey == "escape" then game.screen:pauseScreen() end
-
+  if pressedKey == "q" then love.event.quit() end
 
   if pressedKey == "." then game.activateDebug = not game.activateDebug end
 

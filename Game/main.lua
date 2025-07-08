@@ -2,10 +2,14 @@ require 'init'
 
 function love.load(arg)
   io.stdout:setvbuf("no") -- needed for print() to work in ZeroBrane Studios Editor
-  if arg[#arg] == "-debug" then require("mobdebug").start() end -- needed for debugging in ZeroBrane Studios Editor
+  local fullscreen = arg[1] ~= "-windowed" or false
+  if arg[#arg] == "-debug" then 
+    require("mobdebug").start() 
+    fullscreen = false 
+  end -- needed for debugging in ZeroBrane Studios Editor
 
   push:setupScreen(game.windowWidth, game.windowHeight, game.windowWidth, game.windowHeight, {
-      fullscreen = false,
+      fullscreen = fullscreen,
       vsync = true,
       resizable = true,
       highdpi = true

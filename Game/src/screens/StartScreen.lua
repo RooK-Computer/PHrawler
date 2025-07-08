@@ -256,7 +256,10 @@ function StartScreenKeyboardInput:keypressed(key, scancode, isrepeat)
 
     screen.menuItems[screen.activeItemIndex].selectOption()
 
-  end  
+  end 
+  if key == 'q' then
+    love.event.quit()
+  end
 end
 
 StartScreenGamepadInput = Object:extend()
