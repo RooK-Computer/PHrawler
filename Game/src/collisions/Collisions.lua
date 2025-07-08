@@ -1,7 +1,7 @@
 require 'src/collisions/PlayerPlattformCollision'
 require 'src/collisions/PlayerFightsCollision'
 
-local Collissions = {
+local Collisions = {
   PlayerPlattformCollision,
   PlayerFightsCollision,
 }
@@ -12,7 +12,7 @@ function beginContact(a, b, contact)
 
   if aObject == nil or bObject == nil then return end
 
-  for i,collision in ipairs(Collissions) do
+  for i,collision in ipairs(Collisions) do
     if collision.checkCollisionClassB(aObject.collisionClass) and collision.checkCollisionClassA(bObject.collisionClass) then 
       aObject = b:getUserData()
       bObject = a:getUserData()
@@ -33,7 +33,7 @@ function endContact(a, b, contact)
   if aObject == nil or bObject == nil then return end
 
 
-  for i,collision in ipairs(Collissions) do
+  for i,collision in ipairs(Collisions) do
     if collision.checkCollisionClassB(aObject.collisionClass) and collision.checkCollisionClassA(bObject.collisionClass) then 
       aObject = b:getUserData()
       bObject = a:getUserData()
@@ -51,7 +51,7 @@ function preSolve(a, b, contact)
   if aObject == nil or bObject == nil then return end
 
 
-  for i,collision in ipairs(Collissions) do
+  for i,collision in ipairs(Collisions) do
     if collision.checkCollisionClassB(aObject.collisionClass) and collision.checkCollisionClassA(bObject.collisionClass) then 
       aObject = b:getUserData()
       bObject = a:getUserData()
@@ -69,7 +69,7 @@ function postSolve(a, b, contact, normalimpulse, tangentimpulse)
   if aObject == nil or bObject == nil then return end
 
 
-  for i,collision in ipairs(Collissions) do
+  for i,collision in ipairs(Collisions) do
     if collision.checkCollisionClassB(aObject.collisionClass) and collision.checkCollisionClassA(bObject.collisionClass) then 
       aObject = b:getUserData()
       bObject = a:getUserData()
