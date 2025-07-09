@@ -30,6 +30,7 @@ game.gravity = 9.81 * game.PIXELS_PER_METER
 game.start = function()
   game.players = {}
   game.screen = nil
+  game.inputManager = InputManager()
   game.screen = RookScreen()
   game.screen:load()
 end

@@ -64,7 +64,6 @@ function StartScreen:new()
     }
   }
 
-  game.inputManager = InputManager()
   game.inputManager:registerInput(StartScreenKeyboardInput, 'keyboard')
   game.inputManager:registerInput(StartScreenGamepadInput, 'gamepad')
 
