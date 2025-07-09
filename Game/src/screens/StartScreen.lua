@@ -35,7 +35,7 @@ function StartScreen:new()
       label = 'Players... ', 
       isActive = false, 
       options = supportedPlayerNumbers, 
-      selectedOption = 1,
+      selectedOption = game.levelConfig.selectedPlayerNumber - 1,
       changeOption = function(menuItem, direction)
 
         local newOptionIndex = StartScreen.changeOption(menuItem, direction) 
