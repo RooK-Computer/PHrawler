@@ -107,6 +107,7 @@ function GamepadInput:connectGamepadWithPlayer( player )
       self.playerGamepads[player.id] = joystick
       player.activeInput = self.name
       player.gamepad = joystick
+      break
     end
 
   end
