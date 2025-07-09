@@ -75,18 +75,18 @@ function GameScreen:draw()
     love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), statsPositionY, statsPositionX)
 
 
-    for i = 1, #game.players do
-      if i > 32 then
-      else 
-        statsPositionY = statsPositionY + 20
-        local player = game.players[i]
-        love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
+    --for i = 1, #game.players do
+      --if i > 32 then
+      --else 
+        --statsPositionY = statsPositionY + 20
+        --local player = game.players[i]
+        --love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
         --love.graphics.print(player.name .. " AnimDirection: ".. player.animationDirection .. ' / isFighting: ' .. tostring(player.isFighting), statsPositionX, statsPositionY)
         --statsPositionY = statsPositionY + 10            
 
 
-        love.graphics.print(player.name .. " health: ".. player.health, statsPositionX, statsPositionY)
-        statsPositionY = statsPositionY + 10   
+        --love.graphics.print(player.name .. " health: ".. player.health, statsPositionX, statsPositionY)
+        --statsPositionY = statsPositionY + 10   
 
         --local velocityX, velocityY = player.physics.body:getLinearVelocity()
 
@@ -99,8 +99,8 @@ function GameScreen:draw()
 
         --statsPositionY = statsPositionY + 10
         --love.graphics.print(player.name .. " hasJumped: " .. tostring(player.hasJumped), statsPositionX, statsPositionY)
-      end
-    end
+      --end
+    --end
 
 
   end
