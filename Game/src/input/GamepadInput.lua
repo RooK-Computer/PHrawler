@@ -101,11 +101,12 @@ function GamepadInput:connectGamepadWithPlayer( player )
 
 
   for joystickID, joystick in pairs(self.connectedGamepads) do
-    
+
     if self.playerGamepads[joystickID] == nil then 
       self.playerGamepads[joystickID] = player
       self.playerGamepads[player.id] = joystick
       player.activeInput = self.name
+      player.gamepad = joystick
     end
 
   end

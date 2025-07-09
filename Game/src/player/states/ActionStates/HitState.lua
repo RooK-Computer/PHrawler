@@ -13,6 +13,9 @@ function HitState:new(player)
   if player.animationDirection == 'left' then playerImpulseX = -playerImpulseX end
   player.physics.body:applyLinearImpulse( playerImpulseX, playerImpulseY )
 
+  if player.gamepad~= nil and player.gamepad:isVibrationSupported() then 
+    player.gamepad:setVibration( 1, 1, 1 ) 
+  end
 
   return self
 end

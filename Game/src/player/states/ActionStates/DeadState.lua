@@ -16,6 +16,11 @@ function DeadState:new(player)
   self.player.isDead = true
   self.player.isMovementBlocked = true
 
+
+  if player.gamepad~= nil and player.gamepad:isVibrationSupported() then 
+    player.gamepad:setVibration( 1, 1, 1 ) 
+  end
+  
   return self
 end
 
