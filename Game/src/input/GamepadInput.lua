@@ -72,7 +72,7 @@ function GamepadInput:checkForInput()
     local playerGamepad = self.playerGamepads[playerID]
     if playerGamepad then 
 
-      self:checkForRestart(playerGamepad)
+      self:checkForDebug(playerGamepad)
 
       for button, command in pairs(buttons) do
         local player = self.players[playerID]
@@ -146,14 +146,18 @@ function GamepadInput:gamepadreleased(joystick, releasedButton)
 
 end
 
-function GamepadInput:checkForRestart(playerGamepad)
+function GamepadInput:checkForDebug(playerGamepad)
 
-  if playerGamepad:isGamepadDown('a') and
-  playerGamepad:isGamepadDown('b') and
-  playerGamepad:isGamepadDown('x') and
-  playerGamepad:isGamepadDown('y') and
-  playerGamepad:isGamepadDown('start') then
-    game.screen.restartGame()
+  if playerGamepad:isGamepadDown('leftshoulder') and
+  playerGamepad:isGamepadDown('rightshoulder') and
+  playerGamepad:isGamepadDown('x') then
+    game.activateDebug = true
+  end  
+  
+  if playerGamepad:isGamepadDown('leftshoulder') and
+  playerGamepad:isGamepadDown('rightshoulder') and
+  playerGamepad:isGamepadDown('y') then
+    game.activateDebug = false
   end
 
 end
