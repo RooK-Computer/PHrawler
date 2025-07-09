@@ -80,7 +80,7 @@ function GamepadInput:checkForInput()
         if not player.isDead and playerGamepad:isGamepadDown( button ) then
           player:inputStart(command)
           player.activeInput = self.name
-          break
+
         end
 
       end
