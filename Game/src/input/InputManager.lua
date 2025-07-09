@@ -10,8 +10,6 @@ function InputManager:new()
 
   self.inputTypes = {}
   self.inputTypes.none = nil
-  self.connectedGamepads  = {}
-
 end
 
 function InputManager:registerInput(input, type)
@@ -34,13 +32,24 @@ end
 
 function InputManager:addGamepad(joystick)
 
-  self.connectedGamepads[joystick:getGUID()] = joystick
+  game.connectedGamepads[joystick:getID()] = joystick --we need to store it here so it outlives a new InputManager instance...
   if self.inputTypes.gamepad ~=  nil then self.inputTypes.gamepad:addGamepad(joystick) end
 
 end 
 
+function InputManager:removeGamepad(joystick)
+
+  for i, gamepad in ipairs(game.connectedGamepads) do 
+
+    if gamepad:getID() == joystick:getID() then 
+      table.remove(game.connectedGamepads, i)
+    end
+  end
+
+end 
+
 function InputManager:getGamepads()
-  return self.connectedGamepads
+  return game.connectedGamepads 
 end 
 
 
@@ -70,6 +79,17 @@ function love.joystickadded( joystick )
 
   end
 end 
+
+function love.joystickremoved(joystick)
+  if game.inputManager ==  nil then return end
+  local isGamepad = joystick:isGamepad()
+  if isGamepad then 
+
+    game.inputManager:removeGamepad(joystick)    
+
+  end
+
+end
 
 function love.gamepadpressed( joystick, button )
   if game.inputManager ==  nil or game.inputManager.inputTypes.gamepad == nil then return end

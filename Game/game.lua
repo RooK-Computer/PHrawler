@@ -16,6 +16,7 @@ game.defaultConfig = function() -- needed for restart purposes
     },
     minSupportedPlayerNumber = 2,
     maxSupportedPlayerNumber = 8,
+    connectedGamepads = {},
     showFPS = false,
     version = 0.4,
   }

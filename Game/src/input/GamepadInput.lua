@@ -54,10 +54,10 @@ function GamepadInput:registerPlayer(player, controls)
     self.players[sortedPlayers.id] = sortedPlayers
   end
 
-  local joysticks = love.joystick.getJoysticks()
-  for i, joystick in pairs(joysticks) do
-    self:addGamepad( joystick )
-  end
+
+
+  self:connectGamepadWithPlayer(player)
+
 
 end
 
@@ -91,38 +91,31 @@ function GamepadInput:checkForInput()
 
 end
 
-
 function GamepadInput:addGamepad( joystick )
 
-  local connectedGamepads = self.connectedGamepads
+end
 
-  if connectedGamepads[joystick:getID()] then return end
 
-  local highestPriorityPlayer = { priority = 100, notPlayer = true }
 
-  for playerID, player in pairs(self.players) do 
-    if highestPriorityPlayer.priority > player.priority and not player.hasGamepad then 
-      highestPriorityPlayer = player
+function GamepadInput:connectGamepadWithPlayer( player )
+
+
+  for joystickID, joystick in pairs(self.connectedGamepads) do
+    
+    if self.playerGamepads[joystickID] == nil then 
+      self.playerGamepads[joystickID] = player
+      self.playerGamepads[player.id] = joystick
+      player.activeInput = self.name
     end
-  end
-  
-  if highestPriorityPlayer.notPlayer then return end
-  
-  
-  local vendorID, productID, productVersion = joystick:getDeviceInfo()
-  local deviceName = joystick:getName()
 
-  highestPriorityPlayer.hasGamepad = true
-  self.connectedGamepads[joystick:getID()] = highestPriorityPlayer
-  self.playerGamepads[highestPriorityPlayer.id] = joystick
-  highestPriorityPlayer.activeInput = self.name
+  end
 
 end
 
 
 function GamepadInput:gamepadpressed(joystick, pressedButton)
 
-  local player = self.connectedGamepads[joystick:getID()]
+  local player = self.playerGamepads[joystick:getID()]
   local registeredButtons = self.registeredButtons[player.id]
 
   for button, command in pairs(registeredButtons) do
@@ -136,7 +129,7 @@ end
 
 function GamepadInput:gamepadreleased(joystick, releasedButton)
 
-  local player = self.connectedGamepads[joystick:getID()]
+  local player = self.playerGamepads[joystick:getID()]
   local registeredButtons = self.buttons[player.id]
 
 

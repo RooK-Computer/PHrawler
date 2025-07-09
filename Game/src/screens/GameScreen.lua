@@ -5,6 +5,7 @@ GameScreen = Screen:extend()
 function GameScreen:new()
   self.name = 'GameScreen'
   self.isPaused = false
+  self.isEnded = false
   return self
 end
 
@@ -45,9 +46,11 @@ function GameScreen:enter()
 end
 
 function GameScreen:update(dt)
-  if self.isPaused then return end
+  if self.isPaused or self.isEnded then return end
 
   local allPlayers = game.players
+  
+  if #allPlayers == 1 then self:endScreen() end
 
   for i, player in ipairs(allPlayers) do
     player:update(dt)
@@ -107,6 +110,10 @@ function GameScreen:draw()
     self.pausescreen:draw()
   end
 
+  if self.isEnded then
+    self.endscreen:draw()
+  end
+
 end
 
 function GameScreen:restartGame()
@@ -119,8 +126,22 @@ function GameScreen:restartGame()
 end
 
 
+function GameScreen:endScreen()
+
+  if self.isEnded then return end
+  self.isEnded = true
+
+  game.inputManager:registerInput(EndScreenKeyboardInput(), 'keyboard')
+  game.inputManager:registerInput(EndScreenGamepadInput(), 'gamepad')
+
+  self.endscreen = EndScreen()
+
+end
+
+
 function GameScreen:pauseScreen()
 
+  if self.isEnded then return end
   self.isPaused = true
 
   game.inputManager:registerInput(PauseScreenKeyboardInput(), 'keyboard')
