@@ -14,8 +14,7 @@ function MovingIdleState:new(player)
   self.player.velocityY = player.speed/2
   self.player.hasJumped = 0
   self.player.physics.body:setLinearVelocity(player.velocityX, player.velocityY)
-
-  self.player.anim = player.animations.idle[player.animationDirection]
+  self.player.anim = player.animations[Constants.IDLE_STATE][player.animationDirection]
 
   return self
 end

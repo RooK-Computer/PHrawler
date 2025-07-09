@@ -78,12 +78,6 @@ function PauseScreen:draw()
 
   end
 
-
-
-
-
-
-
 end
 
 

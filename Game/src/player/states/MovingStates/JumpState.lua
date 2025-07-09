@@ -4,8 +4,8 @@ function JumpState:new(player)
   JumpState.super.new(self, player)
   self.name = Constants.JUMP_STATE
 
-  self.player.direction = Constants.PLAYER_DIRECTION_UP
-  self.player.anim = player.animations.jump[player.animationDirection]  
+  self.player.direction = Constants.PLAYER_DIRECTION_UP  
+  self.player.anim = player.animations[Constants.JUMP_STATE][player.animationDirection]
   self.player.hasJumped = player.hasJumped + 1
   self.player.velocityY =  -2 * game.PIXELS_PER_METER
 

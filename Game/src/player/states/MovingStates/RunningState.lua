@@ -3,8 +3,7 @@ RunningState = State:extend()
 function RunningState:new(player)
   RunningState.super.new(self, player)
   self.name = 'running'
-  self.player.anim = player.animations.running[player.animationDirection]
-
+  self.player.anim = player.animations[Constants.RUN_STATE][player.animationDirection]
   return self
 end
 
@@ -17,7 +16,7 @@ function RunningState:input(command)
   if command == 'right' then player.direction = command end
   if command == 'idle' then return MovingIdleState(player) end
   if command == 'jump' then return JumpState(player) end
-    if command == Constants.PLAYER_DROP_COMMAND then 
+  if command == Constants.PLAYER_DROP_COMMAND then 
     return DropState(player) 
   end
 

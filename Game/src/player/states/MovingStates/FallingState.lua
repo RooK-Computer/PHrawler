@@ -8,8 +8,7 @@ function FallingState:new(player)
 
   self.player.physics.body:setLinearVelocity(self.player.velocityX, self.player.velocityY)
 
-  self.player.anim = player.animations.falling[player.animationDirection]
-
+  self.player.anim = player.animations[Constants.FALL_STATE][player.animationDirection]
   player.direction = Constants.PLAYER_DIRECTION_DOWN
 
   return self
