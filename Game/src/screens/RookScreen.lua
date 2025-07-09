@@ -7,6 +7,7 @@ function RookScreen:new()
   love.graphics.setDefaultFilter('linear', 'linear') -- best for pixel art
 
   self.logo = love.graphics.newImage('assets/images/rook_logo.png')
+  self.vibrationForce = 0
 
   return self
 end
@@ -42,12 +43,23 @@ function RookScreen:draw()
       game.windowHeight - 100 - self.font:getHeight('Rook Komputer'),
       0,
       nameScale
-      )
+    )
 
+
+    self.vibrationForce =   self.vibrationForce + 0.01
+    local gamepads = love.joystick.getJoysticks()
+    for i, gamepad in pairs(gamepads) do
+      if gamepad:isVibrationSupported() then gamepad:setVibration( self.vibrationForce, self.vibrationForce, 0.5 ) end
+    end
 
     local passedTime = love.timer.getTime() - self.startTimer
 
     if passedTime > 5 then 
+
+      local gamepads = love.joystick.getJoysticks()
+      for i, gamepad in pairs(gamepads) do
+        if gamepad:isVibrationSupported() then gamepad:setVibration(0,0,0) end
+      end
       self.nextScreen = StartScreen()
       self.nextScreen:load()
       game.screen = self.nextScreen 
