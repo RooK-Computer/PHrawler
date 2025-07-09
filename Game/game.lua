@@ -18,7 +18,7 @@ game.defaultConfig = function() -- needed for restart purposes
     maxSupportedPlayerNumber = 8,
     connectedGamepads = {},
     showFPS = false,
-    version = 0.4,
+    version = "0.5...nbg",
   }
 
 end
