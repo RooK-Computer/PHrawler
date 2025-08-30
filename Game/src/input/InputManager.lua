@@ -2,7 +2,7 @@ require('src/input/KeyboardInput')
 require('src/input/JoystickInput')
 require('src/input/GamepadInput')
 require('src/input/GamepadState')
-
+require('src/input/InputHandler')
 
 InputManager = Object:extend()
 
@@ -11,6 +11,8 @@ function InputManager:new()
   self.inputTypes = {}
   self.inputTypes.none = nil
   self.gamepadStates = {}
+  self.HandlerStack = Stack()
+  self.HandlerStack:push(AssertiveInputHandler())
 end
 
 function InputManager:registerInput(input, type)
@@ -55,6 +57,47 @@ function InputManager:getGamepads()
   return game.connectedGamepads 
 end 
 
+function InputManager:OnPress(joystick, button)
+  local offset = 0
+  local handled = false
+  while handled == false do
+    local handler = self.HandlerStack.peek(offset)
+    local inputs = handler.AllowedInputDevices()
+    local allowed = false
+    for k,v in pairs(inputs) do
+      if v == joystick:getID() then
+        allowed = true
+      end
+    end
+    if allowed then
+      handler:OnPress(joystick, button)
+      handled = true
+    else 
+      offset = offset + 1
+    end
+  end
+end
+
+function InputManager:OnRelease(joystick, button)
+  local offset = 0
+  local handled = false
+  while handled == false do
+    local handler = self.HandlerStack.peek(offset)
+    local inputs = handler.AllowedInputDevices()
+    local allowed = false
+    for k,v in pairs(inputs) do
+      if v == joystick:getID() then
+        allowed = true
+      end
+    end
+    if allowed then
+      handler:OnRelease(joystick, button)
+      handled = true
+    else 
+      offset = offset + 1
+    end
+  end
+end
 
 --keyboard Input
 
@@ -105,6 +148,7 @@ function love.gamepadpressed( joystick, button )
     if game.inputManager.gamepadStates[joystick:getID()]:isReleased(button) then
       game.inputManager.gamepadStates[joystick:getID()]:press(button)
       game.inputManager.inputTypes.gamepad:gamepadpressed(joystick, button)
+      game.inputManager:OnPress(joystick, button)
     end
   end
 
@@ -121,6 +165,7 @@ function love.gamepadreleased( joystick, button )
     if game.inputManager.gamepadStates[joystick:getID()]:isPressed(button) then
       game.inputManager.gamepadStates[joystick:getID()]:release(button)
       game.inputManager.inputTypes.gamepad:gamepadreleased(joystick, button)
+      game.inputManager:OnRelease(joystick, button)
     end
   end
 end
