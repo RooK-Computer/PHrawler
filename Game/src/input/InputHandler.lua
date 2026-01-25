@@ -6,7 +6,7 @@ end
 
 function InputHandler:AllowedInputDevices() 
     local devices = {}
-    for k,v in pairs(InputManager.gamepadStates) do
+    for k,v in pairs(game.inputManager.gamepadStates) do
         table.insert(devices,k)
     end
     return devices

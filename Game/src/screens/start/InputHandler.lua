@@ -12,7 +12,7 @@ end
 
 function StartScreenInputHandler:OnRelease(joystick, button) 
 
-  local screen = game.screen
+  local screen = self.screen
   if button == 'dpdown' then
     if (screen.activeItemIndex < #screen.menuItems) then 
       screen.menuItems[screen.activeItemIndex].isActive = false

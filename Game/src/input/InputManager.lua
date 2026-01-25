@@ -12,7 +12,8 @@ function InputManager:new()
   self.inputTypes.none = nil
   self.gamepadStates = {}
   self.HandlerStack = Stack()
-  self.HandlerStack:push(AssertiveInputHandler())
+--  self.HandlerStack:push(AssertiveInputHandler())
+  self.HandlerStack:push(InputHandler())
 end
 
 function InputManager:registerInput(input, type)
@@ -61,8 +62,8 @@ function InputManager:OnPress(joystick, button)
   local offset = 0
   local handled = false
   while handled == false do
-    local handler = self.HandlerStack.peek(offset)
-    local inputs = handler.AllowedInputDevices()
+    local handler = self.HandlerStack:peek(offset)
+    local inputs = handler:AllowedInputDevices()
     local allowed = false
     for k,v in pairs(inputs) do
       if v == joystick:getID() then
@@ -82,8 +83,8 @@ function InputManager:OnRelease(joystick, button)
   local offset = 0
   local handled = false
   while handled == false do
-    local handler = self.HandlerStack.peek(offset)
-    local inputs = handler.AllowedInputDevices()
+    local handler = self.HandlerStack:peek(offset)
+    local inputs = handler:AllowedInputDevices()
     local allowed = false
     for k,v in pairs(inputs) do
       if v == joystick:getID() then
@@ -138,7 +139,6 @@ function love.joystickremoved(joystick)
 end
 
 function love.gamepadpressed( joystick, button )
-  if game.inputManager ==  nil or game.inputManager.inputTypes.gamepad == nil then return end
 
   local isGamepad = joystick:isGamepad()
   if isGamepad then 
@@ -157,7 +157,6 @@ function love.gamepadpressed( joystick, button )
 end
 
 function love.gamepadreleased( joystick, button )
-  if game.inputManager ==  nil or game.inputManager.inputTypes.gamepad == nil then return end
 
   local isGamepad = joystick:isGamepad()
   if isGamepad then
