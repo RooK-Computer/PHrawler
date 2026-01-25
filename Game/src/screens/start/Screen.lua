@@ -1,4 +1,5 @@
 StartScreen = Screen:extend()
+require 'src/screens/start/InputHandler'
 
 function StartScreen:new()
   self.name = 'StartScreen'
