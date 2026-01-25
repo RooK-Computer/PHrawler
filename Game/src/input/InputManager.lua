@@ -147,7 +147,9 @@ function love.gamepadpressed( joystick, button )
     end
     if game.inputManager.gamepadStates[joystick:getID()]:isReleased(button) then
       game.inputManager.gamepadStates[joystick:getID()]:press(button)
-      game.inputManager.inputTypes.gamepad:gamepadpressed(joystick, button)
+      if game.inputManager.inputTypes.gamepad ~= nil then
+        game.inputManager.inputTypes.gamepad:gamepadpressed(joystick, button)
+      end
       game.inputManager:OnPress(joystick, button)
     end
   end
@@ -164,7 +166,9 @@ function love.gamepadreleased( joystick, button )
     end
     if game.inputManager.gamepadStates[joystick:getID()]:isPressed(button) then
       game.inputManager.gamepadStates[joystick:getID()]:release(button)
-      game.inputManager.inputTypes.gamepad:gamepadreleased(joystick, button)
+      if game.inputManager.inputTypes.gamepad ~= nil then
+        game.inputManager.inputTypes.gamepad:gamepadreleased(joystick, button)
+      end
       game.inputManager:OnRelease(joystick, button)
     end
   end
