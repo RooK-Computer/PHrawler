@@ -119,10 +119,7 @@ end
 function GameScreen:restartGame()
 
   game.players = {}
-  game.screen = nil
-  game.screen = GameScreen()
-  game.screen:load()
-
+  game.switchScreen(GameScreen())
 end
 
 

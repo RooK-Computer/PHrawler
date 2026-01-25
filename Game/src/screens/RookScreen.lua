@@ -60,9 +60,7 @@ function RookScreen:draw()
       for i, gamepad in pairs(gamepads) do
         if gamepad:isVibrationSupported() then gamepad:setVibration(0,0,0) end
       end
-      self.nextScreen = StartScreen()
-      self.nextScreen:load()
-      game.screen = self.nextScreen 
+      game.switchScreen(StartScreen())
     end
   end
   love.graphics.draw( self.logo, game.windowWidth/2, game.windowHeight/2, 0, scale, scale, game.windowWidth, game.windowHeight )
