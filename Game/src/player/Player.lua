@@ -104,7 +104,7 @@ end
 
 function Player:checkIsOnGround() 
   local vx, vy =   self.physics.body:getLinearVelocity()
-  if vy == 0 then self.isOnGround = true end  
+  if vy >= -1 and vy <= 1 then self.isOnGround = true end  
 end
 
 function Player:setDamage(damagePoints)
