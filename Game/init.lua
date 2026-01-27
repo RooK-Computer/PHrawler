@@ -3,7 +3,7 @@ Object = require "lib/classic" -- OOP library
 --lick.reset = true -- adds live-reloading for development; should be removed on prod
 sti = require 'lib/sti' -- simple tiled loader / used for import of tiled maps
 anim8 = require 'lib/anim8' -- animation library
-windfield = require 'lib/windfield' -- physics library wrapper
+--windfield = require 'lib/windfield' -- physics library wrapper
 inspect = require('lib/inspect') -- gives us something like var_dump in php
 push = require('lib/push') -- gives us resizable screens
 
