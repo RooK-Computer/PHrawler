@@ -24,7 +24,7 @@ end
 
 function RookScreen:update(dt)
 
-  self.logoScale = self.logoScale + 0.0025
+  self.logoScale = self.logoScale + 0.0015
 
 end
 
@@ -33,18 +33,8 @@ function RookScreen:draw()
 
   local scale = self.logoScale
 
-  if scale > 0.25 then 
-    scale = 0.25 
-    
-    local nameScale = 3
-
-    love.graphics.print({{144/255, 0, 255/255},'Rook Komputer'}, 
-      game.windowWidth/2 - self.font:getWidth('Rook Komputer')/2*nameScale, 
-      game.windowHeight - 100 - self.font:getHeight('Rook Komputer'),
-      0,
-      nameScale
-    )
-
+  if scale > 0.15 then 
+    scale = 0.15
 
     self.vibrationForce =   self.vibrationForce + 0.01
     local gamepads = love.joystick.getJoysticks()
@@ -63,7 +53,8 @@ function RookScreen:draw()
       game.switchScreen(StartScreen())
     end
   end
-  love.graphics.draw( self.logo, game.windowWidth/2, game.windowHeight/2, 0, scale, scale, game.windowWidth, game.windowHeight )
+  
+  love.graphics.draw( self.logo, game.windowWidth/2 - self.logo:getWidth()/2 * scale, game.windowHeight/2 - self.logo:getHeight()/2 * scale, 0, scale, scale )
 
 end
 
