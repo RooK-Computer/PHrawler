@@ -20,7 +20,7 @@ end
 
 
 require 'src/screens/RookScreen' 
-require 'src/screens/StartScreen' 
+require 'src/screens/start/Screen' 
 require 'src/screens/GameScreen' 
 require 'src/screens/PauseScreen' 
 require 'src/screens/EndScreen' 

@@ -8,6 +8,8 @@ inspect = require('lib/inspect') -- gives us something like var_dump in php
 push = require('lib/push') -- gives us resizable screens
 
 
+--CORE
+require('src/core/Stack')
 
 --GLOBALS
 require('src/misc/Constants')

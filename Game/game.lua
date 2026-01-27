@@ -31,17 +31,23 @@ game.start = function()
   game.players = {}
   game.screen = nil
   game.inputManager = InputManager()
-  game.screen = RookScreen()
-  game.screen:load()
+  game.switchScreen(RookScreen())
 end
 
 game.restart = function()
   game.players = {}
   game.screen = nil
-  game.screen = StartScreen()
-  game.screen:load()
+  game.switchScreen(StartScreen())
 end
 
+game.switchScreen = function(screen)
+  if game.screen ~= nil then
+    game.screen:exit()
+  end
+  game.screen = screen
+  game.screen:load()
+  game.screen:enter()
+end
 
 game.endGame = function()
 
