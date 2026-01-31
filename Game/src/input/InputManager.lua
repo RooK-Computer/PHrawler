@@ -15,6 +15,12 @@ function InputManager:new()
   self.HandlerStack:push(InputHandler())
 end
 
+function InputManager:restart()
+  self.HandlerStack = Stack()
+--  self.HandlerStack:push(AssertiveInputHandler())
+  self.HandlerStack:push(InputHandler())
+end
+
 function InputManager:registerInput(input, type)
 
   self.inputTypes[type] = input

@@ -47,6 +47,7 @@ end
 game.restart = function()
   game.players = {}
   game.screens = Stack()
+  game.inputManager:restart()
   game.switchScreen(StartScreen())
 end
 
