@@ -36,7 +36,7 @@ function PauseScreen:new()
       label = 'Exit Game', 
       isActive = false,
       selectOption = function() 
-        game.screen():exit()
+        game.restart()
       end
     },
   }

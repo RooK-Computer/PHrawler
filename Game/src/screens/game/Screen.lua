@@ -107,10 +107,6 @@ function GameScreen:draw()
 
   end
 
-  if self.isEnded then
-    self.endscreen:draw()
-  end
-
 end
 
 function GameScreen:restartGame()
@@ -125,11 +121,7 @@ function GameScreen:endScreen()
   if self.isEnded then return end
   self.isEnded = true
 
-  game.inputManager:registerInput(EndScreenKeyboardInput(), 'keyboard')
-  game.inputManager:registerInput(EndScreenGamepadInput(), 'gamepad')
-
-  self.endscreen = EndScreen()
-
+  game.pushScreen(EndScreen())
 end
 
 
@@ -151,5 +143,4 @@ function GameScreen:exit()
   for i, player in ipairs(game.players) do
     game.inputManager.HandlerStack:pop()
   end
-  game.restart()
 end

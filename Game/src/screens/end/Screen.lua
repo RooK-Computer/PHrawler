@@ -1,4 +1,6 @@
-EndScreen = Object:extend()
+require 'src/screens/end/InputHandler'
+
+EndScreen = Screen:extend()
 function EndScreen:new()
   self.name = 'Endscreen'
 
@@ -26,7 +28,7 @@ function EndScreen:new()
       label = 'Exit Game', 
       isActive = false,
       selectOption = function() 
-        game.screen():exit()
+        game.restart()
       end
     },
   }
@@ -90,6 +92,13 @@ function EndScreen:draw()
 
 end
 
+function EndScreen:enter()
+  game.inputManager.HandlerStack:push(EndScreenInputHandler())
+end
+
+function EndScreen:exit()
+  game.inputManager.HandlerStack:pop()
+end
 
 EndScreenKeyboardInput = Object:extend()
 
