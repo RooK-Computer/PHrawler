@@ -1,5 +1,7 @@
 Constants = {
   
+  PIXELS_PER_METER = 100,
+  
   IDLE_STATE = 'idle',
   FALL_STATE = 'falling',
   JUMP_STATE = 'jump',
