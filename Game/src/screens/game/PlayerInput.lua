@@ -31,4 +31,7 @@ function PlayerInput:OnRelease(joystick, button)
     if command then
         self.player:inputEnd(command)
     end
+    if button == "start" then
+        self.screen:pauseScreen()
+    end
 end
