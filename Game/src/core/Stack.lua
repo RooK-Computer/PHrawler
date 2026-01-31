@@ -14,7 +14,7 @@ function Stack:pop()
     if #store == 0 then
         error("Trying to pop from an empty stack.",1)
     end
-    table.remove(self.store,#store)
+    return table.remove(self.store,#store)
 end
 
 function Stack:peek(offset)
@@ -33,4 +33,12 @@ end
 
 function Stack:clear()
     self.store = {}
+end
+
+function Stack:isEmpty()
+    return #self.store == 0
+end
+
+function Stack:size()
+    return #self.store
 end

@@ -39,24 +39,29 @@ game = game.defaultConfig()
 
 game.start = function()
   game.players = {}
-  game.screen = nil
+  game.screens = Stack()
   game.inputManager = InputManager()
   game.switchScreen(RookScreen())
 end
 
 game.restart = function()
   game.players = {}
-  game.screen = nil
+  game.screens = Stack()
   game.switchScreen(StartScreen())
 end
 
 game.switchScreen = function(screen)
-  if game.screen ~= nil then
-    game.screen:exit()
+  while(not game.screens:isEmpty()) do
+    local oldScreen = game.screens:pop()
+    oldScreen:exit()
   end
-  game.screen = screen
-  game.screen:load()
-  game.screen:enter()
+  game.screens:push(screen)
+  screen:load()
+  screen:enter()
+end
+
+game.screen = function()
+  return game.screens:peek(game.screens:size() - 1)
 end
 
 game.endGame = function()

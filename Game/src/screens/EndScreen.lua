@@ -18,7 +18,7 @@ function EndScreen:new()
       label = 'Restart Game', 
       isActive = true,
       selectOption = function() 
-        game.screen:restartGame()
+        game.screen():restartGame()
       end
     },    
     { 
@@ -26,7 +26,7 @@ function EndScreen:new()
       label = 'Exit Game', 
       isActive = false,
       selectOption = function() 
-        game.screen:exit()
+        game.screen():exit()
       end
     },
   }
@@ -105,7 +105,7 @@ end
 
 function EndScreenKeyboardInput:keypressed(key, scancode, isrepeat)
 
-  local screen = game.screen.endscreen
+  local screen = game.screen().endscreen
 
   if key == 'down' then
     if (screen.activeItemIndex < #screen.menuItems) then 
@@ -129,7 +129,7 @@ function EndScreenKeyboardInput:keypressed(key, scancode, isrepeat)
 
 
   if key == 'escape' then 
-    game.screen:resume()
+    game.screen():resume()
   end  
 end
 
@@ -145,7 +145,7 @@ end
 
 function EndScreenGamepadInput:gamepadreleased(joystick, pressedButton)
 
-  local screen = game.screen.endscreen
+  local screen = game.screen().endscreen
 
   if pressedButton == 'dpdown' then
     if (screen.activeItemIndex < #screen.menuItems) then 
@@ -169,7 +169,7 @@ function EndScreenGamepadInput:gamepadreleased(joystick, pressedButton)
 
 
   if pressedButton == 'start' then 
-    game.screen:resume()
+    game.screen():resume()
   end  
 end
 

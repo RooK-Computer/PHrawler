@@ -24,7 +24,6 @@ function StartScreen:new()
       isActive = true,
       changeOption = function() end,
       selectOption = function() 
-        local screen = game.screen
         game.switchScreen(GameScreen())
       end
     },
@@ -40,7 +39,7 @@ function StartScreen:new()
         local selectedPlayerNumber = menuItem.options[newOptionIndex]
                 
         game.levelConfig.selectedPlayerNumber = selectedPlayerNumber.id
-        game.screen:changeSelectedPlayerCharacters()
+        game.screen():changeSelectedPlayerCharacters()
 
       end,
       selectOption = function() end
@@ -271,7 +270,7 @@ function StartScreenKeyboardInput:keyreleased( key, scancode )
 end 
 
 function StartScreenKeyboardInput:keypressed(key, scancode, isrepeat)
-  local screen = game.screen
+  local screen = game.screen()
 
   if key == 'down' then
     if (screen.activeItemIndex < #screen.menuItems) then 

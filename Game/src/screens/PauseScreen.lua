@@ -18,7 +18,7 @@ function PauseScreen:new()
       label = 'Resume Game', 
       isActive = true,
       selectOption = function() 
-        game.screen:resume()
+        game.screen():resume()
       end
     },    
     { 
@@ -26,7 +26,7 @@ function PauseScreen:new()
       label = 'Restart Game', 
       isActive = false,
       selectOption = function() 
-        game.screen:restartGame()
+        game.screen():restartGame()
       end
     },    
     { 
@@ -34,7 +34,7 @@ function PauseScreen:new()
       label = 'Exit Game', 
       isActive = false,
       selectOption = function() 
-        game.screen:exit()
+        game.screen():exit()
       end
     },
   }
@@ -95,7 +95,7 @@ end
 
 function PauseScreenKeyboardInput:keypressed(key, scancode, isrepeat)
 
-  local screen = game.screen.pausescreen
+  local screen = game.screen().pausescreen
 
   if key == 'down' then
     if (screen.activeItemIndex < #screen.menuItems) then 
@@ -119,7 +119,7 @@ function PauseScreenKeyboardInput:keypressed(key, scancode, isrepeat)
 
 
   if key == 'escape' then 
-    game.screen:resume()
+    game.screen():resume()
   end  
 end
 
@@ -135,7 +135,7 @@ end
 
 function PauseScreenGamepadInput:gamepadreleased(joystick, pressedButton)
 
-  local screen = game.screen.pausescreen
+  local screen = game.screen().pausescreen
 
   if pressedButton == 'dpdown' then
     if (screen.activeItemIndex < #screen.menuItems) then 
@@ -159,7 +159,7 @@ function PauseScreenGamepadInput:gamepadreleased(joystick, pressedButton)
 
 
   if pressedButton == 'start' then 
-    game.screen:resume()
+    game.screen():resume()
   end  
 end
 
