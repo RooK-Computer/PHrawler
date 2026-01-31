@@ -15,6 +15,7 @@ function Player:new(config, game)
   self.world = game.world
   self.controls = config.controls
   self.activeInput = config.controls.defaultInput
+  self.ongoingCommand = {}
 
   self.config = config
 end
@@ -110,6 +111,11 @@ function Player:update(dt)
   player.dt = dt
 
   player:checkIsOnGround()
+  for command,active in pairs(self.ongoingCommand) do
+    if active == true then
+      player.stateManager:inputStart(command)
+    end
+  end
 
   player.stateManager:update(dt)
 
@@ -121,10 +127,16 @@ end
 
 function Player:inputStart(command)
   self.stateManager:inputStart(command)
+  if command == Constants.PLAYER_DIRECTION_LEFT or command == Constants.PLAYER_DIRECTION_RIGHT or command == Constants.PLAYER_FIGHT_COMMAND then
+    self.ongoingCommand[command] = true
+  end
 end
 
 function Player:inputEnd(command)  
   self.stateManager:inputEnd(command)
+  if self.ongoingCommand[command] == true then
+    self.ongoingCommand[command] = false
+  end
 end
 
 function Player:draw()
