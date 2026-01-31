@@ -7,7 +7,7 @@ function JumpState:new(player)
   self.player.direction = Constants.PLAYER_DIRECTION_UP  
   self.player.anim = player.animations[Constants.JUMP_STATE][player.animationDirection]
   self.player.hasJumped = player.hasJumped + 1
-  self.player.velocityY =  -2 * game.PIXELS_PER_METER
+  self.player.velocityY =  -game.gravity
 
   local vx, vy = player.physics.body:getLinearVelocity()
 
