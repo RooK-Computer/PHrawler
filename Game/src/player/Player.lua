@@ -18,7 +18,6 @@ function Player:new(config, game)
   self.inputs = {}
   self.inputs['none'] =  nil
 
-  self:setupInput()
   self.inputManager = self.inputs['none']
   self.config = config
 end
@@ -92,12 +91,6 @@ function Player:setStartingPoint(point)
   self.y = point.y
 end
 
-function Player:setupInput() 
-  for inputType, controls in pairs(self.controls.inputs) do
-    self.inputs[inputType] = game.inputManager:registerPlayer(self, inputType, controls)
-  end 
-end
-
 function Player:setInput() 
   self.inputManager = self.inputs[self.activeInput]
 end
@@ -124,7 +117,6 @@ function Player:update(dt)
   player.dt = dt
 
   player:checkIsOnGround()
-  player.inputs[player.activeInput]:checkForInput()
 
   player.stateManager:update(dt)
 

@@ -21,6 +21,6 @@ end
 
 require 'src/screens/RookScreen' 
 require 'src/screens/start/Screen' 
-require 'src/screens/GameScreen' 
+require 'src/screens/game/Screen' 
 require 'src/screens/PauseScreen' 
 require 'src/screens/EndScreen' 

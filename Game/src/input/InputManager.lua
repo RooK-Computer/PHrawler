@@ -1,6 +1,5 @@
 require('src/input/KeyboardInput')
 require('src/input/JoystickInput')
-require('src/input/GamepadInput')
 require('src/input/GamepadState')
 require('src/input/InputHandler')
 

@@ -1,4 +1,5 @@
 require 'src/player/config/PlayersConfig' 
+require 'src/screens/game/PlayerInput'
 
 GameScreen = Screen:extend()
 
@@ -21,7 +22,6 @@ function GameScreen:load()
 
 
   game.inputManager:registerInput(KeyboardInput(), 'keyboard')
-  game.inputManager:registerInput(GamepadInput(), 'gamepad')
 
   local playerNumber = game.levelConfig.selectedPlayerNumber
   local playersConfig = PlayersConfig.get(game.levelConfig.selectedPlayerNumber)
@@ -38,9 +38,16 @@ end
 
 function GameScreen:enter()
   local allPlayers = game.players
-
+  local gamepads = game.inputManager.gamepadStates
+  local gamePad = 1
   for i, player in ipairs(allPlayers) do
-    player:setInput()
+    local inputs = {gamePad}
+    if gamepads[gamePad] == nil then
+      inputs = {}
+    end
+    gamePad = gamePad + 1
+
+    game.inputManager.HandlerStack:push(PlayerInput(self,player,inputs,player.controls.inputs.gamepad))
   end
 
 end
@@ -159,5 +166,8 @@ function GameScreen:resume()
 end
 
 function GameScreen:exit()
+  for i, player in ipairs(game.players) do
+    game.inputManager.HandlerStack:pop()
+  end
   game.restart()
 end
