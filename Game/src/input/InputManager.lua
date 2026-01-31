@@ -32,13 +32,6 @@ function InputManager:getInput(type)
 end
 
 
-function InputManager:registerPlayer(player, type, controls)
-
-  self.inputTypes[type]:registerPlayer(player, controls)
-  return self.inputTypes[type]
-
-end
-
 function InputManager:addGamepad(joystick)
 
   self.gamepadStates[joystick:getID()] = GamepadState()
