@@ -20,11 +20,11 @@ function love.load(arg)
 end
 
 function love.update(dt)
-  local offset = 0
-  while offset < game.screens:size() do
+  local offset = game.screens:size() - 1
+  while offset >= 0 do
     local screen = game.screens:peek(offset)
     screen:update(dt)
-    offset = offset + 1
+    offset = offset - 1
   end
 end
 
@@ -35,11 +35,11 @@ end
 
 function love.draw()
   push:start()
-  local offset = 0
-  while offset < game.screens:size() do
+  local offset = game.screens:size() - 1
+  while offset >= 0 do
     local screen = game.screens:peek(offset)
     screen:draw()
-    offset = offset + 1
+    offset = offset - 1
   end
   if game.showFPS then love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), 10, 10) end
   push:finish()

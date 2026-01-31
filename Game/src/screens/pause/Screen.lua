@@ -1,4 +1,6 @@
-PauseScreen = Object:extend()
+require 'src/screens/pause/InputHandler' 
+
+PauseScreen = Screen:extend()
 function PauseScreen:new()
   self.name = 'Pausescreen'
 
@@ -80,6 +82,13 @@ function PauseScreen:draw()
 
 end
 
+function PauseScreen:enter()
+  game.inputManager.HandlerStack:push(PauseScreenInputHandler())
+end
+
+function PauseScreen:exit()
+  game.inputManager.HandlerStack:pop()
+end
 
 PauseScreenKeyboardInput = Object:extend()
 
@@ -121,48 +130,4 @@ function PauseScreenKeyboardInput:keypressed(key, scancode, isrepeat)
   if key == 'escape' then 
     game.screen():resume()
   end  
-end
-
-
-PauseScreenGamepadInput = Object:extend()
-
-function PauseScreenGamepadInput:new()
-  self.name = 'gamepad_pausescreen'
-  self.connectedGamepads = game.inputManager:getGamepads()
-  return self
-end
-
-
-function PauseScreenGamepadInput:gamepadreleased(joystick, pressedButton)
-
-  local screen = game.screen().pausescreen
-
-  if pressedButton == 'dpdown' then
-    if (screen.activeItemIndex < #screen.menuItems) then 
-      screen.menuItems[screen.activeItemIndex].isActive = false
-      screen.activeItemIndex = screen.activeItemIndex + 1
-      screen.menuItems[screen.activeItemIndex].isActive = true
-    end
-  end
-
-  if pressedButton == 'dpup' then
-    if (screen.activeItemIndex > 1) then 
-      screen.menuItems[screen.activeItemIndex].isActive = false
-      screen.activeItemIndex = screen.activeItemIndex - 1
-      screen.menuItems[screen.activeItemIndex].isActive = true
-    end
-  end
-
-  if pressedButton == 'a' then 
-    screen.menuItems[screen.activeItemIndex].selectOption()
-  end  
-
-
-  if pressedButton == 'start' then 
-    game.screen():resume()
-  end  
-end
-
-function PauseScreenGamepadInput:gamepadpressed(joystick, releasedButton)
-
 end

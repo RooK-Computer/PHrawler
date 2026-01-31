@@ -60,6 +60,17 @@ game.switchScreen = function(screen)
   screen:enter()
 end
 
+game.pushScreen = function(screen)
+  game.screens:push(screen)
+  screen:load()
+  screen:enter()
+end
+
+game.popScreen = function()
+  local screen = game.screens:pop()
+  screen:exit()
+end
+
 game.screen = function()
   return game.screens:peek(game.screens:size() - 1)
 end

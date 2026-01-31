@@ -107,11 +107,6 @@ function GameScreen:draw()
 
   end
 
-  if self.isPaused then
-
-    self.pausescreen:draw()
-  end
-
   if self.isEnded then
     self.endscreen:draw()
   end
@@ -142,27 +137,14 @@ function GameScreen:pauseScreen()
 
   if self.isEnded then return end
   self.isPaused = true
-
-  game.inputManager:registerInput(PauseScreenKeyboardInput(), 'keyboard')
-  game.inputManager:registerInput(PauseScreenGamepadInput(), 'gamepad')
-
-  self.pausescreen = PauseScreen()
+  game.pushScreen(PauseScreen())
 
 end
 
 function GameScreen:resume()
 
   self.isPaused = false
-
-  game.inputManager:registerInput(KeyboardInput(), 'keyboard')
-  game.inputManager:registerInput(GamepadInput(), 'gamepad')
-
-  for i, player in ipairs(game.players) do
-    player:setupInput()
-  end
-
-  self:enter()
-
+  game.popScreen()
 end
 
 function GameScreen:exit()
