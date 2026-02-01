@@ -87,19 +87,38 @@ function GameScreen:draw()
       else 
         statsPositionY = statsPositionY + 20
         local player = game.players[i]
-        love.graphics.print(player.name .. " active Input: ".. player.activeInput, statsPositionX, statsPositionY)
+        
+        local color = {0, 0, 0} -- black
+        
+        love.graphics.print({ color, player.name .. " active Input: ".. player.activeInput}, statsPositionX, statsPositionY)
         statsPositionY = statsPositionY + 10            
 
 
-        love.graphics.print(player.name .. " health: ".. player.health, statsPositionX, statsPositionY)
+        love.graphics.print({ color, player.name .. " health: ".. player.health }, statsPositionX, statsPositionY)
         statsPositionY = statsPositionY + 10   
 
         local velocityX, velocityY = player.physics.body:getLinearVelocity()
 
-        love.graphics.print(player.name .. " velocityX: ".. velocityX .. " | velocityY: " .. velocityY , statsPositionX, statsPositionY)
+        love.graphics.print({ color, player.name .. " velocityY: " .. velocityY}, statsPositionX, statsPositionY)
+        statsPositionY = statsPositionY + 10    
+        
+        love.graphics.print({ color, player.name .. " | velocityX: ".. velocityX }, statsPositionX, statsPositionY)
+        
         statsPositionY = statsPositionY + 10      
 
-        love.graphics.print(player.name .. " isOnGround: " .. tostring(player.isOnGround), statsPositionX, statsPositionY)      
+        love.graphics.print({ color,player.name .. " isOnGround: " .. tostring(player.isOnGround)}, statsPositionX, statsPositionY) 
+        
+        statsPositionY = statsPositionY + 10            
+        local activeStates = player.getActiveStates()
+        local statesString = ''
+        
+          
+        for i, state in ipairs(activeStates) do
+          statesString = statesString .. ' ' .. state
+        end
+  
+        
+        love.graphics.print({ color, player.name .. " active States: ".. statesString}, statsPositionX, statsPositionY)
 
       end
     end

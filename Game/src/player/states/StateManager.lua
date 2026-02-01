@@ -41,3 +41,18 @@ function StateManager:inputEnd(command)
     state:inputEnd(command)
   end
 end
+
+function StateManager:getActiveStates() 
+  
+  local activeStates = {}
+  
+  for i, stateMachine in ipairs(self.stateMachines) do
+    
+    local name = stateMachine.name .. ': ' .. stateMachine.state.name
+    table.insert(activeStates, name)
+  end
+  
+  return activeStates
+  
+  
+  end
