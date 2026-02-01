@@ -89,10 +89,6 @@ function Player:setStartingPoint(point)
   self.y = point.y
 end
 
-function Player:checkIsOnGround() 
-  local vx, vy =   self.physics.body:getLinearVelocity()
-  if vy >= -1 and vy <= 1 then self.isOnGround = true end  
-end
 
 function Player:setDamage(damagePoints)
 
@@ -110,7 +106,6 @@ function Player:update(dt)
   local player = self
   player.dt = dt
 
-  player:checkIsOnGround()
   for command,active in pairs(self.ongoingCommand) do
     if active == true then
       player.stateManager:inputStart(command)
