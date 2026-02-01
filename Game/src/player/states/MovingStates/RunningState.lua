@@ -34,7 +34,9 @@ end
 function RunningState:update(dt) 
 
   local player = self.player
-  if not player.isOnGround then 
+  
+  local vx, vy =   self.player.physics.body:getLinearVelocity()
+  if vy > 10 then  
     return FallingState(player) 
   end
 

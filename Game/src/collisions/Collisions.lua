@@ -1,9 +1,12 @@
 require 'src/collisions/PlayerPlattformCollision'
 require 'src/collisions/PlayerFightsCollision'
+require 'src/collisions/FootSensorCollision'
+
 
 local Collisions = {
   PlayerPlattformCollision,
   PlayerFightsCollision,
+  FootSensorCollision
 }
 
 function beginContact(a, b, contact)

@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 15,
-  nextobjectid = 124,
+  nextobjectid = 125,
   properties = {},
   tilesets = {
     {
@@ -358,7 +358,7 @@ return {
       id = 7,
       name = "WorldLimits",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -410,13 +410,15 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = -43.0328,
-          y = 479.65,
+          x = -45.0512,
+          y = 480.659,
           width = 731.126,
           height = 30.3774,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["isWorldGround"] = true
+          }
         }
       }
     },
@@ -426,7 +428,7 @@ return {
       id = 11,
       name = "Plattforms",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

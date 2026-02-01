@@ -46,7 +46,7 @@ function JumpState:update(dt)
 
   player.physics.body:setLinearVelocity(velocityX, velocityY) 
 
-  if velocityY > 0 then 
+  if velocityY >= 0 then 
     return FallingState(player) 
   end
 

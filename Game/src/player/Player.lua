@@ -35,6 +35,8 @@ function Player:setup()
   player.isOnGround = false
   player.isDead = false
   player.isMovementBlocked = false
+  player.canNotDrop = false
+
 
 
   player.attachments = {
@@ -50,6 +52,19 @@ function Player:setup()
   player.physics.shape = love.physics.newRectangleShape(player.width/4, player.height/2)
   player.physics.fixture = love.physics.newFixture(player.physics.body, player.physics.shape)
   player.collisionClass = 'Player'
+  
+  
+  player.footSensor = {}
+  player.footSensor.body = love.physics.newBody(game.world, player.x, player.y + player.height, 'dynamic')
+  player.footSensor.body:setFixedRotation(true)
+  player.footSensor.shape = love.physics.newRectangleShape(0, player.height/4, 5, 5)
+  player.footSensor.fixture = love.physics.newFixture(player.physics.body, player.footSensor.shape)
+  player.footSensor.fixture:setSensor(true)
+  player.footSensor.fixture:setUserData({
+      isFootSensor = true,
+      player = player
+      })
+
 
 
   player.physics.fixture:setUserData(player)  

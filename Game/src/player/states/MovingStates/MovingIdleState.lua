@@ -44,3 +44,15 @@ function MovingIdleState:input(command)
   end
 
 end
+
+function MovingIdleState:update(dt) 
+  
+  local player = self.player
+
+  local vx, vy =   player.physics.body:getLinearVelocity()
+
+  if vy >= 1 then  
+    return FallingState(player) 
+  end
+  
+end
