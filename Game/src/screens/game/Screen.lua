@@ -21,8 +21,6 @@ function GameScreen:load()
   love.graphics.setFont(game.defaultFont)
 
 
-  game.inputManager:registerInput(KeyboardInput(), 'keyboard')
-
   local playerNumber = game.levelConfig.selectedPlayerNumber
   local playersConfig = PlayersConfig.get(game.levelConfig.selectedPlayerNumber)
 
@@ -39,13 +37,20 @@ end
 function GameScreen:enter()
   local allPlayers = game.players
   local gamepads = game.inputManager.gamepadStates
-  local gamePad = 1
+  local gamepadCopy = {}
+  for k,v in pairs(gamepads) do
+    gamepadCopy[k] = v
+  end
   for i, player in ipairs(allPlayers) do
-    local inputs = {gamePad}
-    if gamepads[gamePad] == nil then
-      inputs = {}
+    local gamePad = nil
+    for k,v in pairs(gamepadCopy) do
+      gamePad = k
+      break
     end
-    gamePad = gamePad + 1
+    local inputs = {gamePad}
+    if(gamePad ~= nil) then
+      gamepadCopy[gamePad] = nil
+    end
 
     game.inputManager.HandlerStack:push(PlayerInput(self,player,inputs,player.controls.inputs.gamepad))
   end
@@ -109,7 +114,7 @@ function GameScreen:draw()
         love.graphics.print({ color,player.name .. " isOnGround: " .. tostring(player.isOnGround)}, statsPositionX, statsPositionY) 
         
         statsPositionY = statsPositionY + 10            
-        local activeStates = player.getActiveStates()
+        local activeStates = player:getActiveStates()
         local statesString = ''
         
           

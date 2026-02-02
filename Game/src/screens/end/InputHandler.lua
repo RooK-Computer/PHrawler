@@ -27,6 +27,10 @@ function EndScreenInputHandler:OnRelease(joystick,button)
     screen.menuItems[screen.activeItemIndex].selectOption()
   end  
 
+  if button == 'b' then 
+    screen.menuItems[screen.activeItemIndex].selectOption()
+  end  
+
 
   if button == 'start' then 
     game.screen():resume()

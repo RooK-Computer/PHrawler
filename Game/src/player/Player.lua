@@ -157,7 +157,7 @@ function Player:draw()
 end
 
 function Player:getActiveStates()  
-  return player.stateManager:getActiveStates()
+  return self.stateManager:getActiveStates()
 end
 
 

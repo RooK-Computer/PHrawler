@@ -42,6 +42,10 @@ function StartScreenInputHandler:OnRelease(joystick, button)
     screen.menuItems[screen.activeItemIndex].selectOption()
   end  
 
+    if button == 'b' and screen.activeItemIndex == 1 then 
+    screen.menuItems[screen.activeItemIndex].selectOption()
+  end  
+
 
   if button == 'start' and screen.activeItemIndex == 1 then 
     screen.menuItems[screen.activeItemIndex].selectOption()

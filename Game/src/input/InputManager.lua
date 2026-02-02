@@ -1,18 +1,20 @@
-require('src/input/KeyboardInput')
-require('src/input/JoystickInput')
 require('src/input/GamepadState')
 require('src/input/InputHandler')
+require('src/input/EmulatedGamePad')
 
 InputManager = Object:extend()
 
 function InputManager:new()
 
-  self.inputTypes = {}
-  self.inputTypes.none = nil
   self.gamepadStates = {}
   self.HandlerStack = Stack()
 --  self.HandlerStack:push(AssertiveInputHandler())
   self.HandlerStack:push(InputHandler())
+
+  for i,config in ipairs(gamepadEmulationConfig) do
+    local emulation = EmulatedGamePad(config.identifier)
+    self:addGamepad(emulation)
+  end
 end
 
 function InputManager:restart()
@@ -21,22 +23,11 @@ function InputManager:restart()
   self.HandlerStack:push(InputHandler())
 end
 
-function InputManager:registerInput(input, type)
-
-  self.inputTypes[type] = input
-end
-
-
-function InputManager:getInput(type)
-  return self.inputTypes[type]
-end
-
 
 function InputManager:addGamepad(joystick)
 
   self.gamepadStates[joystick:getID()] = GamepadState()
   game.connectedGamepads[joystick:getID()] = joystick --we need to store it here so it outlives a new InputManager instance...
-  if self.inputTypes.gamepad ~=  nil then self.inputTypes.gamepad:addGamepad(joystick) end
 
 end 
 
@@ -101,14 +92,25 @@ end
 --keyboard Input
 
 function love.keyreleased( key, scancode )
-  if game.inputManager ~=  nil then
-    if game.inputManager.inputTypes.keyboard ~= nil then game.inputManager.inputTypes.keyboard:keyreleased(key, scancode) end
+  for i,config in ipairs(gamepadEmulationConfig) do
+    if config.keys[key] ~= nil then
+      local joystick = game.connectedGamepads[config.identifier]
+      love.gamepadreleased(joystick,config.keys[key])
+    end
   end
 end 
 
 function love.keypressed(key, scancode, isrepeat)
-  if game.inputManager ~=  nil then
-    if game.inputManager.inputTypes.keyboard ~= nil then game.inputManager.inputTypes.keyboard:keypressed(key, scancode, isrepeat) end
+  if key == "escape" then game.screen():pauseScreen() end
+  if key == "q" then love.event.quit() end
+
+  if key == "." then game.activateDebug = not game.activateDebug end
+
+  for i,config in ipairs(gamepadEmulationConfig) do
+    if config.keys[key] ~= nil then
+      local joystick = game.connectedGamepads[config.identifier]
+      love.gamepadpressed(joystick,config.keys[key])
+    end
   end
 end
 
@@ -145,9 +147,6 @@ function love.gamepadpressed( joystick, button )
     end
     if game.inputManager.gamepadStates[joystick:getID()]:isReleased(button) then
       game.inputManager.gamepadStates[joystick:getID()]:press(button)
-      if game.inputManager.inputTypes.gamepad ~= nil then
-        game.inputManager.inputTypes.gamepad:gamepadpressed(joystick, button)
-      end
       game.inputManager:OnPress(joystick, button)
     end
   end
@@ -163,9 +162,6 @@ function love.gamepadreleased( joystick, button )
     end
     if game.inputManager.gamepadStates[joystick:getID()]:isPressed(button) then
       game.inputManager.gamepadStates[joystick:getID()]:release(button)
-      if game.inputManager.inputTypes.gamepad ~= nil then
-        game.inputManager.inputTypes.gamepad:gamepadreleased(joystick, button)
-      end
       game.inputManager:OnRelease(joystick, button)
     end
   end

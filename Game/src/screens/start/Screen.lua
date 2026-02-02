@@ -61,8 +61,6 @@ function StartScreen:new()
     }
   }
 
-  game.inputManager:registerInput(StartScreenKeyboardInput, 'keyboard')
---  game.inputManager:registerInput(StartScreenGamepadInput, 'gamepad')
   self.inputHandler = StartScreenInputHandler(self)
   self.activeItemIndex = self.menuItems[1]
 
@@ -253,57 +251,4 @@ end
 
 function StartScreen:exit()
   game.inputManager.HandlerStack:pop()
-end
-
-
-
-StartScreenKeyboardInput = Object:extend()
-
-function StartScreenKeyboardInput:new()
-  self.name = 'keyboard_startscreen'
-  return self
-end
-
-
-function StartScreenKeyboardInput:keyreleased( key, scancode )
-
-end 
-
-function StartScreenKeyboardInput:keypressed(key, scancode, isrepeat)
-  local screen = game.screen()
-
-  if key == 'down' then
-    if (screen.activeItemIndex < #screen.menuItems) then 
-      screen.menuItems[screen.activeItemIndex].isActive = false
-      screen.activeItemIndex = screen.activeItemIndex + 1
-      screen.menuItems[screen.activeItemIndex].isActive = true
-    end
-  end
-
-  if key == 'up' then
-    if (screen.activeItemIndex > 1) then 
-      screen.menuItems[screen.activeItemIndex].isActive = false
-      screen.activeItemIndex = screen.activeItemIndex - 1
-      screen.menuItems[screen.activeItemIndex].isActive = true
-    end
-  end
-
-  if key == 'left' then
-    screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex],'left')
-  end
-
-
-  if key == 'right' then
-    screen.menuItems[screen.activeItemIndex].changeOption(screen.menuItems[screen.activeItemIndex],'right')
-  end
-
-
-  if key == 'return' and screen.activeItemIndex == 1 then 
-
-    screen.menuItems[screen.activeItemIndex].selectOption()
-
-  end 
-  if key == 'q' then
-    love.event.quit()
-  end
 end
