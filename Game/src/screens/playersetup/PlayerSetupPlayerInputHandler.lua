@@ -15,13 +15,13 @@ function PlayerSetupPlayerInputHandler:OnRelease(joystick, button)
     if self.view.ready then
         return
     end
-    if button == "dbright" then
-        --TODO: choose next model
+    if button == "dpright" then
+        self.view.wantsNextModel = true
     end
     if button == "dpleft" then
-        --TODO: choose previous model
+        self.view.wantsPreviousModel = true
     end
-    if button == "a" then
+    if button == "b" then
         self.view.ready=true
         self.view:setNeedsDisplay()
         self.screen:readyCheck()

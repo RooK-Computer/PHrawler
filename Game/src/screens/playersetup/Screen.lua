@@ -7,36 +7,141 @@ require 'src/screens/playersetup/PlayerSetupPlayerInputHandler'
 PlayerSetupScreen = Screen:extend()
 
 function PlayerSetupScreen:new()
+    self.models={}
     self.availablePlayerSlots={}
     self.activePlayerSlots={}
     self.view = GridLayoutView()
+    self.view:setX(0)
+    self.view:setY(100)
+    self.view:setWidth(game.windowWidth)
+    self.view:setHeight(game.windowHeight-100)
     self.inputHandler = PlayerSetupInputHandler(self)
 end
 
 function PlayerSetupScreen:load()
-    --TODO: fill the available Player slots
+    self.font = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf',32 )
+    for i=1,game.levelConfig.selectedPlayerNumber do
+        local view = PlayerSlotView()
+        view.name = 'Player '..i
+        table.insert(self.availablePlayerSlots,view)
+        self.view:addSubview(view)
+    end
+    for i=1,16 do 
+        table.insert(self.models,"player_"..i)
+    end
 end
 
 function PlayerSetupScreen:enter()
-    --TODO: push input handler
+    game.inputManager.HandlerStack:push(self.inputHandler)
 end
 
 function PlayerSetupScreen:exit()
-    --TODO: pop input handler. all of them
+    game.inputManager.HandlerStack:popUpTo(self.inputHandler,true)
+end
+
+function PlayerSetupScreen:findNextModel(current)
+    if #self.activePlayerSlots == 0 then
+        return current
+    end
+    local modelsToSearch = tableExt.copy(self.models)
+    for k,v in ipairs(self.activePlayerSlots) do
+        if v.player ~= current then
+            local pos = tableExt.find(modelsToSearch,v.player)
+            table.remove(modelsToSearch,pos)
+        end
+    end
+    local pos = tableExt.find(modelsToSearch,current)
+    if pos == nil then
+        print(current)
+        print('===')
+        for k,v in pairs(modelsToSearch) do
+            print(k..':'..v)
+        end
+    end
+    pos = pos + 1
+    if pos > #modelsToSearch then
+        pos = 1
+    end
+    return modelsToSearch[pos]
+end
+
+function PlayerSetupScreen:findPreviousModel(current)
+    if #self.activePlayerSlots == 0 then
+        return current
+    end
+    local modelsToSearch = tableExt.copy(self.models)
+    for k,v in ipairs(self.activePlayerSlots) do
+        if v.player ~= current then
+            local pos = tableExt.find(modelsToSearch,v.player)
+            table.remove(modelsToSearch,pos)
+        end
+    end
+    local pos = tableExt.find(modelsToSearch,current)
+    pos = pos - 1
+    if pos < 1 then
+        pos = #modelsToSearch
+    end
+    return modelsToSearch[pos]
 end
 
 function PlayerSetupScreen:registerNewPlayer(gamepad)
-    --TODO: set up a free player if available.
+    if #self.availablePlayerSlots > 0 then
+        local slot = self.availablePlayerSlots[1]
+        slot.gamepad=gamepad
+        slot.player = self:findNextModel("player_1")
+        table.insert(self.activePlayerSlots,slot)
+        table.remove(self.availablePlayerSlots,1)
+        local handler = PlayerSetupPlayerInputHandler(gamepad,slot,self)
+        game.inputManager.HandlerStack:push(handler)
+    end
 end
 
 function PlayerSetupScreen:goBack()
-    --TODO: leave for the start screen.
+    game.switchScreen(StartScreen())
 end
 
 function PlayerSetupScreen:readyCheck()
-    --TODO: check if all players are reay and launch game
+    local allReady=#self.availablePlayerSlots == 0
+    for k,v in ipairs(self.activePlayerSlots) do
+        if v.ready == false then
+            allReady = false
+        end
+    end
+    if allReady then
+        local config = PlayersConfig.get(game.levelConfig.selectedPlayerNumber)
+        for i,v in ipairs(self.activePlayerSlots) do
+            config[i].name = 'Player '..i
+            config[i].id = v.player
+            config[i].registeredGamepad = v.gamepad
+
+            local pos = tableExt.find(self.models,v.player)
+            if pos % 2 == 0 then 
+                config[i].animations = animationConfigMale 
+            else
+                config[i].animations = animationConfigDefault
+            end
+        end
+        game.switchScreen(GameScreen(config))
+    end
+end
+
+function PlayerSetupScreen:update(dt)
+    for i,v in ipairs(self.activePlayerSlots) do
+        if v.wantsNextModel then
+            v.player = self:findNextModel(v.player)
+            v.wantsNextModel = false
+        end
+        if v.wantsPreviousModel then
+            v.player = self:findPreviousModel(v.player)
+            v.wantsPreviousModel = false
+        end
+    end
+    self.view:update(dt)
 end
 
 function PlayerSetupScreen:draw()
-    self.view:viewdraw()
+  love.graphics.clear( 255/255, 220/255, 0, 1)
+  local width = self.font:getWidth("Choose your looks!")
+  love.graphics.print({{144/255, 0, 255/255},"Choose your looks!"},self.font,game.windowWidth/2-width/2,100/2 - self.font:getHeight()/2)
+  self.view:viewdraw()
 end

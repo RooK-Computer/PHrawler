@@ -67,25 +67,29 @@ function View:setNeedsDisplay()
     end
 end
 
+function View:update(dt)
+    for k,v in ipairs(self.view.subviews) do
+        v:update(dt)
+    end
+end
+
 function View:draw()
 end
 
 function View:viewdraw()
-    if self.view.dirty then
-        love.graphics.push()
-        love.graphics.translate(self.view.x,self.view.y)
-        local width = self.view.width
-        local height = self.view.height
-        love.graphics.stencil(function()
-            love.graphics.rectangle("fill",0,0,width,height)
-        end,"replace",1)
-        love.graphics.setStencilTest("greater",0)
-        self:draw()
-        loe.graphics.setStencilTest("always",0)
-        love.graphics.pop()
-        self.view.dirty = false
-    end
+    love.graphics.push()
+    love.graphics.translate(self.view.x,self.view.y)
+    local width = self.view.width
+    local height = self.view.height
+    love.graphics.stencil(function()
+        love.graphics.rectangle("fill",0,0,width,height)
+    end,"replace",1)
+    love.graphics.setStencilTest("greater",0)
+    self:draw()
+    love.graphics.setStencilTest("always",0)
+
     for k,v in ipairs(self.view.subviews) do
         v:viewdraw()
     end
+    love.graphics.pop()
 end
