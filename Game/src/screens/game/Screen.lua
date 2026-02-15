@@ -3,10 +3,11 @@ require 'src/screens/game/PlayerInput'
 
 GameScreen = Screen:extend()
 
-function GameScreen:new()
+function GameScreen:new(playersConfig)
   self.name = 'GameScreen'
   self.isPaused = false
   self.isEnded = false
+  self.playersConfig = playersConfig
   return self
 end
 
@@ -22,7 +23,7 @@ function GameScreen:load()
 
 
   local playerNumber = game.levelConfig.selectedPlayerNumber
-  local playersConfig = PlayersConfig.get(game.levelConfig.selectedPlayerNumber)
+  local playersConfig = self.playersConfig
 
   for i,playerConfig in ipairs(playersConfig) do
     local player =  Player(playerConfig, game)
@@ -36,23 +37,8 @@ end
 
 function GameScreen:enter()
   local allPlayers = game.players
-  local gamepads = game.inputManager.gamepadStates
-  local gamepadCopy = {}
-  for k,v in pairs(gamepads) do
-    gamepadCopy[k] = v
-  end
   for i, player in ipairs(allPlayers) do
-    local gamePad = nil
-    for k,v in pairs(gamepadCopy) do
-      gamePad = k
-      break
-    end
-    local inputs = {gamePad}
-    if(gamePad ~= nil) then
-      gamepadCopy[gamePad] = nil
-    end
-
-    game.inputManager.HandlerStack:push(PlayerInput(self,player,inputs,player.controls.inputs.gamepad))
+    game.inputManager.HandlerStack:push(PlayerInput(self,player,{player.config.registeredGamepad},player.controls.inputs.gamepad))
   end
 
 end
