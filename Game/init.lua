@@ -9,6 +9,7 @@ push = require('lib/push') -- gives us resizable screens
 
 --CORE
 require('src/core/Stack')
+require('src/core/find')
 
 --GLOBALS
 require('src/misc/Constants')
