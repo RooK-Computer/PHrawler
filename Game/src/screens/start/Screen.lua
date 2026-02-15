@@ -24,7 +24,7 @@ function StartScreen:new()
       isActive = true,
       changeOption = function() end,
       selectOption = function() 
-        game.switchScreen(GameScreen())
+        game.switchScreen(PlayerSetupScreen())
       end
     },
     { 
