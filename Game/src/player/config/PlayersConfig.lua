@@ -15,6 +15,7 @@ PlayersConfig.get = function(playerNumber)
       priority = 1,
       x = 0,
       y = 0,
+      registeredGamepad = nil,
       controls = {
         inputs = {
           gamepad = gamepadConfig,
