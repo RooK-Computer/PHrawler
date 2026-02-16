@@ -6,20 +6,18 @@ PlayerFightsCollision = {
   beginContact = function(enemy, collision, contact)
 
     local player = collision.player
+    enemy:inputStart(Constants.PLAYER_DAMAGE_COMMAND)
 
-    local enemyImpulseX, enemyImpulseY = 100, -100
-    if player.animationDirection == 'left' then 
+
+    local enemyImpulseX, enemyImpulseY = 75, -100
+    if player.animationDirection == Constants.PLAYER_DIRECTION_LEFT then 
       enemyImpulseX = -enemyImpulseX
     end
 
-    local playerImpulseX, playerImpulseY = -enemyImpulseX, enemyImpulseY
-    player.physics.body:applyLinearImpulse( playerImpulseX, playerImpulseY )
-
     enemy.physics.body:applyLinearImpulse( enemyImpulseX, enemyImpulseY )
 
-    enemy:inputStart(Constants.PLAYER_DAMAGE_COMMAND)
     player:inputEnd(Constants.PLAYER_FIGHT_COMMAND)
-    player:inputStart(Constants.PLAYER_HIT_COMMAND)
+    player:inputStart(Constants.FIST_HIT_TARGET_STATE)
 
   end,
 

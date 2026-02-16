@@ -35,6 +35,7 @@ function Player:setup()
   player.isOnGround = false
   player.isDead = false
   player.isMovementBlocked = false
+  player.isStateChangeBlocked = false
   player.canNotDrop = false
 
 

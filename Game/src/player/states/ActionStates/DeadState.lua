@@ -4,25 +4,32 @@ function DeadState:new(player)
   DeadState.super.new(self, player)
 
   self.name = Constants.DEAD_STATE
-  self.player.startTimer = love.timer.getTime()
-  self.player.anim = player.animations[Constants.DEAD_STATE][player.animationDirection]
-  self.player.collisionClass = Constants.DEAD_STATE
+  
+  return self
+end
 
-  self.player.physics.shape = love.physics.newRectangleShape(0, 14, 1, 1, math.rad(90))
-  self.player.physics.fixture:destroy()
-  self.player.physics.fixture = love.physics.newFixture(self.player.physics.body, self.player.physics.shape)
+function DeadState:enterState()
+  
+  local player = self.player
+  
+  player.startTimer = love.timer.getTime()
+  player.anim = player.animations[Constants.DEAD_STATE][player.animationDirection]
+  player.collisionClass = Constants.DEAD_STATE
+  
+  player.physics.shape = love.physics.newRectangleShape(0, 14, 1, 1, math.rad(90))
+  player.physics.fixture:destroy()
+  player.physics.fixture = love.physics.newFixture(self.player.physics.body, self.player.physics.shape)
 
 
-  self.player.isDead = true
-  self.player.isMovementBlocked = true
-
+  player.isDead = true
+  player.isMovementBlocked = true
 
   if player.gamepad~= nil and player.gamepad:isVibrationSupported() then 
     player.gamepad:setVibration( 1, 1, 1 ) 
   end
   
-  return self
-end
+  return self.name
+end 
 
 function DeadState:update(dt)
   DeadState.super.input(self, command)

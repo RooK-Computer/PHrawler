@@ -18,7 +18,7 @@ end
 
 function StateMachine:update(dt)
   local newState = self.state:update(dt)
-  if newState then self:enterState(newState) end
+  if newState and not self.player.isStateChangeBlocked then self:enterState(newState) end
 end
 
 
@@ -26,7 +26,7 @@ function StateMachine:input(command)
 
   local newState = self.state:input(command)
 
-  if newState then self:enterState(newState) end
+  if newState and not self.player.isStateChangeBlocked then self:enterState(newState) end
 
 end
 
@@ -34,6 +34,6 @@ end
 function StateMachine:inputEnd(command)
   local newState = self.state:inputEnd(command)
 
-  if newState then self:enterState(newState) end
+  if newState and not self.player.isStateChangeBlocked then self:enterState(newState) end
 
 end
