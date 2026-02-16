@@ -1,18 +1,24 @@
 StateMachine = Object:extend()
 
-function StateMachine:new(player, name, entryState)
+function StateMachine:new(player, name, states, entryState)
   self.player = player
   self.name = name
-  self.state = entryState(player)
+  self.states = states
+  self.state = {}
+  self:enterState(entryState)
   return self
+end
+
+function StateMachine:enterState(proposedNewState) 
+  local actualNewState = self.states[proposedNewState]:enterState()
+local test = self.states[actualNewState]
+  self.state = self.states[actualNewState]
 end
 
 
 function StateMachine:update(dt)
   local newState = self.state:update(dt)
-  if newState then 
-    self.state = newState
-  end
+  if newState then self:enterState(newState) end
 end
 
 
@@ -20,10 +26,7 @@ function StateMachine:input(command)
 
   local newState = self.state:input(command)
 
-  if newState then 
-    self.state = newState
-  end
-
+  if newState then self:enterState(newState) end
 
 end
 
@@ -31,8 +34,6 @@ end
 function StateMachine:inputEnd(command)
   local newState = self.state:inputEnd(command)
 
-  if newState then 
-    self.state = newState
-  end
+  if newState then self:enterState(newState) end
 
 end

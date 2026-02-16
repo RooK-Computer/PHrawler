@@ -1,7 +1,7 @@
 require('src/player/states/States')
 require('src/player/states/StateMachine')
 require('src/player/states/ActionStates/ActionIdleState')
-require('src/player/states/MovingStates/MovingIdleState')
+require('src/player/states/MovingStates/MovingStateMachine')
 
 StateManager = Object:extend()
 
@@ -9,8 +9,9 @@ function StateManager:new(player)
   self.player = player
   self.name = player.name
   self.stateMachines = {
-    StateMachine(player, 'MovingStateMachine', MovingIdleState),
-    StateMachine(player, 'ActionStateMachine', ActionIdleState)
+    MovingStateMachine(player)
+    --StateMachine(player, 'MovingStateMachine', MovingIdleState),
+    --StateMachine(player, 'ActionStateMachine', ActionIdleState)
   }
 
   return self

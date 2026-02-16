@@ -2,16 +2,18 @@ Constants = {
   
   PIXELS_PER_METER = 100,
   
+  -- Moving States
   IDLE_STATE = 'idle',
   FALL_STATE = 'falling',
   JUMP_STATE = 'jump',
   RUN_STATE = 'running',
+  DROP_STATE = 'dropping',
+  --Action State
   DYING_STATE = 'dying',
   DEAD_STATE = 'dead',
   DAMAGE_STATE = 'damaging',
   FIGHT_STATE = 'fighting',
   HIT_STATE = 'hiting',
-  DROP_STATE = 'dropping',
   
   PLAYER_DIRECTION_LEFT = 'left',
   PLAYER_DIRECTION_RIGHT = 'right',

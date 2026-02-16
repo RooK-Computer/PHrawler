@@ -2,9 +2,18 @@ RunningState = State:extend()
 
 function RunningState:new(player)
   RunningState.super.new(self, player)
-  self.name = 'running'
-  self.player.anim = player.animations[Constants.RUN_STATE][player.animationDirection]
+  self.player = player
+  self.name = Constants.RUN_STATE
   return self
+end
+
+
+function RunningState:enterState()
+  
+  local player = self.player
+  player.anim = player.animations[Constants.RUN_STATE][player.animationDirection]
+  return self.name
+
 end
 
 function RunningState:input(command)
@@ -14,10 +23,10 @@ function RunningState:input(command)
 
   if command == 'left' then player.direction = command end
   if command == 'right' then player.direction = command end
-  if command == 'idle' then return MovingIdleState(player) end
-  if command == 'jump' then return JumpState(player) end
+  if command == 'idle' then return Constants.IDLE_STATE end
+  if command == 'jump' then return Constants.JUMP_STATE end
   if command == Constants.PLAYER_DROP_COMMAND then 
-    return DropState(player) 
+    return Constants.DROP_STATE 
   end
 
 end
@@ -27,7 +36,7 @@ function RunningState:inputEnd(command)
 
 
   local player = self.player
-  return MovingIdleState(player)
+  return Constants.IDLE_STATE
 
 end
 
@@ -37,7 +46,7 @@ function RunningState:update(dt)
   
   local vx, vy =   self.player.physics.body:getLinearVelocity()
   if vy > 10 then  
-    return FallingState(player) 
+    return Constants.FALL_STATE 
   end
 
 

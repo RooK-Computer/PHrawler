@@ -4,19 +4,26 @@ function JumpState:new(player)
   JumpState.super.new(self, player)
   self.name = Constants.JUMP_STATE
 
-  self.player.direction = Constants.PLAYER_DIRECTION_UP  
-  self.player.anim = player.animations[Constants.JUMP_STATE][player.animationDirection]
-  self.player.hasJumped = player.hasJumped + 1
-  self.player.velocityY =  -game.gravity
+  return self
+end
+
+function JumpState:enterState()
+  
+  local player = self.player
+  
+  player.direction = Constants.PLAYER_DIRECTION_UP  
+  player.anim = player.animations[Constants.JUMP_STATE][player.animationDirection]
+  player.hasJumped = player.hasJumped + 1
+  player.velocityY =  -game.gravity
 
   local vx, vy = player.physics.body:getLinearVelocity()
 
-  if player.hasJumped < 3 then 
+  if player.hasJumped <= 2 then 
     player.physics.body:setLinearVelocity(vx, -360) 
   end
+  
+  return self.name
 
-
-  return self
 end
 
 function JumpState:input(command)
@@ -24,10 +31,12 @@ function JumpState:input(command)
 
 
   local player = self.player
-  if player.hasJumped > 2 then return end
+  if player.hasJumped >=3 then return end
 
 
-  if command == Constants.JUMP_STATE  then return JumpState(player) end
+  if command == Constants.JUMP_STATE  then 
+    return Constants.JUMP_STATE 
+    end
   if command == Constants.PLAYER_DIRECTION_RIGHT then player.direction = Constants.PLAYER_DIRECTION_RIGHT return end
   if command == Constants.PLAYER_DIRECTION_LEFT then player.direction = Constants.PLAYER_DIRECTION_LEFT return end
 
@@ -46,8 +55,8 @@ function JumpState:update(dt)
 
   player.physics.body:setLinearVelocity(velocityX, velocityY) 
 
-  if velocityY >= 0 then 
-    return FallingState(player) 
+  if velocityY >= 0 then
+    return Constants.FALL_STATE 
   end
 
 

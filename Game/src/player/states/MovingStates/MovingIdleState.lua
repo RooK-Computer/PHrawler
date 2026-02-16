@@ -1,22 +1,22 @@
-require('src/player/states/MovingStates/RunningState')
-require('src/player/states/MovingStates/JumpState')
-require('src/player/states/MovingStates/FallingState')
-require('src/player/states/MovingStates/DropState')
-
 --EntryState
 MovingIdleState = State:extend()
 
 function MovingIdleState:new(player)
   MovingIdleState.super.new(self, player)
   self.name = Constants.IDLE_STATE
-
-  self.player.velocityX = 0
-  self.player.velocityY = player.speed/2
-  self.player.hasJumped = 0
-  self.player.physics.body:setLinearVelocity(player.velocityX, player.velocityY)
-  self.player.anim = player.animations[Constants.IDLE_STATE][player.animationDirection]
-
   return self
+end
+
+function MovingIdleState:enterState()
+  
+  local player = self.player
+  player.velocityX = 0
+  player.velocityY = player.speed/2
+  player.hasJumped = 0
+  player.physics.body:setLinearVelocity(player.velocityX, player.velocityY)
+  player.anim = player.animations[Constants.IDLE_STATE][player.animationDirection]
+  return self.name
+
 end
 
 function MovingIdleState:input(command)
@@ -27,20 +27,20 @@ function MovingIdleState:input(command)
 
   if command == Constants.PLAYER_DIRECTION_LEFT then 
     player.direction = Constants.PLAYER_DIRECTION_LEFT
-    return RunningState(player) 
+    return Constants.RUN_STATE
   end
 
   if command == Constants.PLAYER_DIRECTION_RIGHT then 
     player.direction = Constants.PLAYER_DIRECTION_RIGHT
-    return RunningState(player) 
+    return Constants.RUN_STATE 
   end
 
   if command == Constants.JUMP_STATE then 
-    return JumpState(player) 
+     return Constants.JUMP_STATE 
   end  
   
   if command == Constants.PLAYER_DROP_COMMAND then 
-    return DropState(player) 
+    return Constants.DROP_STATE
   end
 
 end
@@ -52,7 +52,7 @@ function MovingIdleState:update(dt)
   local vx, vy =   player.physics.body:getLinearVelocity()
 
   if vy >= 1 then  
-    return FallingState(player) 
+    return Constants.FALL_STATE
   end
   
 end
