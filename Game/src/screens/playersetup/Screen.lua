@@ -37,6 +37,7 @@ end
 
 function PlayerSetupScreen:exit()
     game.inputManager.HandlerStack:popUpTo(self.inputHandler,true)
+    love.audio.stop()
 end
 
 function PlayerSetupScreen:findNextModel(current)

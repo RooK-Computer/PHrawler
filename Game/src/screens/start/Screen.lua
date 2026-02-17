@@ -3,6 +3,8 @@ require 'src/screens/start/InputHandler'
 
 function StartScreen:new()
   self.name = 'StartScreen'
+  
+  self.audio = {}
 
 
   local allLevels = {}
@@ -87,6 +89,11 @@ function StartScreen:load()
   self.activeIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
   self.changeLeftIndicator = love.graphics.newImage('assets/images/triangle_points_left.png')
   self.changeRightIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
+  
+  self.audio.mainTheme = love.audio.newSource( '/assets/audio/Happy8bit.mp3', 'stream' )
+  self.audio.mainTheme:setLooping(true)
+  
+  love.audio.setVolume( 0.25 )
 
 end
 
@@ -247,6 +254,7 @@ end
 
 function StartScreen:enter()
   game.inputManager.HandlerStack:push(self.inputHandler)
+  love.audio.play(self.audio.mainTheme)
 end
 
 function StartScreen:exit()
