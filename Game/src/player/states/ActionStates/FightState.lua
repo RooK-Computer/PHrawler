@@ -53,6 +53,8 @@ function FightState:inputEnd(command)
   
   player.anim = player.animations[Constants.IDLE_STATE][player.animationDirection]
   if not player.physics.fightFixture:isDestroyed() then player.physics.fightFixture:destroy() end
+  
+  if command == Constants.PLAYER_FIST_HIT_TARGET_COMMAND then return Constants.FIST_HIT_TARGET_STATE end
 
   return Constants.IDLE_STATE
 

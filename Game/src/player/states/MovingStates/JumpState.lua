@@ -45,15 +45,17 @@ end
 function JumpState:update(dt) 
 
   local player = self.player
-
   local velocityX, velocityY = player.physics.body:getLinearVelocity()
-
-  if (player.direction == Constants.PLAYER_DIRECTION_LEFT ) then velocityX = -player.speed end
-  if (player.direction == Constants.PLAYER_DIRECTION_RIGHT ) then velocityX = player.speed end
-
   player.anim = player.animations.jump[player.animationDirection]
 
-  player.physics.body:setLinearVelocity(velocityX, velocityY) 
+  if not player.isMovementBlocked then
+
+    if (player.direction == Constants.PLAYER_DIRECTION_LEFT ) then velocityX = -player.speed end
+    if (player.direction == Constants.PLAYER_DIRECTION_RIGHT ) then velocityX = player.speed end
+
+    player.physics.body:setLinearVelocity(velocityX, velocityY) 
+    
+  end 
 
   if velocityY >= 0 then
     return Constants.FALL_STATE 

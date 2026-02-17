@@ -11,7 +11,6 @@ end
 
 function StateMachine:enterState(proposedNewState) 
   local actualNewState = self.states[proposedNewState]:enterState()
-local test = self.states[actualNewState]
   self.state = self.states[actualNewState]
 end
 

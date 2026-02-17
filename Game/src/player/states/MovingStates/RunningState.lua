@@ -49,13 +49,13 @@ function RunningState:update(dt)
     return Constants.FALL_STATE 
   end
 
-
   player.anim = player.animations.running[player.direction]
+  
+  if not player.isMovementBlocked then
+    if (player.direction == 'left') then player.velocityX = -player.speed end
+    if (player.direction == 'right') then player.velocityX = player.speed end
 
-
-  if (player.direction == 'left') then player.velocityX = -player.speed end
-  if (player.direction == 'right') then player.velocityX = player.speed end
-
-  player.physics.body:setLinearVelocity(player.velocityX, player.velocityY)
+    player.physics.body:setLinearVelocity(player.velocityX, player.velocityY)
+  end
 
 end

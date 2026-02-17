@@ -13,7 +13,7 @@ Constants = {
   DEAD_STATE = 'dead',
   DAMAGE_STATE = 'damaging',
   FIGHT_STATE = 'fighting',
-  HIT_STATE = 'hiting',
+  FIST_HIT_TARGET_STATE = 'fist_hit_target',
   
   PLAYER_DIRECTION_LEFT = 'left',
   PLAYER_DIRECTION_RIGHT = 'right',
@@ -23,7 +23,7 @@ Constants = {
   PLAYER_FIGHT_COMMAND = 'fight',
   PLAYER_JUMP_COMMAND = 'jump',
   PLAYER_RUN_COMMAND = 'run',
-  PLAYER_HIT_COMMAND = 'hit',
+  PLAYER_FIST_HIT_TARGET_COMMAND = 'fist_hit_target',
   PLAYER_DAMAGE_COMMAND = 'damage',
   PLAYER_DROP_COMMAND = 'drop',
   
