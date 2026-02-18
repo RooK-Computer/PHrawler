@@ -17,10 +17,6 @@ function DamageState:enterState()
   player:setDamage(1)
   player.isMovementBlocked = true
   player.isStateChangeBlocked = true
-
-  if player.gamepad~= nil and player.gamepad:isVibrationSupported() then 
-    player.gamepad:setVibration( 1, 1, 1 ) 
-  end
   
   return self.name
 end
