@@ -13,7 +13,7 @@ game.defaultConfig = function() -- needed for restart purposes
     PIXELS_PER_METER = Constants.PIXELS_PER_METER,
     gravity = 9.81 * Constants.PIXELS_PER_METER,
     -- END CONSTANTS
-    levels = {Constants.LEVEL_1},
+    levels = {Constants.LEVEL_1, Constants.LEVEL_0},
     world = {}, -- physics world
     players = {}, -- player config
     defaultFont = love.graphics.getFont(), -- used if no font is found

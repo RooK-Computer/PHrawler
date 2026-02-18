@@ -4,9 +4,14 @@ Level = Object:extend()
 function Level:new(world, levelID)
   self.stage = nil
 
-  if levelID == Constants.LEVEL_1 then 
+  if levelID == Constants.LEVEL_0 then 
     require('src/level/TiledMaps/Palasthotel_Stage1')
     self.stage = Palasthotel_Stage1(world)
+  end
+  
+    if levelID == Constants.LEVEL_1 then 
+    require('src/level/TiledMaps/Palasthotel_Stage1_Extended')
+    self.stage = Palasthotel_Stage1_Extended(world)
   end
 
 

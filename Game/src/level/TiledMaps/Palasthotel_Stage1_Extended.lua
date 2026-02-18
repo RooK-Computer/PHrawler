@@ -1,19 +1,19 @@
 require('src/level/TiledMaps/TiledMaps')
 
-Palasthotel_Stage1 = TiledMaps:extend()
+Palasthotel_Stage1_Extended = TiledMaps:extend()
 
-function Palasthotel_Stage1:new(world)
+function Palasthotel_Stage1_Extended:new(world)
   self.world = world
   self.startingPoints = {}
-  self.name = 'Palasthotel...Stage 0'
+  self.name = 'Palasthotel...Stage 1'
   return self
 
 end
 
 
-function Palasthotel_Stage1:setup()
+function Palasthotel_Stage1_Extended:setup()
   local world = self.world
-  self.sti = sti('maps/palasthotel-stage.lua') -- draw method comes from TiledMaps abstract class
+  self.sti = sti('maps/palasthotel-stage_extended.lua') -- draw method comes from TiledMaps abstract class
 
   local level = self.sti
 
@@ -87,12 +87,12 @@ function Palasthotel_Stage1:setup()
 
 end
 
-function Palasthotel_Stage1:draw()
-  Palasthotel_Stage1.super.draw(self)
+function Palasthotel_Stage1_Extended:draw()
+  Palasthotel_Stage1_Extended.super.draw(self)
   if not self.audio.introMusic:isPlaying() then self.audio.backgroundLoop:play() end
 end
 
-function Palasthotel_Stage1:enterLevel()
+function Palasthotel_Stage1_Extended:enterLevel()
   self.audio.introMusic:play()
 end
 
