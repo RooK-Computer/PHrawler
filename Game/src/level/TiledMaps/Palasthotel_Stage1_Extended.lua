@@ -96,4 +96,7 @@ function Palasthotel_Stage1_Extended:enterLevel()
   self.audio.introMusic:play()
 end
 
+function Palasthotel_Stage1_Extended:exitLevel()
+  self.audio.stop()
+end
 

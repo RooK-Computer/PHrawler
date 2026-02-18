@@ -47,6 +47,7 @@ end
 game.restart = function()
   game.players = {}
   game.screens = Stack()
+  love.audio.stop()
   game.inputManager:restart()
   game.switchScreen(StartScreen())
 end

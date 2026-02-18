@@ -154,4 +154,5 @@ function GameScreen:exit()
   for i, player in ipairs(game.players) do
     game.inputManager.HandlerStack:pop()
   end
+  game.level:exitLevel()
 end

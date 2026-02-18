@@ -33,6 +33,9 @@ function Level:enterLevel()
     self.stage:enterLevel()
 end
 
+function Level:exitLevel()
+    self.stage:exitLevel()
+end
 
 function Level:draw()
   self.stage:draw()
