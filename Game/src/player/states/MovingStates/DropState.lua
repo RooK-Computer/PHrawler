@@ -33,8 +33,13 @@ function DropState:input(command)
 end
 
 function DropState:update(dt)
+  
+  local player = self.player
+  
+  local velocityX, velocityY = player.physics.body:getLinearVelocity()
     
-  if self.player.collisionClass == 'Player' then
+  if player.collisionClass == 'Player' 
+  or velocityY == 0 then -- handles weird drop bug if player stands on another player
       return Constants.IDLE_STATE
   end
   
