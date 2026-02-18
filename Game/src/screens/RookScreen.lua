@@ -23,8 +23,6 @@ function RookScreen:load()
   self.font:setFilter("nearest")
   love.graphics.setFont( self.font)
   self.audio.rookCall = love.audio.newSource( '/assets/audio/rook.mp3', 'stream' )
-  self.audio.background = love.audio.newSource( '/assets/audio/Grp48_Melodic_5_Retro_8_Bit_Chiptune.wav', 'stream' )
-
 end
 
 function RookScreen:enter()
