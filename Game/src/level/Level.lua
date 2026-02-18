@@ -24,7 +24,9 @@ function Level:getName()
 end
 
 
-
+function Level:enterLevel()
+    self.stage:enterLevel()
+end
 
 
 function Level:draw()

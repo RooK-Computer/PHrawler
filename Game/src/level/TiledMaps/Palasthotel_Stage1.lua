@@ -76,10 +76,24 @@ function Palasthotel_Stage1:setup()
     end
 
     self.startingPoints = Helper.shuffleArray(self.startingPoints)
+    
+    
+    self.audio = {}
+    self.audio.introMusic = love.audio.newSource('/assets/audio/16_Bit_Autumn_Intro.mp3', 'stream')
+    self.audio.backgroundLoop = love.audio.newSource('/assets/audio/16_Bit_Autumn_Loop.mp3', 'stream')
+    self.audio.backgroundLoop:setLooping(true)    
+    end
 
-  end
 
+end
 
+function Palasthotel_Stage1:draw()
+  Palasthotel_Stage1.super.draw(self)
+  if not self.audio.introMusic:isPlaying() then self.audio.backgroundLoop:play() end
+end
+
+function Palasthotel_Stage1:enterLevel()
+  self.audio.introMusic:play()
 end
 
 

@@ -40,6 +40,7 @@ function GameScreen:enter()
   for i, player in ipairs(allPlayers) do
     game.inputManager.HandlerStack:push(PlayerInput(self,player,{player.config.registeredGamepad},player.controls.inputs.gamepad))
   end
+  game.level:enterLevel()
 
 end
 
