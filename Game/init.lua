@@ -15,6 +15,7 @@ require('src/core/find')
 require('src/misc/Constants')
 require('src/misc/Helper')
 require('game')
+require('src/events/events')
 
 
 --classes

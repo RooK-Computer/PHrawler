@@ -12,6 +12,9 @@ function DeadState:enterState()
   
   local player = self.player
   
+  love.event.push(Constants.EVENT_PLAYER_DIED, player.name)
+  
+  
   player.startTimer = love.timer.getTime()
   player.anim = player.animations[Constants.DEAD_STATE][player.animationDirection]
   player.collisionClass = Constants.DEAD_STATE

@@ -29,5 +29,8 @@ Constants = {
   
   LEVEL_0 = 'Palasthotel_Simple',
   LEVEL_1 = 'Palasthotel',
+  
+  
+  EVENT_PLAYER_DIED = 'player_died',
 
 }
