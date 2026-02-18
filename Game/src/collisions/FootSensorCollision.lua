@@ -4,6 +4,8 @@ FootSensorCollision = {
     
     if object1.isFootSensor then
       object1.player.isOnGround = true
+      object1.player.collisionClass = 'Player'
+
       
       if object2.collisionClass == 'WorldLimit' and object2.object.properties.isWorldGround then
         object1.player.canNotDrop = true

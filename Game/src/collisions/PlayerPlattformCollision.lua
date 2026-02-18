@@ -1,9 +1,11 @@
 PlayerPlattformCollision = {
 
   collisionClassA = 'Plattform',
-  collisionClassB = {'Player', 'PlayerDrop'},
+  collisionClassB = {'Player', 'PlayerDrop', 'PlayerDropped'},
 
   beginContact = function(plattform, player, contact)
+    
+    if player.collisionClass == 'PlayerDropped' then return end
     player.isOnGround = true 
 
     local plattformX = plattform.body:getX()
@@ -20,11 +22,17 @@ PlayerPlattformCollision = {
 
   endContact = function(plattform, player, contact)
     player.isOnGround = false 
+    
+    if player.collisionClass == 'PlayerDropped' then 
+      player.collisionClass = 'Player'
+    end
 
     -- player dropped from plattform
     if player.collisionClass == 'PlayerDrop' then 
-      player.collisionClass = 'Player'
+      player.collisionClass = 'PlayerDropped'
     end
+    
+
 
   end,
 
