@@ -1,1 +1,0 @@
-animationConfigMale = Helper.deepCloneTable(animationConfigDefault)

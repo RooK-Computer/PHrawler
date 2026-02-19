@@ -1,6 +1,5 @@
 require('src/player/config/gamepadConfig')
 require('src/player/config/animationConfigDefault')
-require('src/player/config/animationConfigMale')
 
 PlayersConfig = {}
 PlayersConfig.get = function(playerNumber) 
@@ -26,7 +25,6 @@ PlayersConfig.get = function(playerNumber)
     }
 
     if   i <= 4 then defaultConfig.controls.inputs.keyboard = keyboardConfig[i] end
-    if i%2 == 0 then defaultConfig.animations = animationConfigMale end
 
     table.insert(playerConfig, defaultConfig)
 
