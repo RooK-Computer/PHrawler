@@ -26,7 +26,7 @@ function PlayerSetupScreen:load()
         table.insert(self.availablePlayerSlots,view)
         self.view:addSubview(view)
     end
-    for i=1,16 do 
+    for i=1,24 do 
         table.insert(self.models,"player_"..i)
     end
 end
