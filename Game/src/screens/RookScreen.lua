@@ -50,7 +50,7 @@ function RookScreen:draw()
 
     if passedTime > 5 then 
       love.audio.stop()
-      game.switchScreen(StartScreen())
+      game.switchScreen(StartScreen(GameSession()))
     end
   end
 
