@@ -97,6 +97,6 @@ function Palasthotel_Stage1_Extended:enterLevel()
 end
 
 function Palasthotel_Stage1_Extended:exitLevel()
-  self.audio.stop()
+  love.audio.stop()
 end
 

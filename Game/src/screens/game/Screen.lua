@@ -123,7 +123,7 @@ end
 function GameScreen:restartGame()
 
   game.players = {}
-  game.switchScreen(GameScreen())
+  game.switchScreen(GameScreen(self.playersConfig))
 end
 
 
