@@ -5,14 +5,14 @@ require('src/player/attachments/Attachments')
 
 Player = Object:extend()
 
-function Player:new(config, game)
+function Player:new(config, session)
 
   self.name = config.name
   self.id = config.id
   self.priority = config.priority
   self.x = config.x
   self.y = config.y
-  self.world = game.world
+  self.world = session.instance.world
   self.controls = config.controls
   self.activeInput = config.controls.defaultInput
   self.ongoingCommand = {}
@@ -48,7 +48,7 @@ function Player:setup()
   player.grid = anim8.newGrid( 64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight() )
 
   player.physics = {}
-  player.physics.body = love.physics.newBody(game.world, player.x, player.y, 'dynamic')
+  player.physics.body = love.physics.newBody(self.world, player.x, player.y, 'dynamic')
   player.physics.body:setFixedRotation(true)
   player.physics.shape = love.physics.newRectangleShape(player.width/4, player.height/2)
   player.physics.fixture = love.physics.newFixture(player.physics.body, player.physics.shape)
@@ -56,7 +56,7 @@ function Player:setup()
   
   
   player.footSensor = {}
-  player.footSensor.body = love.physics.newBody(game.world, player.x, player.y + player.height, 'dynamic')
+  player.footSensor.body = love.physics.newBody(self.world, player.x, player.y + player.height, 'dynamic')
   player.footSensor.body:setFixedRotation(true)
   player.footSensor.shape = love.physics.newRectangleShape(0, player.height/4, 5, 5)
   player.footSensor.fixture = love.physics.newFixture(player.physics.body, player.footSensor.shape)
