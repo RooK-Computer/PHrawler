@@ -4,7 +4,20 @@ function DamageState:new(player)
   DamageState.super.new(self, player)
 
   self.name = Constants.DAMAGE_STATE
-
+  self.audio = {}
+    
+    self.audio.damage = {
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_01.wav' , 'static'),
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_02.wav' , 'static'),
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_03.wav' , 'static'),
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_04.wav' , 'static'),
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_05.wav' , 'static'),
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_06.wav' , 'static'),
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_07.wav' , 'static'),
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_08.wav' , 'static'),
+      love.audio.newSource(Constants.AUDIO.SFX_PATH .. 'Hurt_09.wav' , 'static'),
+    }
+  
   return self
 end
 
@@ -14,7 +27,9 @@ function DamageState:enterState()
   
   player.startTimer = love.timer.getTime()
   player.anim = player.animations[Constants.DAMAGE_STATE][player.animationDirection]
-  player:setDamage(1)
+  --player:setDamage(1)
+  
+  self.audio.damage[math.random(9)]:play()
   player.isMovementBlocked = true
   player.isStateChangeBlocked = true
   
