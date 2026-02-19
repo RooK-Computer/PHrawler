@@ -6,7 +6,8 @@ require 'src/screens/playersetup/PlayerSetupPlayerInputHandler'
 
 PlayerSetupScreen = Screen:extend()
 
-function PlayerSetupScreen:new()
+function PlayerSetupScreen:new(session)
+    self.session = session
     self.models={}
     self.availablePlayerSlots={}
     self.activePlayerSlots={}
@@ -20,7 +21,7 @@ end
 
 function PlayerSetupScreen:load()
     self.font = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf',32 )
-    for i=1,game.levelConfig.selectedPlayerNumber do
+    for i=1,self.session:getPlayerNumber() do
         local view = PlayerSlotView()
         view.name = 'Player '..i
         table.insert(self.availablePlayerSlots,view)
@@ -109,13 +110,14 @@ function PlayerSetupScreen:readyCheck()
         end
     end
     if allReady then
-        local config = PlayersConfig.get(game.levelConfig.selectedPlayerNumber)
+        local config = PlayersConfig.get(self.session.setup.numberOfPlayers)
         for i,v in ipairs(self.activePlayerSlots) do
             config[i].name = 'Player '..i
             config[i].id = v.player
             config[i].registeredGamepad = v.gamepad
         end
-        game.switchScreen(LevelScreen(config))
+        self.session.setup.players = config
+        game.switchScreen(LevelScreen(self.session))
     end
 end
 
