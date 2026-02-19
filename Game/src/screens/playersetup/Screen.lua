@@ -115,7 +115,7 @@ function PlayerSetupScreen:readyCheck()
             config[i].id = v.player
             config[i].registeredGamepad = v.gamepad
         end
-        game.switchScreen(GameScreen(config))
+        game.switchScreen(LevelScreen(config))
     end
 end
 

@@ -1,17 +1,17 @@
 require 'src/player/config/PlayersConfig' 
-require 'src/screens/game/PlayerInput'
+require 'src/screens/level/PlayerInput'
 
-GameScreen = Screen:extend()
+LevelScreen = Screen:extend()
 
-function GameScreen:new(playersConfig)
-  self.name = 'GameScreen'
+function LevelScreen:new(playersConfig)
+  self.name = 'LevelScreen'
   self.isPaused = false
   self.isEnded = false
   self.playersConfig = playersConfig
   return self
 end
 
-function GameScreen:load()
+function LevelScreen:load()
   game.world = love.physics.newWorld(0, game.gravity)
   game.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
@@ -35,7 +35,7 @@ function GameScreen:load()
 
 end
 
-function GameScreen:enter()
+function LevelScreen:enter()
   local allPlayers = game.players
   for i, player in ipairs(allPlayers) do
     game.inputManager.HandlerStack:push(PlayerInput(self,player,{player.config.registeredGamepad},player.controls.inputs.gamepad))
@@ -44,7 +44,7 @@ function GameScreen:enter()
 
 end
 
-function GameScreen:update(dt)
+function LevelScreen:update(dt)
   if self.isPaused or self.isEnded then return end
 
   local allPlayers = game.players
@@ -59,7 +59,7 @@ function GameScreen:update(dt)
 
 end
 
-function GameScreen:draw()
+function LevelScreen:draw()
 
   game.level:draw()    
   for i = 1, #game.players do
@@ -120,14 +120,14 @@ function GameScreen:draw()
 
 end
 
-function GameScreen:restartGame()
+function LevelScreen:restartGame()
 
   game.players = {}
-  game.switchScreen(GameScreen(self.playersConfig))
+  game.switchScreen(LevelScreen(self.playersConfig))
 end
 
 
-function GameScreen:endScreen()
+function LevelScreen:endScreen()
 
   if self.isEnded then return end
   self.isEnded = true
@@ -136,7 +136,7 @@ function GameScreen:endScreen()
 end
 
 
-function GameScreen:pauseScreen()
+function LevelScreen:pauseScreen()
 
   if self.isEnded then return end
   self.isPaused = true
@@ -144,13 +144,13 @@ function GameScreen:pauseScreen()
 
 end
 
-function GameScreen:resume()
+function LevelScreen:resume()
 
   self.isPaused = false
   game.popScreen()
 end
 
-function GameScreen:exit()
+function LevelScreen:exit()
   for i, player in ipairs(game.players) do
     game.inputManager.HandlerStack:pop()
   end
