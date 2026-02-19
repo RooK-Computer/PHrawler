@@ -14,14 +14,8 @@ game.defaultConfig = function() -- needed for restart purposes
     gravity = 9.81 * Constants.PIXELS_PER_METER,
     -- END CONSTANTS
     levels = {Constants.LEVEL_1, Constants.LEVEL_0},
-    world = {}, -- physics world
-    players = {}, -- player config
     defaultFont = love.graphics.getFont(), -- used if no font is found
     font = love.graphics.getFont(), -- can be overwritten by level or screen config
-    levelConfig = {
-      selectedPlayerNumber = 2,
-      selectedLevel = Constants.LEVEL_1
-    },
     minSupportedPlayerNumber = 2,
     maxSupportedPlayerNumber = 8,
     connectedGamepads = {},
