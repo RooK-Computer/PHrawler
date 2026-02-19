@@ -27,7 +27,7 @@ function DamageState:enterState()
   
   player.startTimer = love.timer.getTime()
   player.anim = player.animations[Constants.DAMAGE_STATE][player.animationDirection]
-  --player:setDamage(1)
+  player:setDamage(1)
   
   self.audio.damage[math.random(9)]:play()
   player.isMovementBlocked = true
