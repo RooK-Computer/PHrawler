@@ -254,7 +254,7 @@ end
 
 function StartScreen:enter()
   game.inputManager.HandlerStack:push(self.inputHandler)
-  love.audio.play(self.audio.mainTheme)
+  self.audio.mainTheme:play()
 end
 
 function StartScreen:exit()
