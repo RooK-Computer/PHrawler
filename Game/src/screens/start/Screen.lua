@@ -1,8 +1,9 @@
 StartScreen = Screen:extend()
 require 'src/screens/start/InputHandler'
 
-function StartScreen:new()
+function StartScreen:new(session)
   self.name = 'StartScreen'
+  self.session = session
   
   self.audio = {}
 
@@ -26,7 +27,7 @@ function StartScreen:new()
       isActive = true,
       changeOption = function() end,
       selectOption = function() 
-        game.switchScreen(PlayerSetupScreen())
+        game.switchScreen(PlayerSetupScreen(self.session))
       end
     },
     { 
@@ -34,13 +35,13 @@ function StartScreen:new()
       label = 'Players... ', 
       isActive = false, 
       options = supportedPlayerNumbers, 
-      selectedOption = game.levelConfig.selectedPlayerNumber - 1,
+      selectedOption = self.session:getPlayerNumber() - 1,
       changeOption = function(menuItem, direction)
 
         local newOptionIndex = StartScreen.changeOption(menuItem, direction) 
         local selectedPlayerNumber = menuItem.options[newOptionIndex]
                 
-        game.levelConfig.selectedPlayerNumber = selectedPlayerNumber.id
+        game.screen().session:setPlayerNumber(selectedPlayerNumber.id)
         game.screen():changeSelectedPlayerCharacters()
 
       end,
@@ -51,12 +52,12 @@ function StartScreen:new()
       label = 'Level... ', 
       isActive = false, 
       options = allLevels, 
-      selectedOption = 1,
+      selectedOption = 1,--TODO: we have to lookup the right index based on the currently selected level
       changeOption = function(menuItem, direction)
 
         local newOptionIndex = StartScreen.changeOption(menuItem, direction) 
         local selectedLevel = menuItem.options[newOptionIndex]
-        game.levelConfig.selectedLevel = selectedLevel.id
+        game.screen().session:setSelectedLevel(selectedLevel.id)
 
       end,
       selectOption = function() end
@@ -124,7 +125,7 @@ end
 
 
 function StartScreen:changeSelectedPlayerCharacters()
-  local selectedPlayerNumber = game.levelConfig.selectedPlayerNumber
+  local selectedPlayerNumber = self.session.setup.numberOfPlayers
 
   self.selectedPlayerCharacters = {}
 
