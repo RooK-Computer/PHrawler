@@ -3,51 +3,51 @@ require 'src/screens/level/PlayerInput'
 
 LevelScreen = Screen:extend()
 
-function LevelScreen:new(playersConfig)
+function LevelScreen:new(session)
   self.name = 'LevelScreen'
   self.isPaused = false
   self.isEnded = false
-  self.playersConfig = playersConfig
+  self.session = session
   return self
 end
 
 function LevelScreen:load()
-  game.world = love.physics.newWorld(0, game.gravity)
-  game.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+  self.session.instance.world = love.physics.newWorld(0, game.gravity)
+  self.session.instance.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
-  game.level = Level(game.world, game.levelConfig.selectedLevel)
-  game.level:setupLevel()
+  self.session.instance.level = Level(self.session.instance.world, self.session.setup.selectedLevel)
+  self.session.instance.level:setupLevel()
 
   love.graphics.setDefaultFilter('nearest', 'nearest') -- best for pixel art
   love.graphics.setFont(game.defaultFont)
 
 
-  local playerNumber = game.levelConfig.selectedPlayerNumber
-  local playersConfig = self.playersConfig
+  local playerNumber = self.session.setup.numberOfPlayers
+  local playersConfig = self.session.setup.players
 
   for i,playerConfig in ipairs(playersConfig) do
-    local player =  Player(playerConfig, game)
-    player:setStartingPoint(game.level:getStartingPoint(i))
+    local player =  Player(playerConfig, self.session)
+    player:setStartingPoint(self.session.instance.level:getStartingPoint(i))
     player:setup()
 
-    table.insert(game.players, player)
+    table.insert(self.session.instance.players, player)
   end
 
 end
 
 function LevelScreen:enter()
-  local allPlayers = game.players
+  local allPlayers = self.session.instance.players
   for i, player in ipairs(allPlayers) do
     game.inputManager.HandlerStack:push(PlayerInput(self,player,{player.config.registeredGamepad},player.controls.inputs.gamepad))
   end
-  game.level:enterLevel()
+  self.session.instance.level:enterLevel()
 
 end
 
 function LevelScreen:update(dt)
   if self.isPaused or self.isEnded then return end
 
-  local allPlayers = game.players
+  local allPlayers = self.session.instance.players
   
   if #allPlayers == 1 then self:endScreen() end
 
@@ -55,15 +55,15 @@ function LevelScreen:update(dt)
     player:update(dt)
   end
 
-  game.world:update(dt)
+  self.session.instance.world:update(dt)
 
 end
 
 function LevelScreen:draw()
 
-  game.level:draw()    
-  for i = 1, #game.players do
-    game.players[i]:draw()
+  self.session.instance.level:draw()    
+  for i = 1, #self.session.instance.players do
+    self.session.instance.players[i]:draw()
   end
 
   if game.activateDebug then 
@@ -74,11 +74,11 @@ function LevelScreen:draw()
     love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), statsPositionY, statsPositionX)
 
 
-    for i = 1, #game.players do
+    for i = 1, #self.session.instance.players do
       if i > 32 then
       else 
         statsPositionY = statsPositionY + 20
-        local player = game.players[i]
+        local player = self.session.instance.players[i]
         
         local color = {0, 0, 0} -- black
         
@@ -122,8 +122,8 @@ end
 
 function LevelScreen:restartGame()
 
-  game.players = {}
-  game.switchScreen(LevelScreen(self.playersConfig))
+  self.session.instance.players = {}
+  game.switchScreen(LevelScreen(self.session))
 end
 
 
