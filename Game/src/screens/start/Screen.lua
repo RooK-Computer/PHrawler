@@ -90,7 +90,7 @@ function StartScreen:load()
   self.changeLeftIndicator = love.graphics.newImage('assets/images/triangle_points_left.png')
   self.changeRightIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
   
-  self.audio.mainTheme = love.audio.newSource( '/assets/audio/Happy8bit.mp3', 'stream' )
+  self.audio.mainTheme = love.audio.newSource( Constants.AUDIO.TRACK_PATH .. 'Happy8bit.mp3', 'stream' )
   self.audio.mainTheme:setLooping(true)
   
   love.audio.setVolume( 0.25 )

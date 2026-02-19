@@ -79,8 +79,8 @@ function Palasthotel_Stage1_Extended:setup()
     
     
     self.audio = {}
-    self.audio.introMusic = love.audio.newSource('/assets/audio/16_Bit_Autumn_Intro.mp3', 'stream')
-    self.audio.backgroundLoop = love.audio.newSource('/assets/audio/16_Bit_Autumn_Loop.mp3', 'stream')
+    self.audio.introMusic = love.audio.newSource(Constants.AUDIO.TRACK_PATH .. '16_Bit_Autumn_Intro.mp3', 'stream')
+    self.audio.backgroundLoop = love.audio.newSource(Constants.AUDIO.TRACK_PATH .. '16_Bit_Autumn_Loop.mp3', 'stream')
     self.audio.backgroundLoop:setLooping(true)    
     end
 

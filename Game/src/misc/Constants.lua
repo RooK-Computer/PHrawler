@@ -34,3 +34,8 @@ Constants = {
   EVENT_PLAYER_DIED = 'player_died',
 
 }
+
+Constants.AUDIO = {
+  TRACK_PATH = '/assets/audio/tracks/',
+  SFX_PATH = '/assets/audio/sfx/',
+}
