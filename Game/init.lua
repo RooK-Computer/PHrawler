@@ -12,6 +12,7 @@ require('src/core/Stack')
 require('src/core/find')
 
 --GLOBALS
+require('src/session')
 require('src/misc/Constants')
 require('src/misc/Helper')
 require('game')
