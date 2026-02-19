@@ -43,7 +43,7 @@ game.restart = function()
   game.screens = Stack()
   love.audio.stop()
   game.inputManager:restart()
-  game.switchScreen(StartScreen())
+  game.switchScreen(StartScreen(GameSession()))
 end
 
 game.switchScreen = function(screen)
