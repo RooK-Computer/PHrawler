@@ -42,6 +42,7 @@ game.restart = function()
   game.players = {}
   game.screens = Stack()
   love.audio.stop()
+  if game.inputManager == nil then game.inputManager = InputManager() end -- inputManager is only null if we use restart as quickstart function
   game.inputManager:restart()
   game.switchScreen(StartScreen(GameSession()))
 end
@@ -74,4 +75,6 @@ end
 game.endGame = function()
 
 end
+
+game.quickStart = game.restart
 
