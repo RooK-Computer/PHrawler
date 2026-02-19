@@ -228,7 +228,7 @@
     <property name="canDrop" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="66" x="512.397" y="356.116" width="170.102" height="1">
+  <object id="66" x="512.397" y="358.116" width="170.102" height="1">
    <properties>
     <property name="canDrop" type="bool" value="true"/>
    </properties>
