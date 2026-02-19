@@ -114,13 +114,6 @@ function PlayerSetupScreen:readyCheck()
             config[i].name = 'Player '..i
             config[i].id = v.player
             config[i].registeredGamepad = v.gamepad
-
-            local pos = tableExt.find(self.models,v.player)
-            if pos % 2 == 0 then 
-                config[i].animations = animationConfigMale 
-            else
-                config[i].animations = animationConfigDefault
-            end
         end
         game.switchScreen(GameScreen(config))
     end
