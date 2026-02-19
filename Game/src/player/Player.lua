@@ -70,8 +70,8 @@ function Player:setup()
 
   player.physics.fixture:setUserData(player)  
 
-  player.direction = 'right'
-  player.animationDirection = 'right'
+  player.direction = Constants.PLAYER_DIRECTION_RIGHT
+  player.animationDirection = Constants.PLAYER_DIRECTION_RIGHT
   player.animationDuration = 0.05
   player.animations = {}
 
