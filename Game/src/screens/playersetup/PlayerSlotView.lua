@@ -37,8 +37,8 @@ function PlayerSlotView:draw()
     end
     if self.gamepad == nil then
         
-        local width = self.font:getWidth("Press B")
-        love.graphics.print({{144/255, 0, 255/255},"Press B"},self.font,self:getWidth()/2-width/2,self:getHeight()/2 - self.font:getHeight()/2)
+        local width = self.font:getWidth("Press FIGHT")
+        love.graphics.print({{144/255, 0, 255/255},"Press FIGHT"},self.font,self:getWidth()/2-width/2,self:getHeight()/2 - self.font:getHeight()/2)
     else
         if self.ready == false then
             local x = self:getWidth()/2
