@@ -148,11 +148,11 @@ end
 
 
 function StartScreen:draw()
-  love.graphics.clear( 255/255, 220/255, 0, 1)
+  love.graphics.clear(Colors.getYellowRGBA())
 
   local name = 'PHrawler'
 
-  love.graphics.print({{144/255, 0, 255/255}, name}, 
+  love.graphics.print({Colors.getPurpleRGBA(), name}, 
     100, 
     100,
     0,
@@ -162,7 +162,7 @@ function StartScreen:draw()
   local versionText = 'Version  ' .. tostring(game.version)
 
 
-  love.graphics.print({{144/255, 0, 255/255}, versionText}, 
+  love.graphics.print({Colors.getPurpleRGBA(), versionText}, 
     25, 
     game.windowHeight - 25 - self.font:getHeight(versionText),
     0
@@ -203,7 +203,7 @@ function StartScreen:draw()
     end
 
     --Menu item label
-    love.graphics.print({{144/255, 0, 255/255},label}, 
+    love.graphics.print({Colors.getPurpleRGBA(),label}, 
       x, 
       y,
       0,
@@ -221,7 +221,7 @@ function StartScreen:draw()
 
     if (menuItem.selectedOption ~= nil) then
       x = x + 30
-      love.graphics.print({{144/255, 0, 255/255},selectedOption}, 
+      love.graphics.print({Colors.getPurpleRGBA(),selectedOption}, 
         x, 
         y,
         0,

@@ -38,7 +38,7 @@ end
 
 
 function EndScreen:draw()
-  love.graphics.setColor( 255/255, 220/255, 0, 0.5 )
+  love.graphics.setColor( Colors.getYellowRGBA(0.5) )
   love.graphics.rectangle( 'fill', 0, 0, game.windowWidth, game.windowHeight )
 
   love.graphics.setColor(1,1,1,1)
@@ -53,7 +53,7 @@ function EndScreen:draw()
   local winnerText = winner.name .. ' has won!'
 
   
-  love.graphics.print({{144/255, 0, 255/255}, winnerText}, 
+  love.graphics.print({Colors.getPurpleRGBA(), winnerText}, 
       game.windowWidth/2 - self.font:getWidth(winnerText)*4/2, 
       75,
       0,
@@ -73,7 +73,7 @@ function EndScreen:draw()
       self.activeItemIndex = i
     end
 
-    love.graphics.print({{144/255, 0, 255/255}, menuItem.label}, 
+    love.graphics.print({Colors.getPurpleRGBA(), menuItem.label}, 
       x, 
       y,
       0,

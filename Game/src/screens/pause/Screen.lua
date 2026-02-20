@@ -46,7 +46,7 @@ end
 
 
 function PauseScreen:draw()
-  love.graphics.setColor( 255/255, 220/255, 0, 0.5 )
+  love.graphics.setColor( Colors.getYellowRGBA(0.5) )
   love.graphics.rectangle( 'fill', 0, 0, game.windowWidth, game.windowHeight )
 
   love.graphics.setColor(1,1,1,1)
@@ -69,7 +69,7 @@ function PauseScreen:draw()
       self.activeItemIndex = i
     end
 
-    love.graphics.print({{144/255, 0, 255/255}, menuItem.label}, 
+    love.graphics.print({Colors.getPurpleRGBA(), menuItem.label}, 
       x, 
       y,
       0,

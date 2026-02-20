@@ -37,7 +37,7 @@ function RookScreen:update(dt)
 end
 
 function RookScreen:draw()
-  love.graphics.clear( 255/255, 220/255, 0, 1)
+  love.graphics.clear( Colors.getYellowRGBA() )
 
   local scale = self.logoScale
   

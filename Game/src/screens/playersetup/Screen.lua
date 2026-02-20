@@ -136,8 +136,8 @@ function PlayerSetupScreen:update(dt)
 end
 
 function PlayerSetupScreen:draw()
-  love.graphics.clear( 255/255, 220/255, 0, 1)
+  love.graphics.clear( Colors.getYellowRGBA())
   local width = self.font:getWidth("Choose your looks!")
-  love.graphics.print({{144/255, 0, 255/255},"Choose your looks!"},self.font,game.windowWidth/2-width/2,100/2 - self.font:getHeight()/2)
+  love.graphics.print({Colors.getPurpleRGBA(),"Choose your looks!"},self.font,game.windowWidth/2-width/2,100/2 - self.font:getHeight()/2)
   self.view:viewdraw()
 end

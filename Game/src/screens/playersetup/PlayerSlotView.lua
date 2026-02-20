@@ -38,7 +38,7 @@ function PlayerSlotView:draw()
     if self.gamepad == nil then
         
         local width = self.font:getWidth("Press FIGHT")
-        love.graphics.print({{144/255, 0, 255/255},"Press FIGHT"},self.font,self:getWidth()/2-width/2,self:getHeight()/2 - self.font:getHeight()/2)
+        love.graphics.print({Colors.getPurpleRGBA(),"Press FIGHT"},self.font,self:getWidth()/2-width/2,self:getHeight()/2 - self.font:getHeight()/2)
     else
         if self.ready == false then
             local x = self:getWidth()/2
@@ -55,14 +55,14 @@ function PlayerSlotView:draw()
             love.graphics.draw(self.changeRightIndicator,x,y)
 
             local fontWidth = self.font:getWidth(self.name)
-            love.graphics.print({{144/255, 0, 255/255},self.name},self.font,self:getWidth()/2 - fontWidth/2,self:getHeight()/2 - 16 - self.font:getHeight())
+            love.graphics.print({Colors.getPurpleRGBA(),self.name},self.font,self:getWidth()/2 - fontWidth/2,self:getHeight()/2 - 16 - self.font:getHeight())
 
         else
             local x = self:getWidth()/2
             local y = self:getHeight()/2
             self.anim:draw(self.spritesheet,x,y,nil,1,1,32,32)
             local fontWidth = self.font:getWidth(self.name)
-            love.graphics.print({{144/255, 0, 255/255},self.name},self.font,self:getWidth()/2 - fontWidth/2,self:getHeight()/2 - 16 - self.font:getHeight())
+            love.graphics.print({Colors.getPurpleRGBA(),self.name},self.font,self:getWidth()/2 - fontWidth/2,self:getHeight()/2 - 16 - self.font:getHeight())
         end
     end
 end
