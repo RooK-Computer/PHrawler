@@ -34,7 +34,7 @@ function LoadingScreen:draw()
     local width = self.font:getWidth("Loading...")
     love.graphics.print({{144/255, 0, 255/255},"Loading..."},self.font,game.windowWidth/2 - width / 2, game.windowHeight/2 - self.font:getHeight()/2)
   elseif self.loading == true and self.loadingDone==true then
-    local text = "Match starts in "..tostring(math.floor(self.timer))
+    local text = "Match starts in "..tostring(math.floor(self.timer)+1)
     local width = self.font:getWidth(text)
     love.graphics.print({{144/255, 0, 255/255},text},self.font,game.windowWidth/2 - width / 2, game.windowHeight/2 -self.font:getHeight()/2)
   end
