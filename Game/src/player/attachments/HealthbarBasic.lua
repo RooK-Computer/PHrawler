@@ -1,16 +1,16 @@
-Healthbar = Attachments:extend()
+HealthbarBasic = Attachments:extend()
 
-function Healthbar:new(player)
-  Healthbar.super.new(self, player)
+function HealthbarBasic:new(player)
+  HealthbarBasic.super.new(self, player)
   return self
 end
 
-function Healthbar:create()
+function HealthbarBasic:create()
 
   local player = self.player
 
   local scale = 0.35
-  self.containerDrawable =  love.graphics.newImage('assets/players/healthbar/healthbar_flat_container.png')
+  self.containerDrawable =  love.graphics.newImage('assets/players/Healthbar/HealthbarBasic_flat_container.png')
   self.containerdrawConfig = {
     x = player.x,
     y = player.y,
@@ -22,7 +22,7 @@ function Healthbar:create()
   }
 
 
-  self.fillingDrawable = love.graphics.newImage('assets/players/healthbar/healthbar_flat_filling.png')
+  self.fillingDrawable = love.graphics.newImage('assets/players/Healthbar/HealthbarBasic_flat_filling.png')
   self.fillingDrawConfig = {
     x = player.x,
     y = player.y,
@@ -36,7 +36,7 @@ function Healthbar:create()
 end
 
 
-function Healthbar:setHealthbar(newHealth)
+function HealthbarBasic:setHealthbarBasic(newHealth)
 
   local player = self.player
 
@@ -65,7 +65,7 @@ function Healthbar:setHealthbar(newHealth)
 end
 
 
-function Healthbar:draw()
+function HealthbarBasic:draw()
 
 
   love.graphics.draw(
@@ -93,9 +93,3 @@ function Healthbar:draw()
 
 
 end
-
-
-
-
-
-

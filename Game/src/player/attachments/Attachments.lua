@@ -13,7 +13,8 @@ end
 function Attachments:draw()
 end
 
-require('src/player/attachments/Healthbar')
+require('src/player/attachments/HealthbarFlat')
+require('src/player/attachments/HealthbarBasic')
 
 
 

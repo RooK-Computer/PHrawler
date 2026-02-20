@@ -41,7 +41,7 @@ function Player:setup()
 
 
   player.attachments = {
-    healthbar = Healthbar(self)
+    healthbar = HealthbarFlat(self)
   }
 
   player.spritesheet = love.graphics.newImage('assets/players/' .. player.id .. '.png')
