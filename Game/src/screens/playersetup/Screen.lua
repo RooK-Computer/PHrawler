@@ -117,7 +117,7 @@ function PlayerSetupScreen:readyCheck()
             config[i].registeredGamepad = v.gamepad
         end
         self.session.setup.players = config
-        game.switchScreen(LevelScreen(self.session))
+        game.switchScreen(LoadingScreen(self.session))
     end
 end
 
