@@ -39,3 +39,17 @@ Constants.AUDIO = {
   TRACK_PATH = '/assets/audio/tracks/',
   SFX_PATH = '/assets/audio/sfx/',
 }
+
+Constants.GRAPHIC = {
+  FONTS = {
+    MENUFONT = '/assets/fonts/Tomorrow_Night.ttf'
+  },
+  INDICATOR = {
+    RIGHT = 'assets/images/triangle_points_right.png',
+    LEFT = 'assets/images/triangle_points_left.png',
+  },
+  COLORS = {
+    YELLOW = {R = 255, G = 225, B = 0, A = 255},
+    PURPLE = {R = 126, G = 63, B = 151, A = 255},
+    }
+}
