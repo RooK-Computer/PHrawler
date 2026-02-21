@@ -4,7 +4,7 @@ game.defaultConfig = function() -- needed for restart purposes
     -- START CONSTANST 
     -- can potentially be overwritten by settings or save files 
     -- TODO: ALL CAPS REWRITE!
-    version = "0.6.0...road.to.bielefeld",
+    version = "0.6-road.to.bielefeld",
     windowWidth = 640,
     windowHeight = 480,
     scale = 1,

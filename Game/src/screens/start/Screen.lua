@@ -80,16 +80,16 @@ end
 
 function StartScreen:load()
 
-  local fontPartyPack = love.graphics.newFont( '/assets/fonts/Party_Pack_Normal.ttf' )
-  local newGameFont = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf' )
-
-  self.font = newGameFont
+  self.font = love.graphics.newFont( Constants.GRAPHIC.FONTS.MENUFONT )
   self.font:setFilter("nearest")
   love.graphics.setFont(self.font)
 
-  self.activeIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
-  self.changeLeftIndicator = love.graphics.newImage('assets/images/triangle_points_left.png')
-  self.changeRightIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
+  self.activeIndicator = love.graphics.newImage(Constants.GRAPHIC.INDICATOR.RIGHT)
+  self.activeIndicator:setFilter("nearest")
+  self.changeLeftIndicator = love.graphics.newImage(Constants.GRAPHIC.INDICATOR.LEFT)
+  self.changeLeftIndicator:setFilter("nearest")
+  self.changeRightIndicator = love.graphics.newImage(Constants.GRAPHIC.INDICATOR.RIGHT)
+  self.changeRightIndicator:setFilter("nearest")
   
   self.audio.mainTheme = love.audio.newSource( Constants.AUDIO.TRACK_PATH .. 'Happy8bit.mp3', 'stream' )
   self.audio.mainTheme:setLooping(true)
@@ -165,11 +165,12 @@ function StartScreen:draw()
   love.graphics.print({Colors.getPurpleRGBA(), versionText}, 
     25, 
     game.windowHeight - 25 - self.font:getHeight(versionText),
-    0
+    0,
+    0.5
   )  
 
 
-  local scale = 1.5
+  local scale = 1
   local padding = 50
   local lineHeight = 0
 
@@ -196,9 +197,12 @@ function StartScreen:draw()
 
     end
 
+    local arrowOffsetX = 25
+    local arrowOffsetY = 1
+
     -- Active Indicator
     if (menuItem.isActive) then
-      love.graphics.draw(self.activeIndicator, x - 50, y, 0, 1, 1, 0, 2)
+      love.graphics.draw(self.activeIndicator, x , y, 0, 1.5, 1.5, arrowOffsetX, arrowOffsetY)
       self.activeItemIndex = i
     end
 
@@ -209,12 +213,15 @@ function StartScreen:draw()
       0,
       scale
     )  
+    
+    arrowOffsetX = 0
+    arrowOffsetY = -1
 
 
     -- Arrow change to left
     if (menuItem.options ~= nil) then
       x = x + self.font:getWidth(label)*scale + 20
-      love.graphics.draw(self.changeLeftIndicator, x, y, 0, 0.65, 0.65, 0, -2.5)
+      love.graphics.draw(self.changeLeftIndicator, x, y, 0, scale, scale, arrowOffsetX, arrowOffsetY)
     end
 
     -- Selected Option
@@ -232,14 +239,15 @@ function StartScreen:draw()
     -- Arrow change to right
     if (menuItem.options ~= nil) then
       x = x + self.font:getWidth(selectedOption)*scale + 20
-      love.graphics.draw(self.changeRightIndicator, x, y, 0, 0.65, 0.65, 0, -2.5)
+      love.graphics.draw(self.changeRightIndicator, x, y, 0, scale, scale, arrowOffsetX, arrowOffsetY)
+
     end
 
     if (menuItem.name == 'players') then 
       local playerX = 50
       for i,selectedPlayer in ipairs(self.selectedPlayerCharacters) do 
 
-        selectedPlayer.anim:draw(selectedPlayer.spritesheet, playerX, y, nil, 1, 1, 32, 32)
+        selectedPlayer.anim:draw(selectedPlayer.spritesheet, playerX, y, nil, scale, scale, 32, 32)
 
         playerX = playerX + 32
 

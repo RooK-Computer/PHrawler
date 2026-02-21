@@ -4,15 +4,12 @@ EndScreen = Screen:extend()
 function EndScreen:new()
   self.name = 'Endscreen'
 
-
-  local fontPartyPack = love.graphics.newFont( '/assets/fonts/Party_Pack_Normal.ttf' )
-  local newGameFont = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf' )
-
-  self.font = newGameFont
+  self.font = love.graphics.newFont( Constants.GRAPHIC.FONTS.MENUFONT )
   self.font:setFilter("nearest")
   love.graphics.setFont(self.font)
 
-  self.activeIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
+  self.activeIndicator = love.graphics.newImage(Constants.GRAPHIC.INDICATOR.RIGHT)
+  self.activeIndicator:setFilter("nearest")
   self.activeItemIndex = 1
   self.menuItems = {
     { 

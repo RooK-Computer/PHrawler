@@ -14,9 +14,12 @@ function PlayerSlotView:new()
     self.wantsNextModel = false
     self.wantsPreviousModel = false
 
-    self.changeLeftIndicator = love.graphics.newImage('assets/images/triangle_points_left.png')
-    self.changeRightIndicator = love.graphics.newImage('assets/images/triangle_points_right.png')
-    self.font = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf',32 )
+    self.changeLeftIndicator = love.graphics.newImage(Constants.GRAPHIC.INDICATOR.LEFT)
+    self.changeLeftIndicator:setFilter("nearest")
+    self.changeRightIndicator = love.graphics.newImage(Constants.GRAPHIC.INDICATOR.RIGHT)
+    self.changeRightIndicator:setFilter("nearest")
+    self.font = love.graphics.newFont( Constants.GRAPHIC.FONTS.MENUFONT )
+    self.font:setFilter("nearest")
 
     return self
 end

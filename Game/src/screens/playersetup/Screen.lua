@@ -20,7 +20,9 @@ function PlayerSetupScreen:new(session)
 end
 
 function PlayerSetupScreen:load()
-    self.font = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf',32 )
+    self.font = love.graphics.newFont( Constants.GRAPHIC.FONTS.MENUFONT )
+    self.font:setFilter("nearest")
+
     for i=1,self.session:getPlayerNumber() do
         local view = PlayerSlotView()
         view.name = 'Player '..i
