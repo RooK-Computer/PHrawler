@@ -5,7 +5,7 @@ Palasthotel_Stage1_Extended = TiledMaps:extend()
 function Palasthotel_Stage1_Extended:new(world)
   self.world = world
   self.startingPoints = {}
-  self.name = 'Palasthotel...Stage 1'
+  self.name = 'Palasthotel | Stage 1'
   return self
 
 end
