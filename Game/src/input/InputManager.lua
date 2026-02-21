@@ -103,7 +103,11 @@ end
 function love.keypressed(key, scancode, isrepeat)
   if key == "escape" then 
     if game.screen().pauseScreen ~= nil then
-      game.screen():pauseScreen()
+      if game.screen().isPaused == false then
+        game.screen():pauseScreen()
+      else
+        game.screen():resume()
+      end
     end
   end
   if key == "q" then love.event.quit() end
