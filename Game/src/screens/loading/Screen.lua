@@ -11,7 +11,7 @@ function LoadingScreen:new(session)
 end
 
 function LoadingScreen:load()
-    self.font = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf',32 )
+    self.font = love.graphics.newFont( Constants.GRAPHIC.FONTS.MENUFONT,32 )
 end
 
 function LoadingScreen:update(dt)
