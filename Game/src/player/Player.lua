@@ -13,6 +13,7 @@ function Player:new(config, session)
   self.x = config.x
   self.y = config.y
   self.world = session.instance.world
+  self.session = session
   self.controls = config.controls
   self.activeInput = config.controls.defaultInput
   self.ongoingCommand = {}

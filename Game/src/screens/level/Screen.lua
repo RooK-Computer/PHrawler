@@ -112,7 +112,7 @@ function LevelScreen:endScreen()
   if self.isEnded then return end
   self.isEnded = true
 
-  game.pushScreen(EndScreen())
+  game.pushScreen(EndScreen(self.session))
 end
 
 

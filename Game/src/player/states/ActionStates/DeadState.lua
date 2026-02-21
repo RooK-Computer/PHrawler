@@ -17,7 +17,6 @@ function DeadState:new(player)
 end
 
 function DeadState:enterState()
-  
   local player = self.player
   
   love.event.push(Constants.EVENT_PLAYER_DIED, player.name)
@@ -52,10 +51,10 @@ function DeadState:update(dt)
     if passedTime > 2 then 
       if not self.player.physics.fixture:isDestroyed() then self.player.physics.fixture:destroy() end
 
-      for i, gamePlayer in ipairs(game.players) do 
+      for i, gamePlayer in ipairs(player.session.instance.players) do 
 
         if gamePlayer.id == player.id then 
-          table.remove(game.players, i)
+          table.remove(player.session.instance.players, i)
         end
 
       end

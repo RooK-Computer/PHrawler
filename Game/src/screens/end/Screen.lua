@@ -1,7 +1,8 @@
 require 'src/screens/end/InputHandler'
 
 EndScreen = Screen:extend()
-function EndScreen:new()
+function EndScreen:new(session)
+  self.session = session
   self.name = 'Endscreen'
 
   self.font = love.graphics.newFont( Constants.GRAPHIC.FONTS.MENUFONT )
@@ -46,15 +47,15 @@ function EndScreen:draw()
     totalHeight = totalHeight + height
   end  
   
-  local winner = game.players[1]
+  local winner = self.session.instance.players[1]
   local winnerText = winner.name .. ' has won!'
 
   
   love.graphics.print({Colors.getPurpleRGBA(), winnerText}, 
-      game.windowWidth/2 - self.font:getWidth(winnerText)*4/2, 
+      game.windowWidth/2 - self.font:getWidth(winnerText)*3/2, 
       75,
       0,
-      4
+      3
     )
   
 
