@@ -18,10 +18,6 @@ end
 
 
 function RookScreen:load()
-
-  self.font = love.graphics.newFont( '/assets/fonts/NewGameFont.ttf' )
-  self.font:setFilter("nearest")
-  love.graphics.setFont( self.font)
   self.audio.rookCall = love.audio.newSource( Constants.AUDIO.TRACK_PATH .. 'rook.mp3', 'stream' )
 end
 
