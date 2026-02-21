@@ -12,33 +12,13 @@ function LevelScreen:new(session)
 end
 
 function LevelScreen:load()
-  self.session.instance.world = love.physics.newWorld(0, game.gravity)
-  self.session.instance.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
-
-  self.session.instance.level = Level(self.session.instance.world, self.session.setup.selectedLevel)
-  self.session.instance.level:setupLevel()
-
-  love.graphics.setDefaultFilter('nearest', 'nearest') -- best for pixel art
-  love.graphics.setFont(game.defaultFont)
-
-
-  local playerNumber = self.session.setup.numberOfPlayers
-  local playersConfig = self.session.setup.players
-
-  for i,playerConfig in ipairs(playersConfig) do
-    local player =  Player(playerConfig, self.session)
-    player:setStartingPoint(self.session.instance.level:getStartingPoint(i))
-    player:setup()
-
-    table.insert(self.session.instance.players, player)
-  end
-
 end
 
 function LevelScreen:enter()
-  local allPlayers = self.session.instance.players
+  local allPlayers = self.session.instance.playerinputs
   for i, player in ipairs(allPlayers) do
-    game.inputManager.HandlerStack:push(PlayerInput(self,player,{player.config.registeredGamepad},player.controls.inputs.gamepad))
+    player.screen=self
+    game.inputManager.HandlerStack:push(player)
   end
   self.session.instance.level:enterLevel()
 

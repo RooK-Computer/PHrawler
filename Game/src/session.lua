@@ -8,6 +8,7 @@ function GameSession:new()
         players = {}
      }
      self.instance = {
+        loaded = false,
         world = nil,
         level = nil,
         players = {},
