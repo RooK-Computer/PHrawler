@@ -79,14 +79,15 @@ end
 function View:viewdraw()
     love.graphics.push()
     love.graphics.translate(self.view.x,self.view.y)
-    local width = self.view.width
-    local height = self.view.height
-    love.graphics.stencil(function()
-        love.graphics.rectangle("fill",0,0,width,height)
-    end,"replace",1)
-    love.graphics.setStencilTest("greater",0)
+-- unfortunately, the tiledmaps library fucks up stencil buffers as its not saving them correctly.    
+--    local width = self.view.width
+--    local height = self.view.height
+--    love.graphics.stencil(function()
+--        love.graphics.rectangle("fill",0,0,width,height)
+--    end,"replace",1)
+--    love.graphics.setStencilTest("greater",0)
     self:draw()
-    love.graphics.setStencilTest("always",0)
+--    love.graphics.setStencilTest("always",0)
 
     for k,v in ipairs(self.view.subviews) do
         v:viewdraw()

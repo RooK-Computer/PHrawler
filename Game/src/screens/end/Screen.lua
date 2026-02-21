@@ -1,4 +1,7 @@
 require 'src/screens/end/InputHandler'
+require 'src/screens/end/TableLayoutView'
+require 'src/screens/end/PlacementLabelView'
+require 'src/screens/end/PlayerView'
 
 EndScreen = Screen:extend()
 function EndScreen:new(session)
@@ -31,7 +34,31 @@ function EndScreen:new(session)
     },
   }
 
+  self.scoreBoard = TableLayoutView()
+  self.scoreBoard:setX(0)
+  self.scoreBoard:setY(game.windowHeight-100)
+  self.scoreBoard:setWidth(game.windowWidth)
+  self.scoreBoard:setHeight(100)
   return self
+end
+
+function EndScreen:load()
+  local view = PlacementLabelView(self.font,'1.')
+  self.scoreBoard:addSubview(view)
+  self.scoreBoard:setPosition(view,1,1)
+  local playerView = PlayerView(self.session.instance.players[1])
+  self.scoreBoard:addSubview(playerView)
+  self.scoreBoard:setPosition(playerView,1,2)
+
+  for i,player in ipairs(self.session.instance.deadPlayers) do
+    local view = PlacementLabelView(self.font,tostring(i+1)..'.')
+    self.scoreBoard:addSubview(view)
+    self.scoreBoard:setPosition(view,i+1,1)
+
+    local playerView = PlayerView(player)
+    self.scoreBoard:addSubview(playerView)
+    self.scoreBoard:setPosition(playerView,#self.session.instance.deadPlayers - i+2, 2)
+  end
 end
 
 
@@ -82,12 +109,15 @@ function EndScreen:draw()
 
   end
 
+  self.scoreBoard:viewdraw()
 
 
 
 
+end
 
-
+function EndScreen:update(dt)
+  self.scoreBoard:update(dt)
 end
 
 function EndScreen:enter()
