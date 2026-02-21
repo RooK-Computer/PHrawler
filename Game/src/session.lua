@@ -12,6 +12,7 @@ function GameSession:new()
         world = nil,
         level = nil,
         players = {},
+        deadPlayers = {},
         playerinputs = {}
      }
 end

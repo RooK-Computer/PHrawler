@@ -58,6 +58,8 @@ function DeadState:update(dt)
         end
 
       end
+
+      table.insert(player.session.instance.deadPlayers,player)
     end
 
   end

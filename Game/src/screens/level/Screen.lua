@@ -103,7 +103,8 @@ end
 function LevelScreen:restartGame()
 
   self.session.instance.players = {}
-  game.switchScreen(LevelScreen(self.session))
+  self.session.instance.deadPlayers = {}
+  game.switchScreen(LoadingScreen(self.session))
 end
 
 
@@ -131,8 +132,8 @@ function LevelScreen:resume()
 end
 
 function LevelScreen:exit()
-  for i, player in ipairs(game.players) do
+  for i, player in ipairs(self.session.instance.playerinputs) do
     game.inputManager.HandlerStack:pop()
   end
-  game.level:exitLevel()
+  self.session.instance.level:exitLevel()
 end
