@@ -50,7 +50,7 @@ function LevelScreen:draw()
 
     local statsPositionX = 10
     local statsPositionY = 10
-    Helper.drawDebug(game.world)
+    Helper.drawDebug(self.session.instance.world)
     love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), statsPositionY, statsPositionX)
 
 
