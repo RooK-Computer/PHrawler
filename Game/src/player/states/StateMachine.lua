@@ -17,7 +17,7 @@ end
 
 function StateMachine:update(dt)
   local newState = self.state:update(dt)
-  if newState and not self.player.isStateChangeBlocked then self:enterState(newState) end
+  if newState then self:enterState(newState) end
 end
 
 
