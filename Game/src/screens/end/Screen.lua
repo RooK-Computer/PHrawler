@@ -36,7 +36,6 @@ function EndScreen:new(session)
 
   self.scoreBoard = TableLayoutView()
   self.scoreBoard:setX(0)
-  self.scoreBoard:setY(game.windowHeight-100)
   self.scoreBoard:setWidth(game.windowWidth)
   self.scoreBoard:setHeight(100)
   return self
@@ -70,25 +69,35 @@ function EndScreen:draw()
   
   local winner = self.session.instance.players[1]
   local winnerText = winner.name .. ' has won!'
-
+  
+  local scale = 2.5
   
   love.graphics.print({Colors.getPurpleRGBA(), winnerText}, 
-      game.windowWidth/2 - self.font:getWidth(winnerText)*3/2, 
-      75,
+      game.windowWidth/2 - self.font:getWidth(winnerText) * scale/2, 
+      35,
       0,
-      3
+      scale
     )
   
+  
+  self.scoreBoard:setY(self.font:getHeight(winnerText) + 100)
+  self.scoreBoard:viewdraw()
 
 
-  local y = game.windowHeight/2 - totalHeight/2 + 50
 
-  for i,menuItem in ipairs(self.menuItems) do
+  local paddingBottom = 60
+  local y = game.windowHeight - paddingBottom
+  scale = 1.25
 
-    local x = game.windowWidth/2 - self.font:getWidth(menuItem.label)
+  
+ -- we iterate from the end through this array, because these items get put on the screen from the bottom upwards
+  for i = #self.menuItems, 1, -1 do
+	local menuItem = self.menuItems[i]
+    local x = game.windowWidth/2 - self.font:getWidth(menuItem.label) * scale/2
+    
 
     if (menuItem.isActive) then
-      love.graphics.draw(self.activeIndicator, x - 50, y)
+      love.graphics.draw(self.activeIndicator, x - 50, y, 0, scale, scale)
       self.activeItemIndex = i
     end
 
@@ -96,14 +105,12 @@ function EndScreen:draw()
       x, 
       y,
       0,
-      2
+      scale
     )
 
-    y = y + 100
-
+    y = y - paddingBottom
   end
 
-  self.scoreBoard:viewdraw()
 
 
 
