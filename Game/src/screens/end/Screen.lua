@@ -67,12 +67,6 @@ function EndScreen:draw()
   love.graphics.rectangle( 'fill', 0, 0, game.windowWidth, game.windowHeight )
 
   love.graphics.setColor(1,1,1,1)
-
-  local totalHeight = 0
-  for i,menuItem in ipairs(self.menuItems) do
-    local height = self.font:getHeight(menuItem.label) + 50
-    totalHeight = totalHeight + height
-  end  
   
   local winner = self.session.instance.players[1]
   local winnerText = winner.name .. ' has won!'
