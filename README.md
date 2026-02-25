@@ -19,42 +19,35 @@ A simple yet (hopefully) fun local 2D-Mutiplayer-Brawler for R∞k
 - Collisions
 - Jumping
   - Double jumping
-- Joystick/Gamepad-support (unstable/wonky)
+- Joystick/Gamepad-support
 - Fighting
-- Healthbar for players (wonky)
+- Healthbar for players 
 
 ## To Dos
-- stable Gamepad-Support
-- better Healthbar for players
-- End Screen
-- Restart Game
-- Pause Screen
-- Start Menu
-- Player selection screen
 - Level selection screen
 - More Levels
-- Playable on RooK
-
-## Bugs
-- Multiple Gamepads not working correctly
-
-## Not Working, But Planed
-- Start Menu
-- Player selection screen
 - Settings menu
 - up to 16 players on one console
+- up to 16 player via local network
+
+## Bugs
+- Probably a few
+- If you find one, please open a new issue
 
 ## Wishes for Upgrades
 - Using objects
 - Using "fire"-weapons
 - Character customizations
-- up to 16 player via local network
 
 
 ## Controls
-Only playable on Keyboard for now!
-- Player 1: Arrow-Keys + Spacebar
-- Player 2: W-A-D + left Shift
-- Player 3: j-i-l + h
-- Player 4: v-g-n + c
+- Playable on Keyboard!
+  - Player 1: Arrow-Keys + Spacebar
+  - Player 2: W-A-D + left Shift
+  - Player 3: j-i-l + h
+  - Player 4: v-g-n + c
+- Playable on USB-GamePad
+  - A: Fight
+  - B: Jump
+  - Left/Right: Move Player  
 
