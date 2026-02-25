@@ -24,7 +24,7 @@ function LoadingScreen:update(dt)
 end
 
 function LoadingScreen:draw()
-  love.graphics.clear( 255/255, 220/255, 0, 1)
+  love.graphics.clear( Colors.getYellowRGBA())
   local loadingInitialized = false
   if self.loading == false then
     self.loading = true
@@ -32,11 +32,11 @@ function LoadingScreen:draw()
   end
   if self.loading == true and self.loadingDone==false then
     local width = self.font:getWidth("Loading...")
-    love.graphics.print({{144/255, 0, 255/255},"Loading..."},self.font,game.windowWidth/2 - width / 2, game.windowHeight/2 - self.font:getHeight()/2)
+    love.graphics.print({Colors.getPurpleRGBA(),"Loading..."},self.font,game.windowWidth/2 - width / 2, game.windowHeight/2 - self.font:getHeight()/2)
   elseif self.loading == true and self.loadingDone==true then
     local text = "Match starts in "..tostring(math.floor(self.timer)+1)
     local width = self.font:getWidth(text)
-    love.graphics.print({{144/255, 0, 255/255},text},self.font,game.windowWidth/2 - width / 2, game.windowHeight/2 -self.font:getHeight()/2)
+    love.graphics.print({Colors.getPurpleRGBA(),text},self.font,game.windowWidth/2 - width / 2, game.windowHeight/2 -self.font:getHeight()/2)
   end
   if loadingInitialized==true then
     self.session.instance.world = love.physics.newWorld(0, game.gravity)
