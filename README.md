@@ -19,7 +19,7 @@ A simple yet (hopefully) fun local 2D-Mutiplayer-Brawler for R∞k
 - Collisions
 - Jumping
   - Double jumping
-- Joystick/Gamepad-support
+- Gamepad-support
 - Fighting
 - Healthbar for players 
 
