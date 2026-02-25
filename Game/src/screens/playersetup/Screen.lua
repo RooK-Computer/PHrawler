@@ -101,7 +101,7 @@ function PlayerSetupScreen:registerNewPlayer(gamepad)
 end
 
 function PlayerSetupScreen:goBack()
-    game.switchScreen(StartScreen())
+    game.switchScreen(StartScreen(self.session))
 end
 
 function PlayerSetupScreen:readyCheck()
