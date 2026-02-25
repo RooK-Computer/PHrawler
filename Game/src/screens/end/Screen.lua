@@ -15,11 +15,12 @@ function EndScreen:new(session)
   self.activeIndicator = love.graphics.newImage(Constants.GRAPHIC.INDICATOR.RIGHT)
   self.activeIndicator:setFilter("nearest")
   self.activeItemIndex = 1
-  self.menuItems = {
+  self.firstClickGuardActive = true
+  self.menuItems = {      
     { 
       name = 'restart', 
       label = 'Restart Game', 
-      isActive = true,
+      isActive = false,
       selectOption = function() 
         game.screen():restartGame()
       end

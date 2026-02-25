@@ -6,6 +6,12 @@ end
 
 function EndScreenInputHandler:OnRelease(joystick,button)
   local screen = game.screens:peek(0)
+  
+  if screen.firstClickGuardActive then 
+    screen.firstClickGuardActive = false 
+    screen.menuItems[1].isActive = true 
+    return
+  end 
 
   if button == 'dpdown' then
     if (screen.activeItemIndex < #screen.menuItems) then 
