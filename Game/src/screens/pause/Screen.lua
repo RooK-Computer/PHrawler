@@ -62,8 +62,10 @@ function PauseScreen:draw()
 
     local x = game.windowWidth/2 - self.font:getWidth(menuItem.label)
 
+    local scale = 2
+
     if (menuItem.isActive) then
-      love.graphics.draw(self.activeIndicator, x - 50, y)
+      love.graphics.draw(self.activeIndicator, x - 50, y, 0, scale, scale)
       self.activeItemIndex = i
     end
 
@@ -71,7 +73,7 @@ function PauseScreen:draw()
       x, 
       y,
       0,
-      2
+      scale
     )
 
     y = y + 100
