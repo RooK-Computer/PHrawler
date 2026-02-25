@@ -35,6 +35,7 @@ A simple yet (hopefully) fun local 2D-Mutiplayer-Brawler for R∞k
 - If you find one, please open a new issue
 
 ## Wishes for Upgrades
+- Nice logo and overall style
 - Using objects
 - Using "fire"-weapons
 - Character customizations
