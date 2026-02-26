@@ -139,7 +139,8 @@ end
 
 function PlayerSetupScreen:draw()
   love.graphics.clear( Colors.getYellowRGBA())
-  local width = self.font:getWidth("Choose your looks!")
-  love.graphics.print({Colors.getPurpleRGBA(),"Choose your looks!"},self.font,game.windowWidth/2-width/2,100/2 - self.font:getHeight()/2)
+  local scale = 1.5
+  local width = self.font:getWidth("Choose your looks!") * scale
+  love.graphics.print({Colors.getPurpleRGBA(),"Choose your looks!"},self.font,game.windowWidth/2-width/2,100/2 - self.font:getHeight()/2, 0, scale)
   self.view:viewdraw()
 end
