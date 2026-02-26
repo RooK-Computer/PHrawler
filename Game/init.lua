@@ -10,6 +10,7 @@ push = require('lib/push') -- gives us resizable screens
 --CORE
 require('src/core/Stack')
 require('src/core/find')
+require('src/effects/Effects')
 
 --GLOBALS
 require('src/session')
@@ -26,4 +27,3 @@ require('src/collisions/Collisions')
 require('src/level/Level')
 require('src/player/Player')
 require('src/screens/Screens') 
-

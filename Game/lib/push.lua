@@ -64,6 +64,9 @@ function push:setupScreen(WWIDTH, WHEIGHT, RWIDTH, RHEIGHT, settings)
     ["end"] = self.finish
   }
 
+  self._renderOffsetX = 0
+  self._renderOffsetY = 0
+
   return self
 end
 
@@ -209,6 +212,7 @@ function push:finish(shader)
     local shader = shader or _render.shader
     love.graphics.push()
     love.graphics.scale(self._SCALE.x, self._SCALE.y)
+    love.graphics.translate(self._renderOffsetX or 0, self._renderOffsetY or 0)
     self:applyShaders(_render.canvas, type(shader) == "table" and shader or { shader })
     love.graphics.pop()
 
@@ -228,6 +232,11 @@ end
 
 function push:setBorderColor(color, g, b)
   self._borderColor = g and {color, g, b} or color
+end
+
+function push:setRenderOffset(x, y)
+  self._renderOffsetX = x or 0
+  self._renderOffsetY = y or 0
 end
 
 function push:toGame(x, y)
