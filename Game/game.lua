@@ -35,12 +35,14 @@ game.start = function()
   game.players = {}
   game.screens = Stack()
   game.inputManager = InputManager()
+  game.effects = Effects()
   game.switchScreen(RookScreen())
 end
 
 game.restart = function()
   game.players = {}
   game.screens = Stack()
+  game.effects = Effects()
   love.audio.stop()
   if game.inputManager == nil then game.inputManager = InputManager() end -- inputManager is only null if we use restart as quickstart function
   game.inputManager:restart()
@@ -77,4 +79,3 @@ game.endGame = function()
 end
 
 game.quickStart = game.restart
-

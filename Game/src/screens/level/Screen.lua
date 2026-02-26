@@ -25,6 +25,10 @@ function LevelScreen:enter()
 end
 
 function LevelScreen:update(dt)
+  if game.effects ~= nil then
+    game.effects:update(dt)
+  end
+
   if self.isPaused or self.isEnded then return end
 
   local allPlayers = self.session.instance.players
@@ -40,6 +44,11 @@ function LevelScreen:update(dt)
 end
 
 function LevelScreen:draw()
+  if game.effects ~= nil then
+    push:setRenderOffset(0, game.effects:getOffsetY())
+  else
+    push:setRenderOffset(0, 0)
+  end
 
   self.session.instance.level:draw()    
   for i = 1, #self.session.instance.players do
@@ -132,6 +141,7 @@ function LevelScreen:resume()
 end
 
 function LevelScreen:exit()
+  push:setRenderOffset(0, 0)
   for i, player in ipairs(self.session.instance.playerinputs) do
     game.inputManager.HandlerStack:pop()
   end

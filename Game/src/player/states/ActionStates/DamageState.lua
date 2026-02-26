@@ -28,6 +28,7 @@ function DamageState:enterState()
   player.startTimer = love.timer.getTime()
   player.anim = player.animations[Constants.DAMAGE_STATE][player.animationDirection]
   player:setDamage(1)
+  if game.effects ~= nil then game.effects:triggerScreenShake() end
   
   self.audio.damage[math.random(9)]:play()
   player.isMovementBlocked = true
