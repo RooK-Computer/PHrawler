@@ -16,6 +16,8 @@ function EndScreen:new(session)
   self.activeIndicator:setFilter("nearest")
   self.activeItemIndex = 1
   self.firstClickGuardActive = true
+  self.timer = love.timer.getTime()
+
   self.menuItems = {      
     { 
       name = 'restart', 
@@ -113,17 +115,22 @@ function EndScreen:draw()
   end
 
 
-
-
-
 end
 
 function EndScreen:update(dt)
   self.scoreBoard:update(dt)
+  local passedTime = love.timer.getTime() - self.timer
+
+
+  if passedTime > 2 and self.firstClickGuardActive then
+    game.inputManager.HandlerStack:push(EndScreenInputHandler())
+    self.menuItems[1].isActive = true
+    self.firstClickGuardActive = false 
+  end
 end
 
 function EndScreen:enter()
-  game.inputManager.HandlerStack:push(EndScreenInputHandler())
+  game.inputManager.HandlerStack:push(InputHandler())
 end
 
 function EndScreen:exit()
