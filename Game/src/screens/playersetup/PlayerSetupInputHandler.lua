@@ -6,7 +6,7 @@ function PlayerSetupInputHandler:new(screen)
 end
 
 function PlayerSetupInputHandler:OnRelease(joystick, button)
-    if button == "a" then
+    if button == "start" then
         self.screen:goBack()
     end
     if button == "b" then
